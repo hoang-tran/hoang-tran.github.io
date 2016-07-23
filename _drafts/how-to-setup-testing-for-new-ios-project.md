@@ -41,6 +41,8 @@ Alright! If you're interested in writing your first tests on iOS, here's a few s
   * `Xcode` will open the project automatically for you
 * Try to `Run` (⌘ + R). It should compile and run smoothly in the simulator
 
+  For the rest of this tutorial, let's just assume that your project name is `MyAwesomeProject` and it is located at `~/Documents/MyAwesomeProject`
+
 ## Step 2: Setup cocoapods
 In case you haven't installed [cocoapods](https://cocoapods.org/), you should do it now
 
@@ -53,9 +55,7 @@ gem install cocoapods
 * Go to the project you just created
 
 {% highlight shell %}
-cd path/to/project
-# for example:
-# cd ~/Documents/MyAwesomeProject
+cd ~/Documents/MyAwesomeProject
 {% endhighlight %}
 
 * Initialize `cocoapods`
@@ -89,13 +89,72 @@ end
 {% endhighlight %}
 
 ## Step 3: Setup unit tests
-install pod
-for Swift: Quick/Nimble
-for ObjC: Specta/Expecta
-write your first unit test and run it
-for Swift
-for ObjC
-see log for failed test
+* Declare necessary pods for unit tests in your `Podfile`
+  * For `Swift`: we'll use:
+    * [Quick](https://github.com/Quick/Quick): a behavior-driven development framework for Swift
+    * [Nimble](https://github.com/Quick/Nimble): to express the expected outcomes of Swift expressions
+
+{% highlight ruby %}
+platform :ios, '9.0'
+
+target 'MyAwesomeProject' do
+  use_frameworks!
+
+  target 'MyAwesomeProjectTests' do
+    inherit! :search_paths
+    pod 'Quick'
+    pod 'Nimble'
+  end
+end
+{% endhighlight %}
+
+  * For `ObjC`: since we don't want to use dynamic framework, we'll remove the `use_frameworks!` line. And the pods we need are:
+    * [Specta](https://github.com/specta/specta): A light-weight TDD / BDD framework for Objective-C & Cocoa
+    * [Expecta](https://github.com/specta/expecta/): A Matcher Framework for Objective-C/Cocoa
+
+{% highlight ruby %}
+platform :ios, '9.0'
+
+target 'MyAwesomeProject' do
+  target 'MyAwesomeProjectTests' do
+    inherit! :search_paths
+    pod 'Specta'
+    pod 'Expecta'
+  end
+end
+{% endhighlight %}
+
+* Install all the pods we just declared
+
+{% highlight shell %}
+pod install
+{% endhighlight %}
+
+* Open the generated `.xcworkspace` file
+
+{% highlight shell %}
+open MyAwesomeProject.xcworkspace
+{% endhighlight %}
+
+* Write your first unit test
+  * For `Swift`:
+    * Create a new file in the test target and name it to something like `MyFirstSpec.swift`
+    * Copy the content of this `gist` and put into your newly created file
+
+<script src="https://gist.github.com/hoang-tran/8b7c0966b8d68b0d150fe33abd30c292.js"></script>
+
+  * For `ObjC`:
+    * Create a new file in the test target and name it to something like `MyFirstSpec.m`
+    * Copy the content of this `gist` and put into your newly created file
+
+<script src="https://gist.github.com/hoang-tran/9ea175f0a52c4aec45b5ee2601edcc5f.js"></script>
+
+* Run your tests by pressing ⌘ + U
+* It should fail at the appropriate line
+
+![](/images/how-to-setup-testing-for-new-ios-project/MyFirstSpec-fail.png)
+
+* With this as a template, you can write more unit tests very easily
 
 ## Step 4: Setup UI tests
 install pod
