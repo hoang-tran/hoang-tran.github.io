@@ -9,11 +9,12 @@
 title: Hoang Tran
 email: hoangtx.master@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Hi guys, I'm Hoang Tran. This is my blog.
+  I write weekly about iOS development/testing/deployment.
+  If you have any questions related to iOS, feel free to ask me.
+  Would love to make friends with you
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://hoang-tran.github.io"
+url: "http://hoangtran.me/"
 repository: hoang-tran/hoang-tran.github.io
 date_format: "%b %-d, %Y"
 
