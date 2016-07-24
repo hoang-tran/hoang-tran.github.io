@@ -14,7 +14,7 @@ description: > # this means to ignore newlines until "baseurl:"
   If you have any questions related to iOS, feel free to ask me.
   Would love to make friends with you
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://hoangtran.me/"
+url: "http://hoangtran.me"
 repository: hoang-tran/hoang-tran.github.io
 date_format: "%b %-d, %Y"
 
