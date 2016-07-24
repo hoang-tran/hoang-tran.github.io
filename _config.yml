@@ -18,7 +18,7 @@ repository: hoang-tran/hoang-tran.github.io
 date_format: "%b %-d, %Y"
 
 # Google services
-google_verification:
+google_verification: rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM
 # Use either direct GA implementation or set up GTM account
 # - using both will skew your data (leave blank to not use at all)
 google_analytics:
