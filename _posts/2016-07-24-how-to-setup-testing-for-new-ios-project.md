@@ -8,7 +8,7 @@ tags: ios objc swift testing setup unit-test ui-test
 
 App (or any product in general), before getting released to users, needs to be tested carefully.
 
-When talking about testings, you might think of someone who sits for hours playing around with the app, trying to hit all the buttons, swiping in all directions or even shaking the phone like crazy in hope of finding something unsual to report back to the developers.
+When talking about testings, you might think of someone who sits for hours playing around with the app, trying to hit all the buttons, swiping in all directions or even shaking the phone like crazy in hope of finding something unusual to report back to the developers.
 
 For big app, it would take days for the tester team to go through all the functionalities. Even after that, some developers might come in and make changes to the code and that would restart the whole testing process all over again.
 
