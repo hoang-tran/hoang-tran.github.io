@@ -3,7 +3,7 @@ layout: post
 title:  How to setup testing for new iOS project
 meta_description: Learn how to setup a testing environment on iOS, for both ObjC and Swift
 categories: ios testing
-tags: ios objc swift testing setup unit-test ui-test
+tags: ios objc swift testing setup unittest uitest
 ---
 
 App (or any product in general), before getting released to users, needs to be tested carefully.
