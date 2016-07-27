@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "Test Post"
+date:   2016-07-27 12:08:40 +0700
+categories: my post
+---
+
+## This is a test post
+it should `work`
+
+{% highlight swift %}
+func doSomething() {
+  print("something")
+}
+{% endhighlight %}
