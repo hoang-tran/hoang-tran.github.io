@@ -1,15 +1,18 @@
 ---
 layout: post
 title:  'How to write unit tests in iOS Part 1: XCTestCase'
+meta_description: Learn how to write unit tests in iOS using XCTestCase
 categories: ios testing
-tags: ios objc swift testing unittest
+tags: ios swift testing unittest xctestcase
 ---
 
 ## What is unit test?
 
-Unit test is basically just a test at the `unit` level. Or to put simply, you test each `class` in isolation
+Unit test is basically just a test at the `unit` level.
 
-A unit test usually has 4 steps:
+Your project will have multiple `classes`. Each `class` will have multiple `methods`. Each `method` will have multiple `cases`. And it's in those `cases` that we are at the `unit` level.
+
+A unit test will test for a specific `case` in a `method`. It usually has 4 steps:
 
 1. **Setup**:
   * This is where you initialize the `class` you want to test
@@ -27,7 +30,7 @@ Let's look at some example unit tests here (in pseudo code):
 
 Test the `shoot` method on `Gun` class:
 
-* Case 1: Gun CAN shoot if it has bullet(s)
+* Case 1: if it has bullet(s), the gun CAN shoot
 
 {% highlight abc %}
 1. Setup: create a gun with 1 bullet
@@ -35,7 +38,7 @@ Test the `shoot` method on `Gun` class:
 3. Expectation: expect gun to be out of bullet
 {% endhighlight %}
 
-* Case 2: Gun CANNOT shoot if it has no bullet
+* Case 2: if it has no bullet, the gun CANNOT shoot
 
 {% highlight abc %}
 1. Setup: create a gun with no bullet
@@ -51,11 +54,9 @@ Test the `reload` method on `Gun` class:
 3. Expectation: expect the gun to be full of bullets
 {% endhighlight %}
 
-As you can see, for each case, we only test a very small part of the object. That's why it is called `unit` test.
+After we finish writing unit tests for all `cases` in all `methods` of the `Gun` class, we can say that the `Gun` class is fully tested. All the edge cases are covered and we would have the confidence that this `Gun` class should work as expected.
 
-A `class` may have multiple `methods`. Each `method` will have multiple unit tests to cover all of its cases
-
-## So how does all of this translate into iOS?
+## But that's just a bunch of pseudo code. How does we translate it into iOS?
 
 Xcode does provide a way to write unit tests natively through the `XCTestCase` class. It provides a variety of assertion methods to help us describe our `expectation` for the test. Let's dive in and see what it looks like.
 
@@ -194,4 +195,7 @@ There is still the `reload` method to test but I guess you can easily do it on y
 
 ### Wrap up
 
-Something someting
+Today we learnt what a unit test is and how to write it properly in iOS using `XCTestCase`. We also learnt how to test an object at the `unit` level (test each `case` in each `method`, test all `methods` in the `class`).
+
+Although `XCTestCase` is simple and quite straightforward to use, it might get really tedious as your test becomes more complicated. On the next post, we'll discover some of `XCTestCase`'s problems and how we can solve it using `Behaviour Driven Development`.
+
