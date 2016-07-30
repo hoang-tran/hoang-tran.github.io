@@ -13,6 +13,8 @@ layout: default
           <p class="post-summary">
             {% if post.summary %}
               {{ post.summary }}
+            {% elsif post.meta_description %}
+              {{ post.meta_description }}
             {% else %}
               {{ post.excerpt }}
             {% endif %}
