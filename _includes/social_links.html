@@ -8,7 +8,6 @@
   {% if site.bitbucket_username %}
   <a class="fa fa-bitbucket" href="https://bitbucket.org/{{ site.bitbucket_username }}"></a>
   {% endif %}
-  <!-- <a class="fa fa-rss" href="{{ "/feed.xml" | prepend: site.baseurl }}"></a> -->
   {% if site.twitter_username %}
   <a class="fa fa-twitter" href="https://twitter.com/{{ site.twitter_username }}"></a>
   {% endif %}
@@ -33,6 +32,7 @@
   {% if site.email %}
   <a class="fa fa-envelope" href="mailto:{{ site.email }}"></a>
   {% endif %}
+  <a class="fa fa-rss" href="{{ "/feed.xml" | prepend: site.baseurl }}"></a>
   <div class="right">
     {% if site.bitcoin_url %}
       <a class="fa fa-bitcoin" href="{{ site.bitcoin_url }}"></a>
