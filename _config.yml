@@ -29,7 +29,7 @@ bing_verification: 78D007F72A205107B4315B6F41D46C0F
 
 # Optional features
 animated:             false
-show_related_posts:   false
+show_related_posts:   true
 show_post_footers:    false
 show_social_icons:    true
 ajaxify_contact_form: false
