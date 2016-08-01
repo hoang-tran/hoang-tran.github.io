@@ -16,7 +16,7 @@ That's the reason why more and more companies are starting to write automation t
 
 * **Provide instant feedback on where the code fails**:
   * It only take a few seconds to several minutes (one hour at max) to run all of your automation tests.
-  * When tests fail, we will quickly know what's wrong just by looking at the tests log instead of having a raging customers/boss to yell at our face. (Regression means that you're breaking the old behavior with your new code)
+  * When tests fail, we will quickly know what's wrong just by looking at the tests log instead of having a raging customers/boss to yell at our face.
   * Although we still need to do manually testing sometimes, automation tests still save you a lot of development time by providing extremely fast feedback loop.
 * **Give you confidence when making changes to the code**:
   * Tests are especially useful when you're working on a large codebase along with several other developers. You don't need to worry about breaking someone else's code (or your own). It's easy to make changes as long as the tests still pass.
