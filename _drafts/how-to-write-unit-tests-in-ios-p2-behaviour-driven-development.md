@@ -36,16 +36,16 @@ Let's make it a little bit more complicated. Our Gun now can only shoot if it is
 
 {% highlight abc %}
 Gun cannot shoot if it is locked
-Gun can shoot if it is not locked and it has bullets
-Gun cannot shoot if it is not locked but it has no bullet
+Gun can shoot if it is unlocked and it has bullets
+Gun cannot shoot if it is unlocked but it has no bullet
 {% endhighlight %}
 
 And we need another 2 methods for locking/unlocking the Gun:
 
 {% highlight abc %}
 Gun cannot shoot if it is locked
-Gun can shoot if it is not locked and it has bullets
-Gun cannot shoot if it is not locked but it has no bullet
+Gun can shoot if it is unlocked and it has bullets
+Gun cannot shoot if it is unlocked but it has no bullet
 Gun lock will make it locked
 Gun unlock will make it unlocked
 {% endhighlight %}
@@ -72,7 +72,7 @@ The `shoot` method has 2 cases. The `lock` and `unlock` methods each only has on
 
 <script src="https://gist.github.com/hoang-tran/85565180d49561edd74eca28329d8720.js"></script>
 
-In the `when is locked` case of the `shoot` method, we have 2 sub-cases:
+In the `when is unlocked` case of the `shoot` method, we have 2 sub-cases:
 
 <script src="https://gist.github.com/hoang-tran/566056f7e04300a6803c24542534d590.js"></script>
 
@@ -84,12 +84,149 @@ From looking at this description, you can easily see the whole picture about wha
 
 We focus on describing the **behaviour** of a Gun rather than listing out a bunch of cases linearly.
 
-## Practice writing tests for a calculator class
+Let's apply this approach to our iOS app.
 
-TDD step by step to create a calculator with these methods:
+First, you should follow this [guide](/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-3-setup-unit-tests) (from step 1 to step 3) to setup `cocoapods` and add the necessary pods ([Quick](https://github.com/Quick/Quick) and [Nimble](https://github.com/Quick/Nimble)).
 
-* add/subtract/multiply/divide
-* factorial
-* power
+Add a new file called `GunSpec.swift` to your test target. Notice that unit tests written using BDD style should have the suffix `Spec` instead of `Tests` as the naming convention.
+
+Your `GunSpec` class must subclass from `QuickSpec` and override the `spec` method.
+
+{% highlight swift %}
+import Quick
+
+class GunSpec : QuickSpec {
+  override func spec() {
+    super.spec()
+  }
+}
+{% endhighlight %}
+
+Now we're going to describe the Gun's behaviours once again. But this time, we do it with Swift.
+
+First, we describe a Gun. Actually the line `class GunSpec : QuickSpec` already tells this. We don't need to write any more code.
+
+A Gun has 3 methods: `shoot`, `lock` and `unlock`.
+
+{% highlight swift %}
+override func spec() {
+  super.spec()
+
+  describe("shoot") {
+
+  }
+
+  describe("lock") {
+
+  }
+
+  describe("unlock") {
+
+  }
+}
+{% endhighlight %}
+
+The `shoot` method has 2 cases. The `lock` and `unlock` methods each only has one case.
+(Note that when translate to Swift code, we don't use the word `when`. We use `context` instead)
+
+{% highlight swift %}
+override func spec() {
+  super.spec()
+
+  describe("shoot") {
+    context("is unlocked") {
+
+    }
+
+    context("is locked") {
+
+    }
+  }
+
+  describe("lock") {
+
+  }
+
+  describe("unlock") {
+
+  }
+}
+{% endhighlight %}
+
+In the context `is unlocked` of the `shoot` method, we have 2 sub-cases:
+
+{% highlight swift %}
+override func spec() {
+  super.spec()
+
+  describe("shoot") {
+    context("is unlocked") {
+      context("has bullets") {
+
+      }
+
+      context("has no bullet") {
+
+      }
+    }
+
+    context("is locked") {
+
+    }
+  }
+
+  describe("lock") {
+
+  }
+
+  describe("unlock") {
+
+  }
+}
+{% endhighlight %}
+
+And each case will have different behaviour.
+
+{% highlight swift %}
+override func spec() {
+  super.spec()
+
+  describe("shoot") {
+    context("is unlocked") {
+      context("has bullets") {
+        it("can shoot") {
+
+        }
+      }
+
+      context("has no bullet") {
+        it("can not shoot") {
+
+        }
+      }
+    }
+
+    context("is locked") {
+      it("can not shoot") {
+
+      }
+    }
+  }
+
+  describe("lock") {
+    it("locks the Gun") {
+
+    }
+  }
+
+  describe("unlock") {
+    it("unlocks the Gun") {
+
+    }
+  }
+}
+{% endhighlight %}
 
 ## Wrap up
+
+something something
