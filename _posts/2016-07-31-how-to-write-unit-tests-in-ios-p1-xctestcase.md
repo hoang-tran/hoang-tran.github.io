@@ -234,7 +234,7 @@ class Gun: NSObject {
 }
 {% endhighlight %}
 
-Go to the test class and import your main target. Without this step, all of your classes in the main target won't be visible to the tests.
+Go to the test class (`MyNativeTests.swift`) and import your main target. Without this step, all of your classes in the main target won't be visible to the tests.
 
 {% highlight swift %}
 // add this line to the top of the file
