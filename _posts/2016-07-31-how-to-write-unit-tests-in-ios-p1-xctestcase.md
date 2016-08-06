@@ -219,7 +219,7 @@ Add a new file called `Gun.swift` inside your main target (not inside the test t
 {% highlight swift %}
 import Foundation
 
-class Gun: NSObject {
+class Gun : NSObject {
 
   var bullets = 0
 
