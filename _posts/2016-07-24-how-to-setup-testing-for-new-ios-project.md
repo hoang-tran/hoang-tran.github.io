@@ -259,7 +259,7 @@ For `Swift`:
 #import <KIF/KIF.h>
 {% endhighlight %}
 
-* Add a `KIF` extension to help smooth things up.
+* Create a `KIF+Extensions.swift` file in your test target. This step is to expose the `tester` method required for accessing the `KIF` API in Swift.
 
 {% highlight swift %}
 import KIF
@@ -285,7 +285,7 @@ extension KIFTestActor {
 }
 {% endhighlight %}
 
-* Create a new file in the test target and name it to something like `HomeTests.swift`.
+* Create our first UI test file (again, in the test target) and name it to something like `HomeTests.swift`.
 
 {% highlight swift %}
 import KIF
