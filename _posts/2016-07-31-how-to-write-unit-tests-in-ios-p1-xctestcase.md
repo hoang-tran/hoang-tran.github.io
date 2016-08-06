@@ -126,7 +126,9 @@ func testSomething() {
 }
 {% endhighlight %}
 
-This reads as `expect the boolean expression (1 + 1 == 2) to be true` or `expect 1 + 1 to equal to 2`. When you run this test (`⌘ + U`), it should pass. But when you change it to:
+This reads as `expect the boolean expression (1 + 1 == 2) to be true` or `expect 1 + 1 to equal to 2`. When you run this test (`⌘ + U`), it should pass.
+
+But when you change it to:
 
 {% highlight swift %}
 func testSomething() {
