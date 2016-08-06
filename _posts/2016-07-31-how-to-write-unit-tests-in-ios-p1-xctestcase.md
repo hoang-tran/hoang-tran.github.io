@@ -74,11 +74,49 @@ Make sure you subclass from `XCTestCase`.
 
 Originally, your class will look like this:
 
-<script src="https://gist.github.com/hoang-tran/5e8c1ad8b18ffaa2d9fa261e7007fcdf.js"></script>
+{% highlight swift %}
+import XCTest
+
+class MyNativeTests: XCTestCase {
+
+  override func setUp() {
+      super.setUp()
+      // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
+
+  override func tearDown() {
+      // Put teardown code here. This method is called after the invocation of each test method in the class.
+      super.tearDown()
+  }
+
+  func testExample() {
+      // This is an example of a functional test case.
+      // Use XCTAssert and related functions to verify your tests produce the correct results.
+  }
+
+  func testPerformanceExample() {
+      // This is an example of a performance test case.
+      self.measureBlock {
+          // Put the code you want to measure the time of here.
+      }
+  }
+
+}
+{% endhighlight %}
 
 For simplicity, we'll remove everything and just put our single test there. Notice that your test method **MUST** begin with the prefix `test`. (Ex: `testSomething`, `testFirst`, `testTheWorld`)
 
-<script src="https://gist.github.com/hoang-tran/d08342a5912a9cabc59662d520318237.js"></script>
+{% highlight swift %}
+import XCTest
+
+class MyNativeTests: XCTestCase {
+
+  func testSomething() {
+
+  }
+
+}
+{% endhighlight %}
 
 Let's write our first `expectation`.
 
@@ -114,15 +152,15 @@ Now it looks better when it fails.
 
 Besides `XCTAssert`, there are some other methods you can use for assertion, such as:
 
-* `XCTAssertTrue(booleanExpression, errorMessage)`: **pass** when `booleanExpression` is true, otherwise **fail** with `errorMessage`. This one is equipvalent to `XCTAssert`.
+* `XCTAssertTrue(booleanExpression, errorMessage)`: **pass** when booleanExpression is true, otherwise **fail** with errorMessage. This one is equipvalent to `XCTAssert`.
 
-* `XCTAssertFalse(booleanExpression, errorMessage)`: **pass** when `booleanExpression` is false, otherwise **fail** with `errorMessage`.
+* `XCTAssertFalse(booleanExpression, errorMessage)`: **pass** when booleanExpression is false, otherwise **fail** with errorMessage.
 
-* `XCTAssertNil(object, errorMessage)`: **pass** when `object` is nil, otherwise **fail** with `errorMessage`.
+* `XCTAssertNil(object, errorMessage)`: **pass** when object is nil, otherwise **fail** with errorMessage.
 
-* `XCTAssertEqual(object1, object2, errorMessage)`: **pass** when `object1` is equal to `object2`, otherwise **fail** with `errorMessage`.
+* `XCTAssertEqual(object1, object2, errorMessage)`: **pass** when object1 is equal to object2, otherwise **fail** with errorMessage.
 
-* `XCTAssertThrowsError(expression, errorMessage, errorHandler)`: **pass** when `expression` throws exception while evaluated, otherwise **fail** with `errorMessage`. We can also use the `errorHandler` to assert for the exception thrown.
+* `XCTAssertThrowsError(expression, errorMessage, errorHandler)`: **pass** when expression throws exception while evaluated, otherwise **fail** with errorMessage. We can also use the errorHandler to assert for the exception thrown.
   For example:
 
 {% highlight swift %}
@@ -176,7 +214,25 @@ Both of these 2 tests will fail because we haven't implemented the `Gun` class y
 
 Add a new file called `Gun.swift` inside your main target (not inside the test target). We will do a very simple implementation here:
 
-<script src="https://gist.github.com/hoang-tran/4987fa39dd28f6eb89f4d3b52c985623.js"></script>
+{% highlight swift %}
+import Foundation
+
+class Gun: NSObject {
+
+  var bullets = 0
+
+  init(bullets: Int) {
+    self.bullets = bullets
+  }
+
+  func shoot() {
+    if self.bullets > 0 {
+      self.bullets -= 1
+    }
+  }
+
+}
+{% endhighlight %}
 
 Go to the test class and import your main target. Without this step, all of your classes in the main target won't be visible to the tests.
 
@@ -189,7 +245,32 @@ The `@testable` means that you don't need to declare your classes and methods as
 
 Now when you run the tests (`⌘ + U`), they should all pass. Here is the test class at this point:
 
-<script src="https://gist.github.com/hoang-tran/901149f12321a47569519defae21be1e.js"></script>
+{% highlight swift %}
+import XCTest
+@testable import MyAwesomeProject
+
+class MyNativeTests: XCTestCase {
+
+  func testGunCanShootIfItHasBullets() {
+    // 1. Setup: create a gun with 1 bullet
+    let gun = Gun(bullets: 1)
+    // 2. Execution: shoot
+    gun.shoot()
+    // 3. Expectation: expect Gun to be out of bullet
+    XCTAssertTrue(gun.bullets == 0, "expect Gun to be out of bullet")
+  }
+
+  func testGunCannotShootIfItHasNoBullet() {
+    // 1. Setup: create a gun with no bullet
+    let gun = Gun(bullets: 0)
+    // 2. Execution: shoot
+    gun.shoot()
+    // 3. Expectation: expect Gun to not shoot anything
+    XCTAssertTrue(gun.bullets == 0, "expect the number of bullets to remain the same")
+  }
+
+}
+{% endhighlight %}
 
 There is still the `reload` method to test but I guess you can easily do it on your own since it's quite similar to what we just did.
 
