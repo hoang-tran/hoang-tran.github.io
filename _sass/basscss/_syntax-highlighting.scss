@@ -16,9 +16,12 @@
 .highlight .kd,
 .highlight .kn,
 .highlight .kr,
-.highlight .kt,
 .highlight .kp {
   color: $hljs-keyword;
+}
+
+.highlight .kt {
+  color: $hljs-class-name;
 }
 
 .highlight .na,
@@ -28,11 +31,14 @@
 .highlight .nd,
 .highlight .ni,
 .highlight .ne,
-.highlight .nf,
 .highlight .nl,
 .highlight .nn,
 .highlight .nx {
   color: $hljs-name;
+}
+
+.highlight .nf {
+  color: $hljs-method-name;
 }
 
 .highlight .mi,

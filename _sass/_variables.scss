@@ -1,3 +1,17 @@
+// Solarize Dark colors
+$solarize-dark-background-color: #042029;
+$solarize-dark-background-selection-color: #819090;
+$solarize-dark-comments-color: #475B62;
+$solarize-dark-keywords-color: #738A05;
+$solarize-dark-plain-text-color: #708284;
+$solarize-dark-numbers-color: #259286;
+$solarize-dark-strings-color: #259286;
+$solarize-dark-types-color: #738A05;
+$solarize-dark-method-names-color: #2176C7;
+$solarize-dark-class-names-color: #A57706;
+$solarize-dark-attributes-color: #595AB7;
+$solarize-dark-preprocessor-color: #BD3613;
+
 // Typography
 $base-font-size: 14px !default;
 $bold-font-weight: bold !default;
@@ -93,20 +107,23 @@ $form-field-padding-x: .5rem;
 
 // Code
 $pre-border-radius: 0;
-$pre-background-color: #fafafa;
-$hljs-comment: $mid-gray;
-$hljs-keyword: $dark-blue;
-$hljs-name: $dark-gray;
-$hljs-number: $dark-green;
-$hljs-string: $red;
+$pre-background-color: $solarize-dark-background-color;
+$pre-background-selection-color: $solarize-dark-background-selection-color;
+$hljs-comment: $solarize-dark-comments-color;
+$hljs-keyword: $solarize-dark-keywords-color;
+$hljs-class-name: $solarize-dark-class-names-color;
+$hljs-number: $solarize-dark-numbers-color;
+$hljs-string: $solarize-dark-strings-color;
+$hljs-type: $solarize-dark-types-color;
+$hljs-attribute: $solarize-dark-attributes-color;
+$hljs-preprocessor: $solarize-dark-preprocessor-color;
+$hljs-name: $solarize-dark-plain-text-color;
+$hljs-method-name: $solarize-dark-method-names-color;
 $hljs-title: $red;
-$hljs-type: $dark-blue;
-$hljs-tag: $dark-blue;
-$hljs-attribute: $dark-green;
+$hljs-tag: $solarize-dark-plain-text-color;
 $hljs-regexp: $dark-green;
 $hljs-symbol: $purple;
 $hljs-built-in: $dark-blue;
-$hljs-preprocessor: $mid-gray;
 $hljs-deletion: $light-pink;
 $hljs-addition: $light-green;
 $hljs-change: $dark-blue;
