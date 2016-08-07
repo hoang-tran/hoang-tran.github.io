@@ -96,7 +96,7 @@ describe class Y
   ...
 {% endhighlight %}
 
-As you can see, there is no duplicated parts among test cases anymore. Tests are grouped by methods and cases. You can easily skim and still get the whole picture about what the class can do.
+As you can see, there is no duplicated parts anymore. Tests are grouped by methods and cases. You can easily skim and still get the whole picture about what the class can do.
 
 ## Let's try it with our Gun example
 
@@ -168,7 +168,7 @@ describe a Gun
    it unlocks the Gun
 {% endhighlight %}
 
-Once again, from looking at this description, you quickly understand about what a Gun can do in various cases. This saves you a lot of time and headache when reading tests.
+Again, from looking at this description, you quickly understand what a Gun can do in various cases. This saves you a lot of time and headache when reading tests.
 
 ## Translating into Swift
 
@@ -499,6 +499,18 @@ class Gun : NSObject {
 }
 {% endhighlight %}
 
+Although there is still some duplicated code in `GunSpec.swift`, you can refactor it out pretty easily using the `beforeEach` block as stated in [Quick's documentation](https://github.com/Quick/Quick/blob/master/Documentation/en-us/QuickExamplesAndGroups.md#sharing-setupteardown-code-using-beforeeach-and-aftereach).
+
+The important thing is you know the **flow**. You know how to do things the `BDD` way.
+
 ## Wrap up
 
-something something
+Today we discussed about the problem with traditional way of writing unit tests where we list things out linearly. We then introduced the `BDD` approach of designing tests from the top down so that it's easier to read and navigate through cases.
+
+Now I don't say that you should dump the traditional way and only stick with `BDD`. If you're just starting out, learn how to write a correct unit test first. Organizing your tests comes later.
+
+The idea is that you get to know what options are available and which one to choose for your next project.
+
+In the next article, I'll be talking about `Test-driven Development` and how we can apply it to build a `Calculator` class from the ground up.
+
+Stay tuned.
