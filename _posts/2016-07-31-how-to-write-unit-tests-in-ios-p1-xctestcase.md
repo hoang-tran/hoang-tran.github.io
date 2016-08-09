@@ -2,6 +2,8 @@
 layout: post
 title:  'How to write unit tests in iOS Part 1: XCTestCase'
 meta_description: Learn how to write unit tests in iOS using XCTestCase
+description: Learn how to write unit tests in iOS using XCTestCase
+summary: Learn how to write unit tests in iOS using XCTestCase
 categories: ios testing
 tags: ios swift testing unittest xctestcase test
 ---

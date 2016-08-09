@@ -2,6 +2,8 @@
 layout: post
 title:  'Write better unit test assertions with Nimble'
 meta_description: Learn how to write better unit test assertions in iOS with the help of Nimble
+description: Learn how to write better unit test assertions in iOS with the help of Nimble
+summary: Learn how to write better unit test assertions in iOS with the help of Nimble
 categories: ios testing
 tags: ios swift testing unittest test nimble assertion xctassert
 ---

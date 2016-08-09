@@ -2,6 +2,8 @@
 layout: post
 title:  'How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)'
 meta_description: Learn how to write elegant unit tests in iOS using Behavior-driven Development (BDD)
+description: Learn how to write elegant unit tests in iOS using Behavior-driven Development (BDD)
+summary: Learn how to write elegant unit tests in iOS using Behavior-driven Development (BDD)
 categories: ios testing
 tags: ios swift testing unittest test bdd
 ---
