@@ -122,6 +122,3 @@ gems:
   - jekyll-seo-tag
 # https://github.com/jekyll/jekyll/issues/2938
 exclude: [vendor]
-# SEO
-fb:
-  app_id: 1001202813330058
