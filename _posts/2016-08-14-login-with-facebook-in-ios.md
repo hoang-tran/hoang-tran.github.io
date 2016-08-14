@@ -3,6 +3,7 @@ layout: post
 title:  'How to integrate login with Facebook in iOS'
 categories: ios development
 tags: ios swift facebook login
+image: login-with-facebook-in-ios/login-facebook-cover.png
 ---
 
 Nowadays, there are very few apps that do not authenticate their users. We all wanna know who our users are, how they interact with other users and what makes them engaged the most.
