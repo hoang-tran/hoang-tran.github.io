@@ -270,6 +270,8 @@ This is what the code above does:
 
 After this step, the users will be brought to Safari (or Facebook iOS app) to review the permissions. If they're happy with it, they would grant our app access to those information.
 
+![](/images/login-with-facebook-in-ios/permission-review.png)
+
 Then the user will be switched back to our app and into the callback `application:openURL:sourceApplication:annotation` in the `AppDelegate` we just defined above.
 
 ### Step 5: Handle autologin.
