@@ -1,6 +1,9 @@
 ---
 layout: post
 title:  'How to integrate login with Facebook in iOS'
+meta_description: Learn how to add a login with Facebook funtionality to your app
+description: Learn how to add a login with Facebook funtionality to your app
+summary: Learn how to add a login with Facebook funtionality to your app
 categories: ios development
 tags: ios swift facebook login
 image: login-with-facebook-in-ios/login-facebook-cover.png
