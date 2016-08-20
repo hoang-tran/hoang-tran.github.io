@@ -9,6 +9,15 @@ tags: ios swift facebook graph api
 
 It's just a collection of HTTP-based APIs to get data in and out of Facebook.
 
+## Why would you want to use Graph API?
+
+Because:
+
+* You want to obtain the users's information to better understand them.
+* Graph API is simple to use. It's already integrated inside the Facebook iOS SDK.
+* It's easy to customize your requests to get the desired returned values.
+* There are a lot of information that you can access using the Graph API.
+
 ## How to make a Graph API request?
 
 Before you can make any Graph API requests, you need to authenticate with Facebook first. You can have a look at the [previous post](/ios/development/2016/08/14/login-with-facebook-in-ios) for step-by-step guide.
@@ -177,9 +186,7 @@ Then you can make a Graph API request just like what you did with public profile
 
 {% highlight swift %}
 let graphPath = "me"
-
 let parameters = ["fields": "email"]
-
 let completionHandler = { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError?) in
   if let error = error {
     print(error.localizedDescription)
@@ -188,9 +195,7 @@ let completionHandler = { (connection: FBSDKGraphRequestConnection!, result: Any
     print(json["email"].stringValue)
   }
 }
-
 let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
-
 graphRequest.startWithCompletionHandler(completionHandler)
 {% endhighlight %}
 
@@ -200,23 +205,102 @@ Or you can chain all fields together and fetch at the same time:
 let parameters = ["fields": "id, email, name, first_name, last_name, age_range, link, gender, locale, timezone, picture, updated_time, verified"]
 {% endhighlight %}
 
+### Get user friend list
+
+To get this, you need to ask for the `user_friends` permission:
+
+{% highlight swift %}
+let loginManager = FBSDKLoginManager()
+let permissions = ["public_profile", "email", "user_friends"]
+let handler = ...
+loginManager.logInWithReadPermissions(permissions, fromViewController: self, handler: handler)
+{% endhighlight %}
+
+Now we'll make a request to `me/friends` instead of `me`.
+
+{% highlight swift %}
+let graphPath = "me/friends"
+let parameters = ["fields": ""]
+let completionHandler = { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError?) in
+  if let error = error {
+    print(error.localizedDescription)
+  } else {
+    let json = JSON(result)
+    let friendJSONArray = json["data"].arrayValue
+    for friendJSON in friendJSONArray {
+      print(friendJSON["name"].stringValue)
+      print(friendJSON["id"].intValue)
+    }
+    let nextPageToken = json["paging"]["cursors"]["after"].stringValue
+    let prevPageToken = json["paging"]["cursors"]["before"].stringValue
+  }
+}
+let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
+graphRequest.startWithCompletionHandler(completionHandler)
+{% endhighlight %}
+
+This does not return all friends on the users's account. Only those that already installed your app will be returned. If there are too many friends, Facebook only returns the first 25 results. The remaining friends can be accessed using the `nextPageToken` and `prevPageToken`.
+
+To request for the next 25 friends:
+
+{% highlight swift %}
+let graphPath = "me/friends"
+let parameters = ["after": nextPageToken]
+let completionHandler = { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError?) in
+  //...
+}
+let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
+graphRequest.startWithCompletionHandler(completionHandler)
+{% endhighlight %}
+
+And you can fetch the previous 25 results by using the same method, only change the parameters:
+
+{% highlight swift %}
+let parameters = ["before": prevPageToken]
+{% endhighlight %}
+
+You can also change the `returned limit` to some bigger number instead of just 25 results:
+
+{% highlight swift %}
+let graphPath = "me/friends"
+let parameters = ["limit": 100]
+{% endhighlight %}
+
+This can be applied to fetching for next/prev page as well:
+
+{% highlight swift %}
+let graphPath = "me/friends"
+let parameters = [
+  "after": nextPageToken,
+  "limit": 100
+]
+{% endhighlight %}
+
 ### Get user avatar with different sizes:
 
 Although you can access the `picture` field when fetching public profile, it only contains a very small version of the user's avatar (50x50).
 
-To get the bigger one, you have to make a graph request to another graphPath that has this structure:
-
-{% highlight abc %}
-{user-id}/picture
-{% endhighlight %}
-
-Since you already have the userID stored in `FBSDKAccessToken.currentAccessToken().userID`, we can construct the graphPath like this:
+To get bigger sizes, you should make a request to `me/picture` with some custom parameters:
 
 {% highlight swift %}
-let graphPath = "\(FBSDKAccessToken.currentAccessToken().userID)/picture"
+let graphPath = "me/picture"
+let parameters = [
+  "type": "large",
+  "redirect": "false"
+]
+let completionHandler = { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError?) in
+  if let error = error {
+    print(error.localizedDescription)
+  } else {
+    let json = JSON(result)
+    print(json["data"]["url"].stringValue)
+  }
+}
+let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
+graphRequest.startWithCompletionHandler(completionHandler)
 {% endhighlight %}
 
-There are 4 parameters that we can consider:
+There are 4 parameters that we can consider here:
 
 * `type`: this is some preset sizes for the avatar. It can be one of the following:
   * large (200x200)
@@ -229,30 +313,6 @@ There are 4 parameters that we can consider:
   * if it is false, it will return a JSON response.
 * `width`: the width of the avatar in pixels.
 * `height`: the height of the avatar in pixels.
-
-Here is a sample request that fetch an avatar url with large size (200x200):
-
-{% highlight swift %}
-let graphPath = "\(FBSDKAccessToken.currentAccessToken().userID)/picture"
-
-let parameters = [
-  "type": "large",
-  "redirect": "false"
-]
-
-let completionHandler = { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError?) in
-  if let error = error {
-    print(error.localizedDescription)
-  } else {
-    let json = JSON(result)
-    print(json["picture"]["data"]["url"].stringValue)
-  }
-}
-
-let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
-
-graphRequest.startWithCompletionHandler(completionHandler)
-{% endhighlight %}
 
 You can specify custom `width` and `height` in the parameters and it will fall down to the closest size that match.
 
@@ -276,14 +336,10 @@ let parameters = [
 ]
 {% endhighlight %}
 
-### Get user friend list
+## Wrap up
 
-To get this, you need to ask for another permission, which is `user_friends`:
+Today we learnt about some very basic usage of the Facebook Graph API. We then went on to fetch some pieces of user information including: public profile, email, friend list and avatar.
 
-{% highlight swift %}
-let loginManager = FBSDKLoginManager()
-let permissions = ["public_profile", "email", "user_friends"]
-let handler = ...
-loginManager.logInWithReadPermissions(permissions, fromViewController: self, handler: handler)
-{% endhighlight %}
+I think those information is quite enough for your day-to-day iOS development. If you need more advanced features, you can read more on [Facebook Graph API documentation](https://developers.facebook.com/docs/graph-api/using-graph-api) and experiment using the [Graph API Explorer](https://developers.facebook.com/tools/explorer).
 
+Please notice that this is just scratching the surface. Graph API is a powerful set of APIs that leverage the immense amount of information that billions of Facebook users generate over time. There are a whole lot of things that you can do with Graph API that I didn't mention here. Maybe we can save it for a later post if you're still interested.
