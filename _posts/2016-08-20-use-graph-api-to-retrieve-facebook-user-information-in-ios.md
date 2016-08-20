@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  'How to use Graph API to retrieve Facebook user information'
-meta_description: 'Learn how to use the Facebook Graph API to fetch various user information including: public profile, email address, friend list and user avatar.'
-description: 'Learn how to use the Facebook Graph API to fetch various user information including: public profile, email address, friend list and user avatar.'
-summary: 'Learn how to use the Facebook Graph API to fetch various user information including: public profile, email address, friend list and user avatar.'
+title:  'How to use Graph API to retrieve Facebook user information in iOS'
+meta_description: 'Learn how to use the Facebook Graph API in iOS to fetch various user information including: public profile, email address, friend list and user avatar.'
+description: 'Learn how to use the Facebook Graph API in iOS to fetch various user information including: public profile, email address, friend list and user avatar.'
+summary: 'Learn how to use the Facebook Graph API in iOS to fetch various user information including: public profile, email address, friend list and user avatar.'
 categories: ios development
 tags: ios swift facebook graph api
-image: use-graph-api-to-retrieve-facebook-user-information/cover.jpg
+image: use-graph-api-to-retrieve-facebook-user-information-in-ios/cover.jpg
 ---
 
 ## What is Graph API?
