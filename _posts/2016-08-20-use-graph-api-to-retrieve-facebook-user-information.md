@@ -6,6 +6,7 @@ description: 'Learn how to use the Facebook Graph API to fetch various user info
 summary: 'Learn how to use the Facebook Graph API to fetch various user information including: public profile, email address, friend list and user avatar.'
 categories: ios development
 tags: ios swift facebook graph api
+image: use-graph-api-to-retrieve-facebook-user-information/cover.jpg
 ---
 
 ## What is Graph API?
