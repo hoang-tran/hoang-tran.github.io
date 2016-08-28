@@ -14,14 +14,14 @@ Well, I guess we don't.
 As an iOS developer, you may not be comfortable using the `Terminal`. Some people don't even know that such thing does exist at all. We're too familiar with GUI (Graphical User Interface) tools.
 
 * We code in Xcode.
-* We use SourceTree for source version control.
 * We browse files in Finder.
+* We use SourceTree for source version control.
 
 Hardly do we know that all the above tasks can also be accomplished using `Terminal`.
 
 * We can code in Terminal.
-* We can do all kinds of git operations in Terminal.
 * We can browse/create/delete/copy/move files and directories in your Mac system, using Terminal.
+* We can do all kinds of git operations in Terminal.
 
 ## How to open Terminal?
 
@@ -41,7 +41,11 @@ It looks like this:
 
 ![terminal look](/images/terminal-for-ios-developers/terminal-look.png)
 
-There are 4 parts that we should pay attention to:
+## What is Terminal anyway?
+
+It's a place where you write **command** in **a line**.
+
+Each line is called a `command-line` and it has 4 parts:
 
 ![terminal look explained](/images/terminal-for-ios-developers/terminal-look-explained.jpg)
 
@@ -50,19 +54,76 @@ There are 4 parts that we should pay attention to:
 3. Your current user name for this computer. (because you may have multiple users in the same computer)
 4. This is where you write your command. The `$` sign indicates that everything after it is going to be a command.
 
+For most of the time, we will only need to care about 2 and 4, which is **where we are now** and **what command we're gonna run next**.
+
 ## Let's run some commands:
 
 First, we go to the *Documents* directory by typing in `cd Documents` and hit `Enter`.
 
 ![terminal cd](/images/terminal-for-ios-developers/terminal-test-command-1.jpg)
 
-Then we wanna see what's inside the *Documents* directory by typing `ls` and hit `Enter`.
+Another line will appear and wait for our next command. Note that we are now in the *Documents* directory.
+
+Let's see what's inside it. Type `ls` and hit `Enter`.
 
 ![terminal ls](/images/terminal-for-ios-developers/terminal-test-command-2.jpg)
 
-## Common commands for daily use:
+After experimenting with some more commands, our terminal will get messy. It's quite hard to read things:
 
-### 1. Change directory:
+![terminal messy](/images/terminal-for-ios-developers/terminal-full.png)
+
+## Let's make Terminal less ugly
+
+We're gonna install a framework called [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) (pronounced as *oh my zee shell*).
+
+Type this in the `Terminal` and hit `Enter`.
+
+{% highlight sh %}
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+{% endhighlight %}
+
+It will run for a couple of seconds and then prompt for your password. Just type the password in and hit `Enter`.
+
+![terminal oh my zsh password](/images/terminal-for-ios-developers/terminal-zsh-password.png)
+
+Wait for it to finish the installation process.
+
+![terminal oh my zsh done](/images/terminal-for-ios-developers/terminal-zsh-done.png)
+
+Now with `Oh My Zsh` installed, we have this colorful terminal:
+
+![terminal oh my zsh demo](/images/terminal-for-ios-developers/terminal-zsh-demo.png)
+
+As you can see, the unnecessary informations (computer name, user name, `$` sign) have been stripped away. Directory name now has different color so it's easier to read the terminal content.
+
+## Let's learn some commands that we're gonna use very frequently:
+
+### 1. List files:
+
+The syntax:
+
+{% highlight sh %}
+ls path/to/directory
+{% endhighlight %}
+
+Examples:
+
+{% highlight sh %}
+# 1.
+ls
+
+# 2.
+ls -a
+
+# 3.
+ls ~/Documents
+{% endhighlight %}
+
+1. List files in the current directory.
+2. List files in the current directory, including hidden files.
+3. List files in the *Documents* directory.
+
+### 2. Change directory:
 
 The syntax:
 
@@ -104,32 +165,28 @@ cd -
   * Now when you run `cd -`, it will bring you back to *~/Downloads*.
   * `cd -` again will go to *Desktop* again.
 
-### 2. List files:
+### 3. Print out path to current directory:
 
 The syntax:
 
 {% highlight sh %}
-ls path/to/directory
+pwd
 {% endhighlight %}
+
+`pwd` stands for **p**rint **w**orking **d**irectory. This will print out the absolute path to your current directory, which is where you are in now.
 
 Examples:
 
 {% highlight sh %}
-# 1.
-ls
+# Let's say you're at ~/Documents/Books
+# You run
+pwd
 
-# 2.
-ls -a
-
-# 3.
-ls ~/Documents
+# Then this would be printed out
+/Users/hoang.tran/Documents/Books
 {% endhighlight %}
 
-1. List files in the current directory.
-2. List files in the current directory, including hidden files.
-3. List files in the *Documents* directory.
-
-### 3. Open files and directories:
+### 4. Open files and directories:
 
 The syntax:
 
@@ -185,7 +242,7 @@ open -a Sublime\ Text Podfile
 6. Open *Podfile* in `Xcode`.
 7. Open *Podfile* in `Sublime Text`.
 
-## 4. Create new directory:
+### 5. Create new directory:
 
 The syntax:
 
@@ -206,7 +263,7 @@ mkdir my\ awesome\ movies
 1. Create a new directory named `Books` in the current directory. If you're at *~/Documents*, `mkdir Books` will create a directory at path *~/Documents/Books*.
 2. Create a new directory named `my awesome movies` in the current directory.
 
-## 5. Create new file:
+### 6. Create new file:
 
 The syntax:
 
@@ -227,7 +284,7 @@ touch .gitignore
 1. Create a new file named `Podfile` in the current directory. If *Podfile* already exists, then `touch Podfile` will almost does nothing. (it only changes the modification time and access times of the file, but that's not something you should care for now)
 2. Create a new file named `.gitignore` in the current directory.
 
-## 6. Remove files and directories:
+### 7. Remove files and directories:
 
 The syntax for removing files:
 
@@ -267,7 +324,7 @@ rm -r ~/Documents/Books
 3. Remove directory named `build` in the current directory.
 4. Remove directory named `Books` at directory *~/Documents*
 
-## 7. Rename files and directories:
+### 8. Rename files and directories:
 
 The syntax:
 
@@ -296,7 +353,7 @@ mv Classes Class
 2. Rename file from `.gitignora` to `.gitignore` to fix typo.
 3. Rename directory from `Classes` to `Class`.
 
-## 8. Copy/move files and directories:
+### 9. Copy/move files and directories:
 
 Nope.
 
