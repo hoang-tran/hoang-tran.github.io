@@ -96,6 +96,30 @@ Now with `Oh My Zsh` installed, we have this colorful terminal:
 
 As you can see, the unnecessary informations (computer name, user name, `$` sign) have been stripped away. Directory name now has different color so it's easier to read the terminal content.
 
+## Some basic things you should know before using Terminal:
+
+* The Home directory:
+  * It has a symbol of `~`.
+  * It is located at */Users/your_user_name*
+  * If you open it with `Finder`, it's the one with the Home icon.
+
+![Finder Home directory](/images/terminal-for-ios-developers/home.jpg)
+
+* Maximize the Terminal window for best readability.
+* When your Terminal gets messy (it will), `Cmd + K` will clear out the screen.
+* Press the `Up` arrow to reuse the previous command, press again to go through the command history.
+* Press `Down` arrow will go in the opposite direction.
+* When we talk about `path`, we're talking about 2 types of paths here:
+  * **absolute path**:
+    * is a path that starts from your root directory.
+    * begins with `~/` (since we usually work with files from the Home directory so it's easier to say this way)
+    * Ex: `~/Documents` , `~/Downloads/Movies/hello.zip` , `~/Documents/Music/US-UK/we-dont-talk-anymore.mp3`
+  * **relative path**:
+    * is a path that is relative to the current directory.
+    * Ex: `Books` , `Movies/hello.zip` , `Documents/Music/US-UK/we-dont-talk-anymore.mp3`
+
+Example: If you want to go to *~/Documents/Books* and you're currently at *~/Documents*, you can use absolute path by running this command `cd ~/Documents/Books`. Or you can use relative path for shorter command `cd Books`.
+
 ## Let's learn some commands that we're gonna use very frequently:
 
 ### 1. List files:
@@ -357,8 +381,121 @@ mv Classes Class
 
 Nope.
 
-You should not do this task in `Terminal`.
+If you're just getting started, you should not do this task in `Terminal`.
 
 Use `open .` to launch `Finder` and do things there instead.
+
+## Putting it all together
+
+Here is my typical iOS development workflow.
+
+Let's say I just created a new project called *MyAwesomeProject* at path *~/Documents/code/MyAwesomeProject*.
+
+Then I open the Terminal and go to that directory.
+
+{% highlight sh %}
+cd ~/Documents/code/MyAwesomeProject
+{% endhighlight %}
+
+Initialize git for this project.
+
+{% highlight sh %}
+git init
+{% endhighlight %}
+
+There're some files I don't want to track in git so I create a *.gitignore* file.
+
+{% highlight sh %}
+# 1. create an empty file named `.gitignore`
+touch .gitignore
+
+# 2. open `.gitignore` file in your default text editor
+open .gitignore
+{% endhighlight %}
+
+Copy the content from [my gist](https://gist.github.com/hoang-tran/d1908e31282e5c1c99a1f1ec5bf2227d) and paste it in. The *.gitignore* file now looks something like this:
+
+{% highlight sh %}
+# OS X
+.DS_Store
+
+# Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+profile
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+
+# Bundler
+.bundle
+
+Carthage
+Pods/
+{% endhighlight %}
+
+Save the file.
+
+Initialize cocoapods.
+
+{% highlight sh %}
+# 1. Create the Podfile
+pod init
+
+# 2. Install pods, the --verbose option will help to print out the installation progress
+pod install --verbose
+{% endhighlight %}
+
+Run `ls` to check if all the neccessary files are generated. It should print out something like this to the terminal:
+
+{% highlight sh %}
+MyAwesomeProject             MyAwesomeProject.xcworkspace Podfile.lock
+MyAwesomeProject.xcodeproj   Podfile                      Pods
+{% endhighlight %}
+
+Open the *MyAwesomeProject.xcworkspace*.
+
+{% highlight sh %}
+open MyAwesomeProject.xcworkspace
+{% endhighlight %}
+
+Wait a little for it to launch Xcode. Then press `Cmd + R` to run the project and make sure that everything works fine.
+
+Then I stage all files to git.
+
+{% highlight sh %}
+git add .
+{% endhighlight %}
+
+Make my first commit.
+
+{% highlight sh %}
+git commit -m "initial commit"
+{% endhighlight %}
+
+Back to Xcode and start to develop my awesome apps.
+
+As you can see, many of my development tasks are performed in the Terminal. It's extremely fast. You don't even need to reach for the mouse. Your hands are always on the keyboard the whole time.
+
+Here is the list of tasks that I do using GUI tools:
+
+* Write code, design user interfaces in Xcode.
+* See diff, stage changes and commit to git using GitX. (or SourceTree)
+
+Tasks I do in terminal:
+
+* Working with files and directories.
+* Working with cocoapods.
+* All of the remaining git operations: checkout, branch, stash, fetch, pull, push, merge, rebase, revert, reset, cherry-pick, ect...
 
 ## Wrap up
