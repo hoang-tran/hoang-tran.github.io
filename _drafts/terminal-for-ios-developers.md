@@ -9,9 +9,9 @@ When you read tutorials online, there will come times when they tell you to open
 
 Can we have any other way that does not involve the use of `Terminal`?
 
-Well, I guess we don't.
+Well, I guess we don't. In fact, it should be an important part in your development workflow.
 
-As an iOS developer, you may not be comfortable using the `Terminal`. Some people don't even know that such thing does exist at all. We're too familiar with GUI (Graphical User Interface) tools.
+As an iOS developer, you may not be comfortable using the `Terminal` yet. Some people don't even know that such thing does exist at all. We're too familiar with GUI (Graphical User Interface) tools.
 
 * We code in Xcode.
 * We browse files in Finder.
@@ -22,6 +22,10 @@ Hardly do we know that all the above tasks can also be accomplished using `Termi
 * We can code in Terminal.
 * We can browse/create/delete/copy/move files and directories in your Mac system, using Terminal.
 * We can do all kinds of git operations in Terminal.
+
+Today we're gonna explore some of the Terminal's power and how it can become a useful tool in your iOS journey.
+
+Let's get started.
 
 ## How to open Terminal?
 
@@ -50,7 +54,7 @@ Each line is called a `command-line` and it has 4 parts:
 ![terminal look explained](/images/terminal-for-ios-developers/terminal-look-explained.jpg)
 
 1. Your computer name.
-2. This tells which directory you are in at the moment. By default, when you first open the `Terminal`, it will bring you to the Home directory.
+2. This tells which directory you are in at the moment. By default, when you first open the `Terminal`, it will bring you to the Home directory, which has a symbol of `~`
 3. Your current user name for this computer. (because you may have multiple users in the same computer)
 4. This is where you write your command. The `$` sign indicates that everything after it is going to be a command.
 
@@ -58,7 +62,7 @@ For most of the time, we will only need to care about 2 and 4, which is **where 
 
 ## Let's run some commands:
 
-First, we go to the *Documents* directory by typing in `cd Documents` and hit `Enter`.
+Type `cd Documents` and hit `Enter` to go to the *Documents* directory.
 
 ![terminal cd](/images/terminal-for-ios-developers/terminal-test-command-1.jpg)
 
@@ -68,7 +72,9 @@ Let's see what's inside it. Type `ls` and hit `Enter`.
 
 ![terminal ls](/images/terminal-for-ios-developers/terminal-test-command-2.jpg)
 
-After experimenting with some more commands, our terminal will get messy. It's quite hard to read things:
+The result will get printed out just below the command line. Then another one will appear and is ready for your next command.
+
+After experimenting with some more commands, our terminal might get messy. It's quite hard to read things now:
 
 ![terminal messy](/images/terminal-for-ios-developers/terminal-full.png)
 
@@ -76,7 +82,7 @@ After experimenting with some more commands, our terminal will get messy. It's q
 
 We're gonna install a framework called [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) (pronounced as *oh my zee shell*).
 
-Type this in the `Terminal` and hit `Enter`.
+Paste this in the `Terminal` and hit `Enter`.
 
 {% highlight sh %}
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -119,6 +125,15 @@ As you can see, the unnecessary informations (computer name, user name, `$` sign
     * Ex: `Books` , `Movies/hello.zip` , `Documents/Music/US-UK/we-dont-talk-anymore.mp3`
 
 Example: If you want to go to *~/Documents/Books* and you're currently at *~/Documents*, you can use absolute path by running this command `cd ~/Documents/Books`. Or you can use relative path for shorter command `cd Books`.
+
+* When typing path name, you don't need to type the whole word, just type some characters and then hit `Tab`, the Terminal will figure out the rest and auto complete it for you.
+  * For example if you want to type this command `cd ~/Documents/Books`
+    * Just type `cd ~/doc` then hit `Tab`, it will automatically become `cd ~/Documents/`
+    * Type `bo` and hit `Tab` again, it would become `cd ~/Documents/Books/`
+
+Here is the gif the demonstrate the tab completion feature of the Terminal:
+
+![terminal tab completion](/images/terminal-for-ios-developers/terminal-tab-completion.gif)
 
 ## Let's learn some commands that we're gonna use very frequently:
 
@@ -499,3 +514,9 @@ Tasks I do in terminal:
 * All of the remaining git operations: checkout, branch, stash, fetch, pull, push, merge, rebase, revert, reset, cherry-pick, ect...
 
 ## Wrap up
+
+Today we talked about the basic usage of the Terminal. We also learned some commands to navigate through files and directories in the system.
+
+Although it takes some time to learn and practice, Terminal is an extremely useful tool once you get the hang of it.
+
+I highly recommend that you invest a few hours writing some commands yourself. You'll quickly realize that it can do a whole lot of things with great speed. That may save you time and increace your productivity greatly in the future.
