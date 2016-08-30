@@ -1,8 +1,12 @@
 ---
 layout: post
 title:  'A simple guide to Terminal for iOS developers'
+meta_description: Discover the power of Terminal and how it can help boost your productivity as an iOS developer.
+description: Discover the power of Terminal and how it can help boost your productivity as an iOS developer.
+summary: Discover the power of Terminal and how it can help boost your productivity as an iOS developer.
 categories: ios development
 tags: terminal ios developer command line
+image: terminal-for-ios-developers/terminal-cover.png
 ---
 
 When you read tutorials online, there will come times when they tell you to open up the `Terminal` and type in some commands. Those are the scary moments that may confuse or even stop you from following along. You might wonder why it has to be that complicated.
