@@ -46,3 +46,51 @@
 .related-post-title {
   border-bottom: thin solid #f3f3f3;
 }
+
+#mc_embed_signup {
+
+  form {
+    border: 1px solid #999999;
+    margin-top: 80px;
+    padding: 20px !important;
+    border-radius: 3px;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    p {
+      font-weight: lighter;
+
+      span {
+        display: block;
+      }
+    }
+
+    .mce_inline_error {
+      padding-left: 0 !important;
+    }
+
+    .mc-field-group {
+      width: 100%;
+
+      label {
+        font-size: 15px;
+      }
+    }
+
+    #mce-responses {
+      .response {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
+    }
+  }
+
+  #mc-embedded-subscribe {
+    margin: 0;
+    border-radius: 3px;
+    height: 40px;
+    background-color: #007095;
+  }
+}
