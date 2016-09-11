@@ -1,13 +1,223 @@
 ---
 layout: post
 title:  'How to unit test your Network Layer in iOS'
-categories: ios development
+categories: ios testing
 tags: ios network unittest rest api
 ---
 
-## The approach:
+## Declare the task to work on:
 
-## Before you start:
+> Implement GitHub API to get a user's information
+
+The syntax:
+
+{% highlight abc %}
+GET https://api.github.com/users/:username
+{% endhighlight %}
+
+Examples:
+
+{% highlight abc %}
+GET https://api.github.com/users/hoang-tran
+
+GET https://api.github.com/users/orta
+
+GET https://api.github.com/users/chriseidhof
+{% endhighlight %}
+
+If you click on the link <https://api.github.com/users/hoang-tran> in your browser. It will return a json response:
+
+![browser json response](/images/unit-test-network-layer-in-ios/browser-json-response.jpg)
+
+# 1. Implement a simple network layer:
+
+## 1.1. Design the protocol:
+
+Create a new file called **GitHubApiClient.swift** in your main target.
+
+Add a protocol named **GitHubApiClient**:
+
+{% highlight swift %}
+protocol GitHubApiClient {
+}
+{% endhighlight %}
+
+As you can see, the API requires us to pass in **username** as an argument. We will reflect that in our protocol:
+
+{% highlight swift %}
+protocol GitHubApiClient {
+  static func requestUserWithUsername(username: String)
+}
+{% endhighlight %}
+
+Now we need a way to handle callbacks when the request finishes. If it succeeds, we want to receive the user data in a nice format.
+
+{% highlight swift %}
+static func requestUserWithUsername(username: String,
+                                   onSuccess: (GitHubUserData) -> Void)
+{% endhighlight %}
+
+The **GitHubUserData** is just a struct we created to store the data obtained from the json response.
+
+{% highlight swift %}
+struct GitHubUserData {
+  var name: String
+  var bio: String
+  var email: String
+  var numberOfFollowers: Int
+  var numberOfFollowing: Int
+  // ...
+}
+{% endhighlight %}
+
+When the request fails, we want to get the error.
+
+{% highlight swift %}
+static func requestUserWithUsername(username: String,
+                                   onSuccess: (GitHubUserData) -> Void,
+                                     onError: (NSError) -> Void)
+{% endhighlight %}
+
+Let's alias the 2 callbacks to something more readable:
+
+{% highlight swift %}
+typealias GitHubGetUserCallback = (GitHubUserData) -> Void
+
+typealias ErrorCallback = (NSError) -> Void
+{% endhighlight %}
+
+Now, our protocol will look like this:
+
+{% highlight swift %}
+typealias GitHubGetUserCallback = (GitHubUserData) -> Void
+typealias ErrorCallback = (NSError) -> Void
+
+protocol GitHubApiClient {
+  static func requestUserWithUsername(username: String,
+                                     onSuccess: GitHubGetUserCallback,
+                                       onError: ErrorCallback)
+}
+{% endhighlight %}
+
+There's time when we don't want to specify any callbacks at all. Let's change both of them to **optionals**:
+
+{% highlight swift %}
+protocol GitHubApiClient {
+  static func requestUserWithUsername(username: String,
+                                     onSuccess: GitHubGetUserCallback?,
+                                       onError: ErrorCallback?)
+}
+{% endhighlight %}
+
+## 1.2. Some example implementations of the protocol:
+
+### 1.2.1. NSURLSession:
+
+{% highlight swift %}
+import Foundation
+import SwiftyJSON
+
+class NativeApiClient: GitHubApiClient {
+
+  static func requestUserWithUsername(username: String,
+                                     onSuccess: GitHubGetUserCallback? = nil,
+                                       onError: ErrorCallback? = nil) {
+    let urlString = "https://api.github.com/users/\(username)"
+    let url = NSURL(string: urlString)!
+
+    let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    let dataTask = defaultSession.dataTaskWithURL(url) { data, response, error in
+      if let error = error {
+        onError?(error)
+      } else if let data = data {
+        let json = JSON(data: data)
+        onSuccess?(GitHubUserData(json: json))
+      }
+    }
+    dataTask.resume()
+  }
+
+}
+{% endhighlight %}
+
+### 1.2.2. AFNetworking:
+
+{% highlight swift %}
+import AFNetworking
+import SwiftyJSON
+
+class AFNetworkingApiClient: GitHubApiClient {
+
+  static func requestUserWithUsername(username: String,
+                                     onSuccess: GitHubGetUserCallback? = nil,
+                                       onError: ErrorCallback? = nil) {
+    let urlString = "https://api.github.com/users/\(username)"
+    let url = NSURL(string: urlString)!
+
+    let manager = AFURLSessionManager(sessionConfiguration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    let request = NSURLRequest(URL: url)
+    let dataTask = manager.dataTaskWithRequest(request) { response, data, error in
+      if let error = error {
+        onError?(error)
+      } else if let data = data {
+        let json = JSON(data)
+        onSuccess?(GitHubUserData(json: json))
+      }
+    }
+    dataTask.resume()
+  }
+
+}
+{% endhighlight %}
+
+### 1.2.3. Alamofire:
+
+{% highlight swift %}
+import Alamofire
+import SwiftyJSON
+
+class AlamofireApiClient: GitHubApiClient {
+
+  static func requestUserWithUsername(username: String,
+                                     onSuccess: GitHubGetUserCallback? = nil,
+                                       onError: ErrorCallback? = nil) {
+    let urlString = "https://api.github.com/users/\(username)"
+
+    Alamofire.request(.GET, urlString)
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success:
+          if let data = response.result.value {
+            let json = JSON(data)
+            onSuccess?(GitHubUserData(json: json))
+          }
+        case .Failure(let error):
+          onError?(error)
+        }
+    }
+  }
+
+}
+{% endhighlight %}
+
+## 1.3. Put it in use
+
+{% highlight swift %}
+NativeApiClient.requestUserWithUsername("hoang-tran", onSuccess: { userData in
+
+  print(userData)
+
+}, onError: { error in
+
+  print(error.localizedDescription)
+
+})
+{% endhighlight %}
+
+# 2. Unit test the network layer we just wrote:
+
+## 2.1. Before you start:
 
 Make sure you're familiar with:
 
@@ -15,7 +225,11 @@ Make sure you're familiar with:
 * [How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)](/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd).
 * [Write better unit test assertions with Nimble](/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble).
 
-## Step : Setup project for unit testing
+## 2.2. How are we gonna test a network request?
+
+## 2.3. The implementation:
+
+### Step : Setup project for unit testing
 
 Open Podfile and add the following pods to your test target:
 
@@ -26,10 +240,10 @@ Open Podfile and add the following pods to your test target:
 {% highlight ruby %}
 platform :ios, '9.0'
 
-target 'MyAwesomeProject' do
+target 'TestNetworkLayer' do
   use_frameworks!
 
-  target 'MyAwesomeProjectTests' do
+  target 'TestNetworkLayerTests' do
     inherit! :search_paths
     pod 'Quick'
     pod 'Nimble'
@@ -47,18 +261,18 @@ pod install
 Open the generated *.xcworkspace* file.
 
 {% highlight sh %}
-open MyAwesomeProject.xcworkspace
+open TestNetworkLayer.xcworkspace
 {% endhighlight %}
 
-## Step : Create a new spec file for MyApiClient
+### Step : Create a new spec file for NativeApiClient
 
-Create a new file called `MyApiClientSpec.swift` in your test target.
+Create a new file called `NativeApiClientSpec.swift` in your test target.
 
 {% highlight swift %}
 import Quick
 import Nimble
 
-class MyApiClientSpec : QuickSpec {
+class NativeApiClientSpec : QuickSpec {
   override func spec() {
     super.spec()
 
@@ -73,7 +287,7 @@ class MyApiClientSpec : QuickSpec {
 
 Press **Cmd + U** in Xcode and make sure the test pass.
 
-## Step: Write a test that make real network request
+### Step: Write a test that make real network request
 
 We will write the success case first:
 
@@ -148,12 +362,12 @@ expect(returnedUserData).toEventuallyNot(beNil(), timeout: 20)
 
 But we don't wanna do that. Our goal is to **NOT** make real network request at all.
 
-## Step 2: Create stub response files
+### Step 2: Create stub response files
 
-Open Terminal and go to the **MyAwesomeProjectTests** directory
+Open Terminal and go to the **TestNetworkLayerTests** directory
 
 {% highlight sh %}
-cd MyAwesomeProjectTests
+cd TestNetworkLayerTests
 {% endhighlight %}
 
 Create a new directory called **Fixtures** and then go to it:
@@ -225,9 +439,9 @@ Hit **Finish**:
 
 ![xcode add directory confirmation](/images/unit-test-network-layer-in-ios/add-folder-confirmation.jpg)
 
-## Step : Stub the network request
+### Step : Stub the network request
 
-Back to **MyApiClientSpec.swift**, we're gonna stub the request so that it will use our **GetUserSuccess.json** file as the response instead of making real network request.
+Back to **NativeApiClientSpec.swift**, we're gonna stub the request so that it will use our **GetUserSuccess.json** file as the response instead of making real network request.
 
 {% highlight swift %}
 it("returns GitHubUserData") {
@@ -260,3 +474,5 @@ With everything stubbed, hit **Cmd + U** again.
 This time, it should pass.
 
 To make sure that it does not make any real network request, turn off your internet connection and run your tests again. It should still pass.
+
+## Wrap up
