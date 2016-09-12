@@ -2,7 +2,11 @@
 layout: post
 title:  'How to unit test your Network Layer in iOS'
 categories: ios testing
+meta_description: Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
+description: Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
+summary: Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
 tags: ios network unittest rest api
+image: unit-test-network-layer-in-ios/mockingjay.jpg
 ---
 
 Network communication is a crucial part in every iOS apps.
@@ -16,7 +20,6 @@ Let's look at an example network usage of a typical News Reader app:
 * Request to get list of latest articles when users click on a news source.
 * Request for more details when users click on an article.
 * Request to mark all articles as read when users click on the corresponding button.
-* Ect...
 
 **Network requests are everywhere**. We should make sure that not only do we understand networking clearly but also can implement it very well.
 
@@ -24,23 +27,24 @@ Today we're gonna learn how to build a simple network layer to fetch data from a
 
 Here's the table of contents:
 
-* [1. Design the protocol](#design)
-* [2. Code](#code)
-  * [2.1 Some example implementations of the protocol](#some-example-implementations-of-the-protocol)
-    * [NSURLSession](#nsurlsession)
-    * [AFNetworking](#afnetworking)
-    * [Alamofire](#alamofire)
-  * [2.2 Put it in use](#put-it-in-use)
-* [3. Unit test](#unit-test)
-  * [3.1 What to test?](#what-to-test)
-  * [3.2 How to test?](#how-to-test)
-  * [3.3 Before you start](#before-you-start)
-  * [3.4 The implemenation](#the-implementation)
+* [1. Design the protocol](#design-the-protocol)
+* [2. Implement the protocol](#implement-the-protocol)
+  * [NSURLSession](#nsurlsession)
+  * [AFNetworking](#afnetworking)
+  * [Alamofire](#alamofire)
+* [3. Use the protocol](#use-the-protocol)
+* [4. Write unit test for the protocol](#write-unit-test-for-the-protocol)
+  * [What to test?](#what-to-test)
+  * [How to test?](#how-to-test)
+  * [Prepare to test](#prepare-to-test)
+  * [Start writing test](#start-writing-test)
     * [Step 1: Setup project for unit testing](#step-1-setup-project-for-unit-testing)
-    * [Step 2: Create a new spec file](#step-2-create-a-new-spec-file-for-nativeapiclient)
+    * [Step 2: Create a new spec file](#step-2-create-a-new-spec-file)
     * [Step 3: Write a test that makes real network request](#step-3-write-a-test-that-makes-real-network-request)
-    * [Step 4: Create stub response file](#step-4-create-stub-response-file)
+    * [Step 4: Create stubbed response file](#step-4-create-stubbed-response-file)
     * [Step 5: Stub the network request](#step-5-stub-the-network-request)
+    * [Step 6: Expect the protocol to parse json correctly](#step-6-expect-the-protocol-to-parse-json-correctly)
+    * [Step 7: Test the error case](#step-7-test-the-error-case)
 
 ## What RESTful API should we work on?
 
@@ -150,11 +154,9 @@ protocol GitHubApiClient {
 
 Now we are done with the protocol design. Let's move on to the coding part.
 
-# 2. Code:
+# 2. Implement the protocol:
 
 There are many ways to implement network requests in iOS. The 3 most popular ones are: **NSURLSession**, **AFNetworking** and **Alamofire**.
-
-Each framework has its own pros and cons.
 
 ### NSURLSession:
 
@@ -252,7 +254,13 @@ class AlamofireApiClient: GitHubApiClient {
 }
 {% endhighlight %}
 
-## 2.2 Put it in use
+# 3. Use the protocol:
+
+This is fairly straightforward. Just put in:
+
+* parameter for **username**.
+* closure for **onSuccess** callback.
+* closure for **onError** callback.
 
 {% highlight swift %}
 NativeApiClient.requestUserWithUsername("hoang-tran", onSuccess: { userData in
@@ -266,21 +274,111 @@ NativeApiClient.requestUserWithUsername("hoang-tran", onSuccess: { userData in
 })
 {% endhighlight %}
 
-# 3. Unit Test:
+Or we can remove the callback we don't care about.
 
-## 3.1. What to test?
+{% highlight swift %}
+NativeApiClient.requestUserWithUsername("hoang-tran", onSuccess: { userData in
 
-## 3.2. How to test?
+  print(userData)
 
-## 3.3. Before you start:
+})
+{% endhighlight %}
 
-Make sure you're familiar with:
+Or
+
+{% highlight swift %}
+NativeApiClient.requestUserWithUsername("hoang-tran", onError: { error in
+
+  print(error.localizedDescription)
+
+})
+{% endhighlight %}
+
+Or remove everything.
+
+{% highlight swift %}
+NativeApiClient.requestUserWithUsername("hoang-tran")
+{% endhighlight %}
+
+# 4. Write unit test for the protocol:
+
+## What to test?
+
+When talking about network request, there's a couple of things we need to consider:
+
+* Does the request go to the correct url?
+* When the request succeeds, does it parse json properly and return the correct model?
+* When the request fails, does it return the corresponding error?
+
+## How to test?
+
+We will use a HTTP stubbing framework called [Mockingjay](https://github.com/kylef/Mockingjay).
+
+It allows you to say this:
+
+{% highlight abc %}
+Stub request with url A and return json file B.
+{% endhighlight %}
+
+Or:
+
+{% highlight abc %}
+Stub request with url A and return error.
+{% endhighlight %}
+
+### What does Stub mean anyway?
+
+This is the syntax of a stub:
+
+{% highlight abc %}
+Stub event A and do custom action B
+{% endhighlight %}
+
+What it means:
+
+> When event **A** happens, don't do it the old way. Do custom action **B** instead.
+
+So the line:
+
+{% highlight abc %}
+Stub request with url A and return json file B.
+{% endhighlight %}
+
+Will translate to as:
+
+> Whenever there's a request that goes to url **A**, do not send it over to network.
+>
+> Instead, use the file **B** in our project's local directory as the response.
+
+For example:
+
+{% highlight abc %}
+Stub request with url https://api.github.com/users/hoang-tran
+and return the file GetUserSuccess.json
+{% endhighlight %}
+
+This reads as:
+
+> If there's a request that goes to url **https://api.github.com/users/hoang-tran**,
+> do not send it over to network.
+>
+> Instead, use the file **GetUserSuccess.json** as the response
+
+So to write unit test for a network request, we will need to do things in the following order:
+
+1. Stub the request and return with our custom json file.
+2. Actually make the network request using the protocol.
+3. Describe our expectations for the returned values in both cases: **onSuccess** and **onError**.
+
+## Prepare to test:
+
+Before we start, make sure you're familiar with:
 
 * [How to write unit tests in iOS Part 1: XCTestCase](/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase).
 * [How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)](/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd).
 * [Write better unit test assertions with Nimble](/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble).
 
-## 3.4. The implementation:
+##  Start writing test:
 
 ### Step 1: Setup project for unit testing
 
@@ -295,6 +393,8 @@ platform :ios, '9.0'
 
 target 'TestNetworkLayer' do
   use_frameworks!
+
+  #...
 
   target 'TestNetworkLayerTests' do
     inherit! :search_paths
@@ -319,7 +419,7 @@ open TestNetworkLayer.xcworkspace
 
 ### Step 2: Create a new spec file
 
-Create a new file called `NativeApiClientSpec.swift` in your test target.
+Create a new file called **NativeApiClientSpec.swift** in your test target.
 
 {% highlight swift %}
 import Quick
@@ -415,9 +515,9 @@ expect(returnedUserData).toEventuallyNot(beNil(), timeout: 20)
 
 But we don't wanna do that. Our goal is to **NOT** make real network request at all.
 
-### Step 4: Create stub response file
+### Step 4: Create stubbed response file
 
-Open Terminal and go to the **TestNetworkLayerTests** directory
+Open Terminal and go to the **TestNetworkLayerTests** directory (assuming your project name is **TestNetworkLayer**)
 
 {% highlight sh %}
 cd TestNetworkLayerTests
@@ -431,6 +531,8 @@ mkdir Fixtures
 cd Fixtures
 {% endhighlight %}
 
+Note that **Fixtures** is just a common name to refer to those stubbed response files. You can name the directory to anything.
+
 Create a new json file called **GetUserSuccess.json**, then open it for edit:
 
 {% highlight sh %}
@@ -439,7 +541,9 @@ touch GetUserSuccess.json
 open GetUserSuccess.json
 {% endhighlight %}
 
-Paste the json content from Postman to the **GetUserSuccess.json** file:
+Open this link <https://api.github.com/users/hoang-tran> in your browser.
+
+Paste the json content to the **GetUserSuccess.json** file:
 
 {% highlight json %}
 {
@@ -528,4 +632,80 @@ This time, it should pass.
 
 To make sure that it does not make any real network request, turn off your internet connection and run your tests again. It should still pass.
 
+### Step 6: Expect the protocol to parse json correctly
+
+We should also write some expectations for the **returnedUserData** to make sure that the json response is parsed properly into the **GitHubUserData** struct.
+
+{% highlight swift %}
+//...
+
+expect(returnedUserData).toEventuallyNot(beNil())
+expect(returnedUserData?.name) == "Hoang Tran"
+expect(returnedUserData?.email) == "hoangtx.master@gmail.com"
+expect(returnedUserData?.numberOfFollowers) == 120
+expect(returnedUserData?.numberOfFollowing) == 133
+{% endhighlight %}
+
+### Step 7: Test the error case
+
+First declare the error context.
+
+{% highlight swift %}
+override func spec() {
+  super.spec()
+
+  describe("requestUserWithName") {
+    context("success") {
+      it("returns GitHubUserData") {
+        //...
+      }
+    }
+
+    context("error") {
+      it("returns error") {
+
+      }
+    }
+  }
+}
+{% endhighlight %}
+
+Stub the request to return your custom error:
+
+{% highlight swift %}
+let error = NSError(domain: "Describe your error here", code: 404, userInfo: nil)
+
+self.stub(uri("https://api.github.com/users/hoang-tran"), builder: failure(error))
+{% endhighlight %}
+
+The whole test case:
+
+{% highlight swift %}
+it("returns error") {
+  var returnedError: NSError?
+
+  let error = NSError(domain: "Describe your error here", code: 404, userInfo: nil)
+
+  self.stub(uri("https://api.github.com/users/hoang-tran"), builder: failure(error))
+
+  NativeApiClient.requestUserWithName("hoang-tran", onError: { error in
+    returnedError = error
+  })
+
+  expect(returnedError).toEventuallyNot(beNil())
+}
+{% endhighlight %}
+
+Run the test again and make sure it's green.
+
 ## Wrap up
+
+Wow! I didn't expect this to turn into such a looooong post. Let's end it here.
+
+You can find the full code sample at <https://github.com/hoang-tran/TestNetworkLayer>.
+
+I'm very happy to see your comments. Please let me know:
+
+* How do you design your network layer?
+* What networking framework do you use? And why?
+* Have you ever written unit tests for your network layer? If yes, how do you do that?
