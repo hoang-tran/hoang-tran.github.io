@@ -5,7 +5,46 @@ categories: ios testing
 tags: ios network unittest rest api
 ---
 
-## Declare the task to work on:
+Network communication is a crucial part in every iOS apps.
+
+Whenever the users interact with a UI element in the app, there usually is one (or multiple) network request sent to an API server to get fresh data and present back to the users.
+
+Let's look at an example network usage of a typical News Reader app:
+
+* Request to authenticate users.
+* Request to get list of news sources: Engadget, Mashable, Medium,...
+* Request to get list of latest articles when users click on a news source.
+* Request for more details when users click on an article.
+* Request to mark all articles as read when users click on the corresponding button.
+* Ect...
+
+**Network requests are everywhere**. We should make sure that not only do we understand networking clearly but also can implement it very well.
+
+Today we're gonna learn how to build a simple network layer to fetch data from a RESTful API server. The process includes **designing**, **coding** and **unit testing** altogether.
+
+Here's the table of contents:
+
+* [1. Design the protocol](#design)
+* [2. Code](#code)
+  * [2.1 Some example implementations of the protocol](#some-example-implementations-of-the-protocol)
+    * [NSURLSession](#nsurlsession)
+    * [AFNetworking](#afnetworking)
+    * [Alamofire](#alamofire)
+  * [2.2 Put it in use](#put-it-in-use)
+* [3. Unit test](#unit-test)
+  * [3.1 What to test?](#what-to-test)
+  * [3.2 How to test?](#how-to-test)
+  * [3.3 Before you start](#before-you-start)
+  * [3.4 The implemenation](#the-implementation)
+    * [Step 1: Setup project for unit testing](#step-1-setup-project-for-unit-testing)
+    * [Step 2: Create a new spec file](#step-2-create-a-new-spec-file-for-nativeapiclient)
+    * [Step 3: Write a test that makes real network request](#step-3-write-a-test-that-makes-real-network-request)
+    * [Step 4: Create stub response file](#step-4-create-stub-response-file)
+    * [Step 5: Stub the network request](#step-5-stub-the-network-request)
+
+## What RESTful API should we work on?
+
+Let's just pick an easy one.
 
 > Implement GitHub API to get a user's information
 
@@ -25,13 +64,13 @@ GET https://api.github.com/users/orta
 GET https://api.github.com/users/chriseidhof
 {% endhighlight %}
 
-If you click on the link <https://api.github.com/users/hoang-tran> in your browser. It will return a json response:
+If you click on the link <https://api.github.com/users/hoang-tran> in your browser. It will return a response in json format:
 
 ![browser json response](/images/unit-test-network-layer-in-ios/browser-json-response.jpg)
 
-# 1. Implement a simple network layer:
+Simple and sweet, right? Let's head over to the implementation in our iOS app.
 
-## 1.1. Design the protocol:
+# 1. Design the protocol:
 
 Create a new file called **GitHubApiClient.swift** in your main target.
 
@@ -109,9 +148,17 @@ protocol GitHubApiClient {
 }
 {% endhighlight %}
 
-## 1.2. Some example implementations of the protocol:
+Now we are done with the protocol design. Let's move on to the coding part.
 
-### 1.2.1. NSURLSession:
+# 2. Code:
+
+There are many ways to implement network requests in iOS. The 3 most popular ones are: **NSURLSession**, **AFNetworking** and **Alamofire**.
+
+Each framework has its own pros and cons.
+
+### NSURLSession:
+
+This is supported natively in iOS 7.0 and above.
 
 {% highlight swift %}
 import Foundation
@@ -140,7 +187,9 @@ class NativeApiClient: GitHubApiClient {
 }
 {% endhighlight %}
 
-### 1.2.2. AFNetworking:
+### AFNetworking:
+
+Remember to add `pod 'AFNetworking'` to your Podfile.
 
 {% highlight swift %}
 import AFNetworking
@@ -170,7 +219,9 @@ class AFNetworkingApiClient: GitHubApiClient {
 }
 {% endhighlight %}
 
-### 1.2.3. Alamofire:
+### Alamofire:
+
+Remember to add `pod 'Alamofire'` to your Podfile.
 
 {% highlight swift %}
 import Alamofire
@@ -201,7 +252,7 @@ class AlamofireApiClient: GitHubApiClient {
 }
 {% endhighlight %}
 
-## 1.3. Put it in use
+## 2.2 Put it in use
 
 {% highlight swift %}
 NativeApiClient.requestUserWithUsername("hoang-tran", onSuccess: { userData in
@@ -215,9 +266,13 @@ NativeApiClient.requestUserWithUsername("hoang-tran", onSuccess: { userData in
 })
 {% endhighlight %}
 
-# 2. Unit test the network layer we just wrote:
+# 3. Unit Test:
 
-## 2.1. Before you start:
+## 3.1. What to test?
+
+## 3.2. How to test?
+
+## 3.3. Before you start:
 
 Make sure you're familiar with:
 
@@ -225,11 +280,9 @@ Make sure you're familiar with:
 * [How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)](/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd).
 * [Write better unit test assertions with Nimble](/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble).
 
-## 2.2. How are we gonna test a network request?
+## 3.4. The implementation:
 
-## 2.3. The implementation:
-
-### Step : Setup project for unit testing
+### Step 1: Setup project for unit testing
 
 Open Podfile and add the following pods to your test target:
 
@@ -264,7 +317,7 @@ Open the generated *.xcworkspace* file.
 open TestNetworkLayer.xcworkspace
 {% endhighlight %}
 
-### Step : Create a new spec file for NativeApiClient
+### Step 2: Create a new spec file
 
 Create a new file called `NativeApiClientSpec.swift` in your test target.
 
@@ -287,7 +340,7 @@ class NativeApiClientSpec : QuickSpec {
 
 Press **Cmd + U** in Xcode and make sure the test pass.
 
-### Step: Write a test that make real network request
+### Step 3: Write a test that makes real network request
 
 We will write the success case first:
 
@@ -362,7 +415,7 @@ expect(returnedUserData).toEventuallyNot(beNil(), timeout: 20)
 
 But we don't wanna do that. Our goal is to **NOT** make real network request at all.
 
-### Step 2: Create stub response files
+### Step 4: Create stub response file
 
 Open Terminal and go to the **TestNetworkLayerTests** directory
 
@@ -439,7 +492,7 @@ Hit **Finish**:
 
 ![xcode add directory confirmation](/images/unit-test-network-layer-in-ios/add-folder-confirmation.jpg)
 
-### Step : Stub the network request
+### Step 5: Stub the network request
 
 Back to **NativeApiClientSpec.swift**, we're gonna stub the request so that it will use our **GetUserSuccess.json** file as the response instead of making real network request.
 
