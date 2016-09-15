@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  '3 things I do to keep me up-to-date with latest iOS development'
+title:  '5 things I do to keep me up-to-date with latest iOS development'
 categories: ios development
 tags: ios development uptodate latest
 ---
@@ -19,20 +19,24 @@ Everyday there are thousands of projects being built and shared across all mediu
 
 It's hard to keep up with all of these information if we don't invest the time and effort to actually learn it.
 
-Today I will share 3 things I do everyday that helps me stay up-to-date.
+Today I will share 5 things I do everyday that helps me stay up-to-date.
 
-# 1. Read blog. Lots of it.
+# 1. Watch WWDC videos.
+
+# 2. Read blog. Lots of it.
 
 ## What blog to read?
 
 ## How to read?
 
-# 2. Make use of GitHub
+# 3. Make use of Twitter.
+
+## Follow great iOS developers on Twitter
+
+# 4. Make use of GitHub.
 
 ## Look for what's trendings on Objective-C and Swift
 
 ## Follow people on GitHub
 
-# 3. Make use of Twitter
-
-## Follow great iOS developers on Twitter
+# 5. Experiment on my own.
