@@ -19,24 +19,34 @@ Everyday there are thousands of projects being built and shared across all mediu
 
 It's hard to keep up with all of these information if we don't invest the time and effort to actually learn it.
 
-Today I will share 5 things I do everyday that helps me stay up-to-date.
+Today I will share 5 things I do that helps me stay up-to-date.
 
-# 1. Watch WWDC videos.
+# 1. Watch WWDC videos:
 
-# 2. Read blog. Lots of it.
+![wwdc 2016 videos](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/wwdc-videos.jpg)
+
+Technically, WWDC presentations are very deep. There usually is a live coding session to showcase what the new API can do and how to implement it in various scenarios.
+
+Each video is around 20-60 minutes so it's best if you can allocate the time at night or weekends to watch it.
+
+All videos can be found here: <https://developer.apple.com/videos>
+
+Note: Make sure to open the video in **Safari** instead of *Chrome* or *Firefox*. Apple video streaming only works in Safari.
+
+# 2. Read blog:
 
 ## What blog to read?
 
 ## How to read?
 
-# 3. Make use of Twitter.
+# 3. Make use of Twitter:
 
 ## Follow great iOS developers on Twitter
 
-# 4. Make use of GitHub.
+# 4. Make use of GitHub:
 
 ## Look for what's trendings on Objective-C and Swift
 
 ## Follow people on GitHub
 
-# 5. Experiment on my own.
+# 5 Experiment on my own:
