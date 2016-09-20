@@ -35,15 +35,55 @@ Note: Make sure to open the video in **Safari** instead of *Chrome* or *Firefox*
 
 # 2. Read blog:
 
+Many of the great things I learnt over the years are mostly from reading blog posts. By spending a couple of minutes on a post, you know:
+
+* What other developers are building. What their challenge is. And how they solved it.
+* What programming ideas get shared the most. Are they good? Why? Can you apply to your own project?
+* Or simply just to understand how to do things properly.
+
+There's always something you don't know. Keep an open mind and you'll learn alot.
+
 ## What blog to read?
 
-## How to read?
+### Ray Wenderlich
 
-# 3. Make use of Twitter:
+![raywenderlich homepage](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/raywenderlich.png)
 
-## Follow great iOS developers on Twitter
+<https://www.raywenderlich.com>
 
-# 4. Make use of GitHub:
+This one is too famous. You may have visited it at least once.
+
+It features various iOS development topics in extremely great details.
+
+### Realm Apple
+
+![realm apple](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-apple.png)
+
+<https://realm.io/news/tags/apple>
+
+![realm video](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video.png)
+
+These are just the 2 major ones. For the full list of blogs that I follow, you can take a look here:
+
+![full list of blogs](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/list-blog.png)
+
+Or import everything to your favourite RSS reader using [this OPML file](../../../../../../images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/hoang-tran.opml).
+
+# 3. Use Twitter:
+
+When I first joined Twitter, none of my friends were there.
+
+Sometimes I find a few familiar faces but rarely do I see them posting any tweets at all.
+
+Then I left.
+
+It took me a long time to realize that I've been using Twitter the wrong way. And that Twitter is not like Facebook in any sense.
+
+## So what do we use Twitter for?
+
+## What we can do on Twitter?
+
+# 4. Use GitHub:
 
 ## Look for what's trendings on Objective-C and Swift
 

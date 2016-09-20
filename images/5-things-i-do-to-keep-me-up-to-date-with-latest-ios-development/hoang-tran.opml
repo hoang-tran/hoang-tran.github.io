@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>Hoang subscriptions in feedly Cloud</title>
+    </head>
+    <body>
+        <outline text="Ios" title="Ios">
+            <outline type="rss" text="Andrew Bancroft" title="Andrew Bancroft" xmlUrl="http://www.andrewcbancroft.com/feed/" htmlUrl="https://www.andrewcbancroft.com"/>
+            <outline type="rss" text="NSBlog" title="NSBlog" xmlUrl="http://www.mikeash.com/pyblog/rss.py" htmlUrl="http://www.mikeash.com/pyblog/"/>
+            <outline type="rss" text="Realm News" title="Realm News" xmlUrl="https://feeds.feedburner.com/realmio" htmlUrl="https://realm.io"/>
+            <outline type="rss" text="Cocoanetics" title="Cocoanetics" xmlUrl="http://www.drobnik.com/touch/feed/" htmlUrl="https://www.cocoanetics.com"/>
+            <outline type="rss" text="Quality Coding" title="Quality Coding" xmlUrl="http://feeds.feedburner.com/qualitycoding" htmlUrl="http://qualitycoding.org"/>
+            <outline type="rss" text="AppCoda" title="AppCoda" xmlUrl="http://feeds.feedburner.com/appcoda" htmlUrl="http://www.appcoda.com"/>
+            <outline type="rss" text="Chris Eidhof" title="Chris Eidhof" xmlUrl="http://chris.eidhof.nl/rss.xml" htmlUrl="http://www.eidhof.nl"/>
+            <outline type="rss" text="iOS Goodies" title="iOS Goodies" xmlUrl="http://ios-goodies.com/rss" htmlUrl="http://ios-goodies.com/"/>
+            <outline type="rss" text="iOS Development Tips" title="iOS Development Tips" xmlUrl="http://feeds.feedburner.com/iOSDevelopmentTips" htmlUrl="http://iosdevtips.co/"/>
+            <outline type="rss" text="Ash Furrow" title="Ash Furrow" xmlUrl="http://ashfurrow.com/blog?format=rss" htmlUrl="https://ashfurrow.com/"/>
+            <outline type="rss" text="Use Your Loaf" title="Use Your Loaf" xmlUrl="http://useyourloaf.com/blog/rss.xml" htmlUrl="http://useyourloaf.com/blog/"/>
+            <outline type="rss" text="iOS Dev Weekly" title="iOS Dev Weekly" xmlUrl="http://iosdevweekly.com/issues.rss" htmlUrl="http://iosdevweekly.com/issues"/>
+            <outline type="rss" text="iDevBlogADay" title="iDevBlogADay" xmlUrl="http://feeds.feedburner.com/idevblogaday" htmlUrl="http://idevblogaday.com"/>
+            <outline type="rss" text="objc.io" title="objc.io" xmlUrl="http://www.objc.io/feed.xml" htmlUrl="http://www.objc.io"/>
+            <outline type="rss" text="Khanlou" title="Khanlou" xmlUrl="http://khanlou.com/feed/" htmlUrl="http://khanlou.com/"/>
+            <outline type="rss" text="iOS-Blog" title="iOS-Blog" xmlUrl="http://feeds.feedburner.com/iosdevblog" htmlUrl="http://www.ios-blog.co.uk"/>
+            <outline type="rss" text="NSHipster" title="NSHipster" xmlUrl="http://nshipster.com/feed.xml" htmlUrl="http://nshipster.com"/>
+            <outline type="rss" text="Erica Sadun" title="Erica Sadun" xmlUrl="http://ericasadun.com/feed/" htmlUrl="http://ericasadun.com"/>
+            <outline type="rss" text="Natasha The Robot" title="Natasha The Robot" xmlUrl="http://natashatherobot.com/feed/" htmlUrl="https://www.natashatherobot.com"/>
+            <outline type="rss" text="Ray WenderlichRay Wenderlich" title="Ray WenderlichRay Wenderlich" xmlUrl="http://feeds.feedburner.com/RayWenderlich" htmlUrl="https://www.raywenderlich.com"/>
+            <outline type="rss" text="News and Updates" title="News and Updates" xmlUrl="http://developer.apple.com/rss/iphonedevnews.rss" htmlUrl="https://developer.apple.com/news/"/>
+            <outline type="rss" text="Ole Begemann" title="Ole Begemann" xmlUrl="http://oleb.net/blog/atom.xml" htmlUrl="https://oleb.net/blog/"/>
+            <outline type="rss" text="Swift Programming - Medium" title="Swift Programming - Medium" xmlUrl="https://medium.com/feed/swift-programming" htmlUrl="https://medium.com/swift-programming?source=rss----5396e0e8bc29---4"/>
+            <outline type="rss" text="Artsy Engineering" title="Artsy Engineering" xmlUrl="http://artsy.github.io/feed" htmlUrl="http://artsy.github.io/"/>
+            <outline type="rss" text="Matt Gemmell" title="Matt Gemmell" xmlUrl="http://feeds.feedburner.com/mattgemmell/rss2" htmlUrl="http://mattgemmell.com/"/>
+            <outline type="rss" text="[iOS developer" title="[iOS developer" xmlUrl="http://iphonedevelopertips.com/feed" htmlUrl="http://iosdevelopertips.com"/>
+        </outline>
+    </body>
+</opml>
