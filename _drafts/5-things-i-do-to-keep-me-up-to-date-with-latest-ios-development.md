@@ -79,14 +79,72 @@ Then I left.
 
 It took me a long time to realize that I've been using Twitter the wrong way. And that Twitter is not like Facebook in any sense.
 
-## So what do we use Twitter for?
+Twitter is unique because it only allows people to tweet no more than 140 characters.
 
-## What we can do on Twitter?
+Every tweet is short and simple. We don't need to think too much. Therefore, we tweet a lot more often than Facebook.
+
+Some people tweet once or twice a day. Some may post 5 to 10 tweets a day. Others even put up a tweet every single hour.
+
+## So how do we use Twitter?
+
+It's simple. Just:
+
+* Follow interesting people, especially famous iOS developers.
+* Unfollow unrelated ones.
+
+## What do iOS developers usually tweet about?
+
+Well, they tweet about pretty much everything, just like any normal human being.
+
+To give you a heads-up, here are some interesting tweets:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Only at <a href="https://twitter.com/hashtag/tryswiftnyc?src=hash">#tryswiftnyc</a>! Break dancing contest featuring <a href="https://twitter.com/allonsykraken">@allonsykraken</a>. 👏🏼 <a href="https://t.co/smnhFX7nXZ">pic.twitter.com/smnhFX7nXZ</a></p>&mdash; Paola Mata (@PaolaNotPaolo) <a href="https://twitter.com/PaolaNotPaolo/status/771815952774209536">September 2, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I love my new iPhone 7 Plus. <a href="https://t.co/1ctQZQv9o9">pic.twitter.com/1ctQZQv9o9</a></p>&mdash; Ayaka Nonaka (@ayanonagon) <a href="https://twitter.com/ayanonagon/status/776905845321805824">September 16, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Did you know that in Swift you can add arbitrary underscores to number literals to make them more readable? e.g.<br><br>let bignum = 1000_000_000</p>&mdash; Nick Lockwood (@nicklockwood) <a href="https://twitter.com/nicklockwood/status/777778115783294976">September 19, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Must watch! Really amazing talk by <a href="https://twitter.com/kristinathai">@kristinathai</a>: Become a Better Engineer Through Writing <a href="https://t.co/d70ME46euo">https://t.co/d70ME46euo</a> <a href="https://t.co/v7ZXVGGqK3">pic.twitter.com/v7ZXVGGqK3</a></p>&mdash; NatashaTheRobot (@NatashaTheRobot) <a href="https://twitter.com/NatashaTheRobot/status/772463255075844096">September 4, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I swear if Apple released new emojis every iOS update, we’d have 99% of people on the latest version</p>&mdash; Kristina Thai ⌚️ (@kristinathai) <a href="https://twitter.com/kristinathai/status/656917106781360128">October 21, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">How to unit test your Network Layer in iOS<a href="https://twitter.com/hashtag/ios?src=hash">#ios</a> <a href="https://twitter.com/hashtag/unittest?src=hash">#unittest</a> <a href="https://twitter.com/hashtag/restful?src=hash">#restful</a> <a href="https://twitter.com/hashtag/network?src=hash">#network</a><a href="https://t.co/YidFGNAhWj">https://t.co/YidFGNAhWj</a></p>&mdash; Hoang Tran (@hoang_tran90) <a href="https://twitter.com/hoang_tran90/status/775373085432086528">September 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+*Ooops, the last one is not that great. It's just... you know, simply useful.* 😜
+
+So you get the idea, if you follow enough great people, you'll start to see the benefit.
+
+Everytime you open your Twitter feed, you see something interesting. That helps a lot on giving you ideas and getting inspired.
 
 # 4. Use GitHub:
 
-## Look for what's trendings on Objective-C and Swift
+## Look for what's trendings:
 
-## Follow people on GitHub
+Visit the 2 following pages:
 
-# 5 Experiment on my own:
+* <https://github.com/trending/objective-c>
+* <https://github.com/trending/swift>
+
+![github trending swift](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/github-trending-swift.png)
+
+When you come across a GitHub repo that looks promising, don't forget to **star** it. Who knows someday it can help to quickly solve a technical problem you may encounter.
+
+## Follow people on GitHub:
+
+# 5. Experiment on my own:
