@@ -17,15 +17,21 @@ iOS developers from around the world leave the event feeling inspired. They star
 
 Everyday there are thousands of projects being built and shared across all mediums.
 
-It's hard to keep up with all of these information if we don't invest the time and effort to actually learn it.
+It's hard to keep up with all of these information if we don't invest the time and effort to actually research about it.
 
-Today I will share 5 things I do that helps me stay up-to-date.
+Today I will share the list of 5 things I do everyday that helps me stay in sync with interesting trends around iOS development. These are the things that I've been doing for almost a year now.
+
+And you know what? **It works**.
+
+Here they are:
 
 # 1. Watch WWDC videos:
 
 ![wwdc 2016 videos](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/wwdc-videos.jpg)
 
-Technically, WWDC presentations are very deep. There usually is a live coding session to showcase what the new API can do and how to implement it in various scenarios.
+This is definitely the best resource to learn. These are presentations from the people who created the technologies. They know their product better than anybody else.
+
+There usually is a live coding session to showcase what the new API can do and how to implement it in various scenarios.
 
 Each video is around 20-60 minutes so it's best if you can allocate the time at night or weekends to watch it.
 
@@ -41,29 +47,73 @@ Many of the great things I learnt over the years are mostly from reading blog po
 * What programming ideas get shared the most. Are they good? Why? Can you apply to your own project?
 * Or simply just to understand how to do things properly.
 
-There's always something you don't know. Keep an open mind and you'll learn alot.
+No matter how good you are, there's always something you don't know. There's always someone whom you can learn from. Keep an open mind and you'll learn alot.
 
 ## What blog to read?
 
-### Ray Wenderlich
+There're plenty.
 
-![raywenderlich homepage](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/raywenderlich.png)
+But these are the 2 major ones that I spent most of my time in:
+
+### 1. Ray Wenderlich:
 
 <https://www.raywenderlich.com>
 
-This one is too famous. You may have visited it at least once.
+This one is too famous. You may have visited it at least once. It features various iOS development topics in extremely great details.
 
-It features various iOS development topics in extremely great details.
+![raywenderlich homepage](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/raywenderlich.png)
 
-### Realm Apple
+This is the place where I learnt about:
 
-![realm apple](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-apple.png)
+* Advanced design patterns like: MVVM, Viper.
+* Reactive Programming.
+* Functional Programming.
+* Swift Generics.
+* Some other useful stuffs.
+
+Although there are still tutorials on advanced topics, RayWenderlich is best suited for someone who's just getting started.
+
+To be a great developer, you have to know the fundamentals well. And RayWenderlich did a very good job on teaching that.
+
+### 2. Realm Apple
 
 <https://realm.io/news/tags/apple>
 
+Realm is a database technology designed specifically for mobile. If you're not interested in Realm, you can still find a huge resource for learning in their website.
+
+![realm apple](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-apple.png)
+
+Every couple of days, there will be a guest speaker coming up on stage, talking about geeky things.
+
+By geeky I mean that the topic is extremely advanced. These people speak from their own experiences so the ideas they presented are quite practical.
+
+The blog format is also very easy to follow. We have:
+
+* The video with English subtitle on the left.
+* The slide on the right.
+* The transcription (including code blocks) down below.
+
 ![realm video](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video.png)
 
-These are just the 2 major ones. For the full list of blogs that I follow, you can take a look here:
+Here are some recent Realm videos that I'm excited about:
+
+![realm video 1](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-1.png)
+
+![realm video 2](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-2.png)
+
+![realm video 3](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-3.png)
+
+![realm video 4](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-4.png)
+
+![realm video 5](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-5.png)
+
+Each video takes you around an hour to watch but it's worth every minute.
+
+This is most suitable for iOS developers with more senior level.
+
+### Other blogs:
+
+For the full list of blogs that I follow, you can take a look here:
 
 ![full list of blogs](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/list-blog.png)
 
@@ -92,6 +142,10 @@ It's simple. Just:
 * Follow interesting people, especially famous iOS developers.
 * Unfollow unrelated ones.
 
+If you follow enough great people, you'll start to see the benefit.
+
+Everytime you open your Twitter feed, you see something interesting. That helps a lot on giving you ideas and getting inspired.
+
 ## What do iOS developers usually tweet about?
 
 Well, they tweet about pretty much everything, just like any normal human being.
@@ -113,7 +167,7 @@ To give you a heads-up, here are some interesting tweets:
 
 ---
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Must watch! Really amazing talk by <a href="https://twitter.com/kristinathai">@kristinathai</a>: Become a Better Engineer Through Writing <a href="https://t.co/d70ME46euo">https://t.co/d70ME46euo</a> <a href="https://t.co/v7ZXVGGqK3">pic.twitter.com/v7ZXVGGqK3</a></p>&mdash; NatashaTheRobot (@NatashaTheRobot) <a href="https://twitter.com/NatashaTheRobot/status/772463255075844096">September 4, 2016</a></blockquote>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Don’t stress about which framework to use on your side project, in reality it’s just an expired domain name waiting to happen.</p>&mdash; I Am Devloper (@iamdevloper) <a href="https://twitter.com/iamdevloper/status/776331375108562944">September 15, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ---
@@ -126,11 +180,7 @@ To give you a heads-up, here are some interesting tweets:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">How to unit test your Network Layer in iOS<a href="https://twitter.com/hashtag/ios?src=hash">#ios</a> <a href="https://twitter.com/hashtag/unittest?src=hash">#unittest</a> <a href="https://twitter.com/hashtag/restful?src=hash">#restful</a> <a href="https://twitter.com/hashtag/network?src=hash">#network</a><a href="https://t.co/YidFGNAhWj">https://t.co/YidFGNAhWj</a></p>&mdash; Hoang Tran (@hoang_tran90) <a href="https://twitter.com/hoang_tran90/status/775373085432086528">September 12, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-*Ooops, the last one is not that great. It's just... you know, simply useful.* 😜
-
-So you get the idea, if you follow enough great people, you'll start to see the benefit.
-
-Everytime you open your Twitter feed, you see something interesting. That helps a lot on giving you ideas and getting inspired.
+*Just kidding, the last one is not that great. It's just... you know, simply useful.* 😜
 
 # 4. Use GitHub:
 
