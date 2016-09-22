@@ -19,7 +19,7 @@ Everyday there are thousands of projects being built and shared across all mediu
 
 It's hard to keep up with all of these information if we don't invest the time and effort to actually research about it.
 
-Today I will share the list of 5 things I do everyday that helps me stay in sync with interesting trends around iOS development. These are the things that I've been doing for almost a year now.
+Today I will share the list of 5 things I do consistently that helps me stay in sync with interesting trends around iOS development. These are the things that I've been doing for almost a year now.
 
 And you know what? **It works**.
 
@@ -184,7 +184,21 @@ To give you a heads-up, here are some interesting tweets:
 
 # 4. Use GitHub:
 
+GitHub is too familiar.
+
+You must have been using it everyday to push code around.
+
+But there's more to it.
+
 ## Look for what's trendings:
+
+The great thing about GitHub is that it encourages people to build and share their projects with the world.
+
+There are thousands of interesting projects being created everyday. One of which might solve your problems someday.
+
+But how do you know about it?
+
+The answer is simple: follow trending repos everyday.
 
 Visit the 2 following pages:
 
@@ -193,8 +207,47 @@ Visit the 2 following pages:
 
 ![github trending swift](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/github-trending-swift.png)
 
-When you come across a GitHub repo that looks promising, don't forget to **star** it. Who knows someday it can help to quickly solve a technical problem you may encounter.
+When you come across a GitHub repo that looks promising, don't forget to **star** it. It may save you a ton of time in the future.
+
+Also, when you give a star, it makes the developer happy.
+
+And you know, happy developer makes better softwares.
 
 ## Follow people on GitHub:
 
-# 5. Experiment on my own:
+When you follow people, their activities will start to appear on your feed. You'll see:
+
+* what they're working on.
+* which repos they starred/forked.
+
+![github feed](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/github-feed.png)
+
+If those repos are useful to others, they might be useful for you too.
+
+Star them.
+
+# 5. Experiment on your own:
+
+All of the above won't work if you just sit there and watch/read things all day.
+
+Knowledge is useless if it's not put in good use.
+
+When you're learning something new, create a toy project and play with it.
+
+After you've gained some experiences, start to think of ways you can apply it to your current project.
+
+Many problems won't surface in a tiny app. They may just appear until things get more complicated. So make sure to find opportunities to apply what you learnt soon, better in a real-world situation. That way, you'll learn deeper.
+
+# Wrap up:
+
+Doing these things might take you about 1-2 hours a day, which is a lot.
+
+However, the benefits of learning and experimenting are huge. Better make it a habit and have fun along the way.
+
+Please note that these are just the things that worked for me. Yours might be different.
+
+## Please share with me:
+
+* Do you have things you wanna add to this list?
+* What do you do to keep up with this fast-changing industry?
+* How often do you do that? Everyday? Every week?
