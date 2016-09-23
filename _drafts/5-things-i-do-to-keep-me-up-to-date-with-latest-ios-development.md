@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  '5 things I do to keep me up-to-date with latest iOS development'
+title:  '5 things I do to keep up with latest iOS development trends'
 categories: ios development
 tags: ios development uptodate latest
 ---
@@ -27,7 +27,7 @@ Here they are:
 
 # 1. Watch WWDC videos:
 
-![wwdc 2016 videos](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/wwdc-videos.jpg)
+![wwdc 2016 videos](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/wwdc-videos.jpg)
 
 This is definitely the best resource to learn. These are presentations from the people who created the technologies. They know their product better than anybody else.
 
@@ -61,7 +61,7 @@ But these are the 2 major ones that I spent most of my time in:
 
 This one is too famous. You may have visited it at least once. It features various iOS development topics in extremely great details.
 
-![raywenderlich homepage](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/raywenderlich.png)
+![raywenderlich homepage](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/raywenderlich.png)
 
 This is the place where I learnt about:
 
@@ -81,7 +81,7 @@ To be a great developer, you have to know the fundamentals well. And RayWenderli
 
 Realm is a database technology designed specifically for mobile. If you're not interested in Realm, you can still find a huge resource for learning in their website.
 
-![realm apple](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-apple.png)
+![realm apple](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-apple.png)
 
 Every couple of days, there will be a guest speaker coming up on stage, talking about geeky things.
 
@@ -93,19 +93,19 @@ The blog format is also very easy to follow. We have:
 * The slide on the right.
 * The transcription (including code blocks) down below.
 
-![realm video](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video.png)
+![realm video](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-video.png)
 
 Here are some recent Realm videos that I'm excited about:
 
-![realm video 1](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-1.png)
+![realm video 1](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-video-1.png)
 
-![realm video 2](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-2.png)
+![realm video 2](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-video-2.png)
 
-![realm video 3](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-3.png)
+![realm video 3](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-video-3.png)
 
-![realm video 4](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-4.png)
+![realm video 4](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-video-4.png)
 
-![realm video 5](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/realm-video-5.png)
+![realm video 5](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/realm-video-5.png)
 
 Each video takes you around an hour to watch but it's worth every minute.
 
@@ -115,9 +115,9 @@ This is most suitable for iOS developers with more senior level.
 
 For the full list of blogs that I follow, you can take a look here:
 
-![full list of blogs](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/list-blog.png)
+![full list of blogs](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/list-blog.png)
 
-Or import everything to your favourite RSS reader using [this OPML file](../../../../../../images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/hoang-tran.opml).
+Or import everything to your favourite RSS reader using [this OPML file](../../../../../../images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/hoang-tran.opml).
 
 # 3. Use Twitter:
 
@@ -205,7 +205,7 @@ Visit the 2 following pages:
 * <https://github.com/trending/objective-c>
 * <https://github.com/trending/swift>
 
-![github trending swift](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/github-trending-swift.png)
+![github trending swift](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/github-trending-swift.png)
 
 When you come across a GitHub repo that looks promising, don't forget to **star** it. It may save you a ton of time in the future.
 
@@ -220,7 +220,7 @@ When you follow people, their activities will start to appear on your feed. You'
 * what they're working on.
 * which repos they starred/forked.
 
-![github feed](/images/5-things-i-do-to-keep-me-up-to-date-with-latest-ios-development/github-feed.png)
+![github feed](/images/5-things-i-do-to-keep-up-with-latest-ios-development-trends/github-feed.png)
 
 If those repos are useful to others, they might be useful for you too.
 
