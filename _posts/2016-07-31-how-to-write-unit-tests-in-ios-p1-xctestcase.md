@@ -6,6 +6,11 @@ description: Learn how to write unit tests in iOS using XCTestCase
 summary: Learn how to write unit tests in iOS using XCTestCase
 categories: ios testing
 tags: ios swift testing unittest xctestcase test
+related: [
+  'How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)',
+  'Write better unit test assertions with Nimble',
+  'How to setup testing for new iOS project'
+]
 ---
 
 ## What is unit test?

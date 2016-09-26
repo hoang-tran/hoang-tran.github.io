@@ -6,6 +6,11 @@ description: Learn how to write better unit test assertions in iOS with the help
 summary: Learn how to write better unit test assertions in iOS with the help of Nimble
 categories: ios testing
 tags: ios swift testing unittest test nimble assertion xctassert
+related: [
+  'How to setup testing for new iOS project',
+  'How to write unit tests in iOS Part 1: XCTestCase',
+  'How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)'
+]
 ---
 
 Normally, when we write unit tests in iOS, we usually use the `XCTAssert` method to describe our expectation for the test. The syntax is very simple.

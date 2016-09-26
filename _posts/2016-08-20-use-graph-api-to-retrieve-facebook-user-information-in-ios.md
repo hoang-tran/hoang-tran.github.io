@@ -7,6 +7,9 @@ summary: 'Learn how to use the Facebook Graph API in iOS to fetch various user i
 categories: ios development
 tags: ios swift facebook graph api
 image: use-graph-api-to-retrieve-facebook-user-information-in-ios/cover.jpg
+related: [
+  'How to integrate login with Facebook in iOS'
+]
 ---
 
 ## What is Graph API?

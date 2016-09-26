@@ -7,6 +7,9 @@ summary: Learn how to add a login with Facebook funtionality to your app
 categories: ios development
 tags: ios swift facebook login
 image: login-with-facebook-in-ios/login-facebook-cover.png
+related: [
+  'How to use Graph API to retrieve Facebook user information in iOS'
+]
 ---
 
 Nowadays, there are very few apps that do not authenticate their users. We all wanna know who our users are, how they interact with other users and what makes them engaged the most.

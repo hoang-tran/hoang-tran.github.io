@@ -6,6 +6,11 @@ description: Learn how to setup a testing environment on iOS, for both ObjC and 
 summary: Learn how to setup a testing environment on iOS, for both ObjC and Swift
 categories: ios testing
 tags: ios objc swift testing setup unittest uitest test
+related: [
+  'How to write unit tests in iOS Part 1: XCTestCase',
+  'How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)',
+  'How to unit test your Network Layer in iOS'
+]
 ---
 
 App (or any product in general), before getting released to users, needs to be tested carefully.

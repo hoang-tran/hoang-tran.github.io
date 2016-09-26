@@ -6,6 +6,11 @@ description: Learn how to write elegant unit tests in iOS using Behavior-driven 
 summary: Learn how to write elegant unit tests in iOS using Behavior-driven Development (BDD)
 categories: ios testing
 tags: ios swift testing unittest test bdd
+related: [
+  'How to setup testing for new iOS project',
+  'How to write unit tests in iOS Part 1: XCTestCase',
+  'Write better unit test assertions with Nimble'
+]
 ---
 
 In [part 1](/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase), we discovered the basic usage of `XCTestCase` and wrote some simple unit tests for the Gun class using Swift. For a quick recap, this is what we got so far:

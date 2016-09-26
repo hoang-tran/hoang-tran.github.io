@@ -7,6 +7,11 @@ description: Learn how to design, code and unit test your RESTful network layer 
 summary: Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
 tags: ios network unittest rest api
 image: unit-test-network-layer-in-ios/mockingjay.jpg
+related: [
+  'How to write unit tests in iOS Part 1: XCTestCase',
+  'How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)',
+  'Write better unit test assertions with Nimble'
+]
 ---
 
 Network communication is a crucial part in every iOS apps.
