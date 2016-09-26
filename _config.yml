@@ -78,8 +78,8 @@ share_hackernews: false
 
 text:
   pagination:
-    newer: 'Newer'
-    older: 'Older'
+    newer: 'Next'
+    older: 'Prev'
   share_buttons:
     text:         'Share this post!'
     facebook:     'Share on Facebook'
