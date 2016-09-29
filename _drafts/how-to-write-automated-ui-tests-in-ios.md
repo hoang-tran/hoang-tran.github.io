@@ -5,7 +5,51 @@ categories: ios development
 tags: ios ui tests automated kif
 ---
 
-# What does automated UI tests look like?
+# Our sample app:
+
+It's a simple note-taking app with the following features:
+
+* Login.
+* View list of notes.
+* Create new note.
+* Update existing note.
+* Delete a note.
+
+Here's a gif that runs through all functionalities of the app:
+
+![simple note taking app in ios](/images/how-to-write-automated-ui-tests-in-ios/note-app.gif)
+
+However, our job today is not about how to build such app. What we're gonna do instead is learning how to write automated UI tests for it. That's the exciting part.
+
+# But what does automated UI tests look like anyway?
+
+Let's have a look at this video:
+
+<iframe width="840" height="472" src="https://www.youtube.com/embed/HEGl3Lj4SLE" frameborder="0" allowfullscreen></iframe>
+
+As soon as the test suite is launched, it simulates all kinds of user interactions:
+
+* filling in a text field.
+* tapping a button.
+* swiping around.
+
+It travels through each screen and test all scenarios in sequence:
+
+* at Login screen, it tests scenario when:
+  * entering correct username and password.
+  * password field is empty.
+  * username field is empty.
+  * entering incorrect username or password.
+* at Note screen, it tests scenario when:
+  * adding a new note.
+  * deleting notes.
+  * editting an existing note.
+
+**It looks funny**.
+
+Firing up the UI tests and watch it flies through everything is a fun experience.
+
+So the next time someone asks you to show your app, just run the UI tests. He'll be amazed and impressed at the same time. 😜
 
 # Why should we write automated UI tests?
 
