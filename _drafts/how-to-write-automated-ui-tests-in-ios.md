@@ -107,6 +107,8 @@ Alright! I hope that gets you a little bit more excited about UI testings. Let's
 
 # Understand UI testing:
 
+To write UI tests, we're gonna need a framework called [KIF](https://github.com/kif-framework/KIF), an excellent testing tool for iOS developers.
+
 ## Accessibility Label:
 
 ### How to set it?
@@ -117,11 +119,109 @@ Alright! I hope that gets you a little bit more excited about UI testings. Let's
 
 ### How to inspect it?
 
-# Let's do it!
+# How to setup UI testing?
 
-## Step 1: Import KIF using cocoapods
+## Step 1: Import KIF and Nimble using cocoapods
+
+Add `pod 'KIF'` and `pod 'Nimble'` to your *Podfile*. Remember to put them in the test target instead.
+
+{% highlight ruby %}
+platform :ios, '9.0'
+
+target 'SimpleNoteTakingApp' do
+  use_frameworks!
+
+  #...
+
+  target 'SimpleNoteTakingAppTests' do
+    inherit! :search_paths
+    pod 'KIF'
+    pod 'Nimble'
+  end
+
+end
+{% endhighlight %}
+
+Open Terminal and run:
+
+{% highlight sh %}
+pod install
+{% endhighlight %}
 
 ## Step 2: Create KIF helper for Swift
+
+Create a *KIF+Extensions.swift* file in your test target.
+
+{% highlight swift %}
+import KIF
+
+extension XCTestCase {
+  func tester(file : String = #file, _ line : Int = #line) -> KIFUITestActor {
+    return KIFUITestActor(inFile: file, atLine: line, delegate: self)
+  }
+
+  func system(file : String = #file, _ line : Int = #line) -> KIFSystemTestActor {
+    return KIFSystemTestActor(inFile: file, atLine: line, delegate: self)
+  }
+}
+
+extension KIFTestActor {
+  func tester(file : String = #file, _ line : Int = #line) -> KIFUITestActor {
+    return KIFUITestActor(inFile: file, atLine: line, delegate: self)
+  }
+
+  func system(file : String = #file, _ line : Int = #line) -> KIFSystemTestActor {
+    return KIFSystemTestActor(inFile: file, atLine: line, delegate: self)
+  }
+}
+{% endhighlight %}
+
+Create a briding header:
+
+* Create a new temporary Objective-C file in your test target. You can name it to anything.
+
+![](/images/how-to-setup-testing-for-new-ios-project/create-objc-file.png)
+
+* Xcode will ask whether you also want to add a briding header. Hit **Create Bridging Header**.
+
+![](/images/how-to-setup-testing-for-new-ios-project/add-bridging-header.png)
+
+* Delete the temporary ObjC file we just created above. We don't need it anymore.
+
+Import **KIF** from within the bridging header (*SimpleNoteTakingApp-Bridging-Header.h*).
+
+{% highlight objc %}
+#import <KIF/KIF.h>
+{% endhighlight %}
+
+Create our first UI test (also in the test target). Let's name it *LoginTests.swift*.
+
+{% highlight swift %}
+import KIF
+
+class LoginTests : KIFTestCase {
+
+  func testSomethingHere() {
+    tester().tapViewWithAccessibilityLabel("hello")
+  }
+
+}
+{% endhighlight %}
+
+Please note that:
+
+* your UI test must subclass from **KIFTestCase**.
+* test methods must begin with the word **test**. For example: testA, testB, testLogin, testSomethingElse, ect...
+
+Now let's run the test to see how it works (Cmd + U).
+
+It should open up the iOS simulator and stop at the login screen. Wait for a couple of seconds. Then fail.
+
+That's because we haven't had any view with accessibility label of **hello** yet. We're gonna fix that later. But for now, we have our first UI test up and running. It's cool.
+
+# How to organize your UI tests?
+
+# Let's start writing UI tests for our elegent note-taking app
 
 ## Step 3: Test the first screen
 
