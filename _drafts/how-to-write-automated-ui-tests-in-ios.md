@@ -107,17 +107,133 @@ Alright! I hope that gets you a little bit more excited about UI testings. Let's
 
 # Understand UI testing:
 
-To write UI tests, we're gonna need a framework called [KIF](https://github.com/kif-framework/KIF), an excellent testing tool for iOS developers.
+A typical UI test might look like this (in pseudo code):
 
-## Accessibility Label:
+{% highlight abc %}
+fill in a text field
+tap a button
+expect to go to next screen
+{% endhighlight %}
 
-### How to set it?
+As you can see, UI test is composed of actions that a normal user can take. It's like a step-by-step guide with some expectations along the way. The common format is:
 
-1. From code:
+{% highlight abc %}
+do something
+expect something to happen
+{% endhighlight %}
 
-2. From Storyboard:
+For example:
 
-### How to inspect it?
+{% highlight abc %}
+tap on a table cell
+expect it to expand
+tap on it again
+expect it to collapse
+{% endhighlight %}
+
+Another example:
+
+{% highlight abc %}
+pull to refresh
+expect to see new contents on top
+swipe to delete a row
+expect the row to be deleted from the table view
+{% endhighlight %}
+
+Simple, right?
+
+## But how do we express UI test in Swift?
+
+We're gonna need a framework called [KIF](https://github.com/kif-framework/KIF). It offers a whole lot of APIs to deal with UI interactions. For example:
+
+Fill in *"some random text"* into a text field.
+
+{% highlight swift %}
+tester().enterText("some random text", intoViewWithAccessibilityLabel: "my text field")
+{% endhighlight %}
+
+Tap a button.
+
+{% highlight swift %}
+tester().tapViewWithAccessibilityLabel("my button")
+{% endhighlight %}
+
+You may wonder: What is this **accessibility label** thing?
+
+Actually it's just a way to address UI components on the screen.
+
+Or frankly, **accessibility label** is a name you give for each UIView to distinguish among them.
+
+When you say you wanna tap a button, you have to tell the framework which button to tap. Therefore, you assign it an **accessibility label** (let's say *"my button"*) and then tap it:
+
+{% highlight swift %}
+tester().tapViewWithAccessibilityLabel("my button")
+{% endhighlight %}
+
+Here's a couple more examples:
+
+Expect a view to appear on the screen:
+
+{% highlight swift %}
+tester().waitForViewWithAccessibilityLabel("my view")
+{% endhighlight %}
+
+Expect a view to disappear from the screen:
+
+{% highlight swift %}
+tester().waitForAbsenceOfViewWithAccessibilityLabel("my view")
+{% endhighlight %}
+
+Delete the first cell from a UITableView:
+
+{% highlight swift %}
+let tableview = tester().waitForViewWithAccessibilityLabel("my tableview") as! UITableView
+
+let firstRow = NSIndexPath(forRow: 0, inSection: 0)
+
+tester().swipeRowAtIndexPath(firstRow, inTableView: tableView, inDirection: .Left)
+
+tester().tapViewWithAccessibilityLabel("Delete")
+{% endhighlight %}
+
+## How do we assign accessibility label for UIView?
+
+There are 2 ways that we can do:
+
+1. Using Storyboard:
+
+* Open Storyboard.
+* Click on a view you wanna assign accessbility label.
+* Choose the **Identity Inspector** tab.
+
+![set accessibility label in storyboard - 1](/images/how-to-write-automated-ui-tests-in-ios/al-storyboard-1.jpg)
+
+* Scroll down to the **Accessibility** section.
+* Input the accessbility label you want into the **Label** field. (*"Login - Username"* in this case)
+
+![set accessibility label in storyboard - 2](/images/how-to-write-automated-ui-tests-in-ios/al-storyboard-2.jpg)
+
+For UITableView and UICollectionView, there won't be an **Accessibility** section available. I have no idea why Apple does that but we can workaround anyway:
+
+![set accessibility label in storyboard - uitableview](/images/how-to-write-automated-ui-tests-in-ios/al-tableview.gif)
+
+So basically what we do is we assign a key path that matches the **accessibilityLabel** property of UIView (UITableView inherits from UIView). Then at runtime, it will read value from key path and set its property accordingly.
+
+2. Using code:
+
+If you have a text field that is a reference from the Storyboard:
+
+{% highlight swift %}
+@IBOutlet weak var usernameTextField: UITextField!
+{% endhighlight %}
+
+Then you can:
+
+{% highlight swift %}
+usernameTextField.accessibilityLabel = "my username textfield"
+{% endhighlight %}
+
+Although it looks simpler when using code, it is still recommended to set your accessibility label directly from the Storyboard if possible. The best code is no code at all.
 
 # How to setup UI testing?
 
@@ -217,7 +333,7 @@ Now let's run the test to see how it works (Cmd + U).
 
 It should open up the iOS simulator and stop at the login screen. Wait for a couple of seconds. Then fail.
 
-That's because we haven't had any view with accessibility label of **hello** yet. We're gonna fix that later. But for now, we have our first UI test up and running. It's cool.
+That's because we haven't had any view with accessibility label of **hello** yet. We're gonna fix that later. But for now, we have our first UI test up and running. That's cool.
 
 # How to organize your UI tests?
 
