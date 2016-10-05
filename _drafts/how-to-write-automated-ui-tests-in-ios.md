@@ -5,6 +5,26 @@ categories: ios development
 tags: ios ui tests automated kif
 ---
 
+You probably have heard about automated tests before.
+
+There are 2 types of them in iOS:
+
+* Unit test:
+  * test a specific case in a class.
+  * make sure that the class works independently on its own.
+* UI test:
+  * is also called Integration test.
+  * test user interactions with the app.
+  * make sure that all the pieces fit well together.
+
+Both are equally important.
+
+If you only write unit tests, you can only guarantee that each class/component is good by itself. But in reality, it usually breaks when put together with other parts. It would become like this:
+
+![2 unit tests, 0 integration test](/images/how-to-write-automated-ui-tests-in-ios/unittest-integrationtest.gif)
+
+The reverse is also true. Writing only UI tests is not recommended either. Many edge cases can be spotted early using uint test
+
 # Our sample app:
 
 It's a simple note-taking app with the following features:
@@ -335,8 +355,6 @@ It should open up the iOS simulator and stop at the login screen. Wait for a cou
 
 That's because we haven't had any view with accessibility label of **hello** yet. We're gonna fix that later. But for now, we have our first UI test up and running. That's cool.
 
-# How to organize your UI tests?
-
 # Let's start writing UI tests for our elegent note-taking app
 
 ## Step 3: Test the first screen
@@ -346,29 +364,5 @@ That's because we haven't had any view with accessibility label of **hello** yet
 ## Step 5: Test the second screen
 
 ## Step 6: Move common steps into base class
-
-# Some common scenarios you may encounter:
-
-## Inspect properties of a control:
-
-## Working with TabBar:
-
-## Swiping around:
-
-## Dealing with alert and action sheet:
-
-## Pull to refresh:
-
-## Working with textfields:
-
-## Working with UITableView and UICollectionView:
-
-## Wait for sometime:
-
-## Working with photos and gallery:
-
-## Dealing with network requests:
-
-## Dealing with permissions:
 
 # Wrap up
