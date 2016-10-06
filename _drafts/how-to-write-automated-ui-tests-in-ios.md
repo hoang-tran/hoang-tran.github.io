@@ -357,12 +357,48 @@ That's because we haven't had any view with accessibility label of **hello** yet
 
 # Let's start writing UI tests for our elegent note-taking app
 
-## Step 3: Test the first screen
+## Test the login screen:
 
-## Step 4: Move step definitions out into extension
+There are 3 scenarios in the login screen:
 
-## Step 5: Test the second screen
+### Scenario 1: Empty username and password.
 
-## Step 6: Move common steps into base class
+In this case, the user should see an alert telling him that *"Username cannot be empty"*.
+
+Before writing UI test, you should take some time to describe the entire scenario first. It would help to visualize the whole picture and organize your code better.
+
+The recommended way is to use the Gherkin format:
+
+{% highlight gherkin %}
+Scenario: Put your scenario name here
+  Given some precondition
+  When I do something
+  Then I expect something to happen
+  ...
+{% endhighlight %}
+
+In our case, the scenario would look like this:
+
+{% highlight gherkin %}
+Scenario: Empty username and password
+  Given I clear out the username and password fields
+  When I tap "Login" button
+  Then I expect to see alert "Username cannot be empty"
+{% endhighlight %}
+
+Let's translate it into Swift.
+
+Open *LoginTests.swift* and put in the first test:
+
+{% highlight swift %}
+func testEmptyUsernameAndPassword() {
+  clearOutUsernameAndPasswordFields()
+  tapButton("Login")
+  expectToSeeAlert("Username cannot be empty")
+  tapButton("OK")
+}
+{% endhighlight %}
+
+## Test the home screen:
 
 # Wrap up
