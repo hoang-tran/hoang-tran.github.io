@@ -81,7 +81,7 @@ There are some key benefits here:
 
   When you make some changes in the code, the tests are there to make sure that you don't break anything (regression). And that your app still works as expected.
 
-  If there is no tests, it's dangerous to even make a slightest change. One has to be very careful and do a lot of manual testing to gain back his confidence.
+  If there is no tests, it's dangerous to make even a slightest change. One has to be very careful and do a lot of manual testing to gain back his confidence.
 
   If there is no tests, we will need the whole QC team to sit together trying to break the app and looking for bugs. Now we don't anymore. UI tests will take care of that pretty nicely.
 
@@ -180,7 +180,7 @@ tester().tapViewWithAccessibilityLabel("my button")
 
 You may wonder: What is this **accessibility label** thing?
 
-Actually it's just a way to address UI components on the screen.
+Actually it's a way to address UI components on the screen.
 
 Or frankly, **accessibility label** is a name you give for each UIView to distinguish among them.
 
@@ -359,7 +359,7 @@ That's because we haven't had any view with accessibility label of **hello** yet
 
 ## Test the login screen:
 
-There are 3 scenarios in the login screen:
+There are 4 scenarios in the login screen:
 
 ### Scenario 1: Empty username and password.
 
@@ -388,7 +388,36 @@ Scenario: Empty username and password
 
 Let's translate it into Swift.
 
-Open *LoginTests.swift* and put in the first test:
+Open *LoginTests.swift* and write the first test:
+
+{% highlight swift %}
+func testEmptyUsernameAndPassword() {
+
+}
+{% endhighlight %}
+
+Then we perform the first step: clear out both fields.
+
+{% highlight swift %}
+func testEmptyUsernameAndPassword() {
+  clearOutUsernameAndPasswordFields()
+}
+{% endhighlight %}
+
+Although this **clearOutUsernameAndPasswordFields** method is not defined yet, you don't have to worry about it. Just write what we want first. We'll fix the compile errors later.
+
+Next step is tapping the "Login" button:
+
+{% highlight swift %}
+func testEmptyUsernameAndPassword() {
+  clearOutUsernameAndPasswordFields()
+  tapButton("Login")
+}
+{% endhighlight %}
+
+Again, this **tapButton** method is also undefined. We just put it there to structure the test.
+
+Then we do the same thing with the remaining steps:
 
 {% highlight swift %}
 func testEmptyUsernameAndPassword() {
@@ -398,6 +427,242 @@ func testEmptyUsernameAndPassword() {
   tapButton("OK")
 }
 {% endhighlight %}
+
+Now we have the whole scenario written down in Swift. It's time to fill in the definition for each method.
+
+To clear the text field, we use the KIF method *clearTextFromViewWithAccessibilityLabel*, which is quite self-explanatory. So the **clearOutUsernameAndPasswordFields** would be:
+
+{% highlight swift %}
+func clearOutUsernameAndPasswordFields() {
+  tester().clearTextFromViewWithAccessibilityLabel("Login - Username")
+  tester().clearTextFromViewWithAccessibilityLabel("Login - Password")
+}
+{% endhighlight %}
+
+The **tapButton** method:
+
+{% highlight swift %}
+func tapButton(buttonName: String) {
+  tester().tapViewWithAccessibilityLabel(buttonName)
+}
+{% endhighlight %}
+
+And the **expectToSeeAlert** method:
+
+{% highlight swift %}
+func expectToSeeAlert(text: String) {
+  tester().waitForViewWithAccessibilityLabel(text)
+}
+{% endhighlight %}
+
+This is the *LoginTests.swift* at this point:
+
+{% highlight swift %}
+import KIF
+
+class LoginTests : KIFTestCase {
+
+  func testEmptyUsernameAndPassword() {
+    clearOutUsernameAndPasswordFields()
+    tapButton("Login")
+    expectToSeeAlert("Username cannot be empty")
+    tapButton("OK")
+  }
+
+  func clearOutUsernameAndPasswordFields() {
+    tester().clearTextFromViewWithAccessibilityLabel("Login - Username")
+    tester().clearTextFromViewWithAccessibilityLabel("Login - Password")
+  }
+
+  func tapButton(buttonName: String) {
+    tester().tapViewWithAccessibilityLabel(buttonName)
+  }
+
+  func expectToSeeAlert(text: String) {
+    tester().waitForViewWithAccessibilityLabel(text)
+  }
+
+}
+{% endhighlight %}
+
+Now run your test by pressing Cmd + U.
+
+The simulator will pop up and run over your steps auto-magically.
+
+![first ui test](/images/how-to-write-automated-ui-tests-in-ios/first-ui-test.gif)
+
+The test should pass. (since all functionalities are already implemented)
+
+Let's do a litte refactoring here. Create a new file called *LoginSteps.swift* and move all step methods there.
+
+{% highlight swift %}
+extension LoginTests {
+
+  func clearOutUsernameAndPasswordFields() {
+    tester().clearTextFromViewWithAccessibilityLabel("Login - Username")
+    tester().clearTextFromViewWithAccessibilityLabel("Login - Password")
+  }
+
+  func tapButton(buttonName: String) {
+    tester().tapViewWithAccessibilityLabel(buttonName)
+  }
+
+  func expectToSeeAlert(text: String) {
+    tester().waitForViewWithAccessibilityLabel(text)
+  }
+
+}
+{% endhighlight %}
+
+Then the *LoginTests.swift* would look fairly short and sweet.
+
+{% highlight swift %}
+import KIF
+
+class LoginTests : KIFTestCase {
+
+  func testEmptyUsernameAndPassword() {
+    clearOutUsernameAndPasswordFields()
+    tapButton("Login")
+    expectToSeeAlert("Username cannot be empty")
+    tapButton("OK")
+  }
+
+}
+{% endhighlight %}
+
+### Scenario 2: Empty password.
+
+Again, we will start with the scenario design first:
+
+{% highlight gherkin %}
+Scenario: Empty password
+  Given I clear out the username and password fields
+  When I fill in username
+  And I tap "Login" button
+  Then I expect to see alert "Password cannot be empty"
+{% endhighlight %}
+
+Then translate it:
+
+{% highlight swift %}
+func testEmptyPassword() {
+  clearOutUsernameAndPasswordFields()
+  fillInUsername()
+  tapButton("Login")
+  expectToSeeAlert("Password cannot be empty")
+  tapButton("OK")
+}
+{% endhighlight %}
+
+The **fillInUsername** method is also very straightforward.
+
+{% highlight swift %}
+func fillInUsername() {
+  tester().enterText("username", intoViewWithAccessibilityLabel: "Login - Username")
+}
+{% endhighlight %}
+
+Remember to put the step method in *LoginSteps.swift* instead of *LoginTests.swift*. Always keep the test clean.
+
+Run the test. Make sure it passes.
+
+Notice that the 2 tests have a same common step (*clearOutUsernameAndPasswordFields*). We will move it to the **beforeEach** method.
+
+{% highlight swift %}
+class LoginTests : KIFTestCase {
+
+  override func beforeEach() {
+    clearOutUsernameAndPasswordFields()
+  }
+
+  func testEmptyUsernameAndPassword() {
+    tapButton("Login")
+    expectToSeeAlert("Username cannot be empty")
+    tapButton("OK")
+  }
+
+  func testEmptyPassword() {
+    fillInUsername()
+    tapButton("Login")
+    expectToSeeAlert("Password cannot be empty")
+    tapButton("OK")
+  }
+
+}
+{% endhighlight %}
+
+Now that we're quite familiar with writing UI tests. Let's move on more quickly.
+
+### Scenario 3: Wrong username or password
+
+The scenario design:
+
+{% highlight gherkin %}
+Scenario: Wrong username or password
+  Given I clear out the username and password fields
+  When I fill in username
+  And I fill in wrong password
+  And I tap "Login" button
+  Then I expect to see alert "Username or password is incorrect"
+{% endhighlight %}
+
+The implementation:
+
+{% highlight swift %}
+func testWrongUsernameOrPassword() {
+  fillInUsername()
+  fillInWrongPassword()
+  tapButton("Login")
+  expectToSeeAlert("Username or password is incorrect")
+  tapButton("OK")
+}
+{% endhighlight %}
+
+Note that the first step (*clearOutUsernameAndPasswordFields*) is already in the **beforeEach** method so we don't need to call it here anymore.
+
+The **fillInWrongPassword** method:
+
+{% highlight swift %}
+func fillInWrongPassword() {
+  tester().enterText("wrongPassword", intoViewWithAccessibilityLabel: "Login - Password")
+}
+{% endhighlight %}
+
+### Scenario 4: Correct username and password
+
+The scenario design:
+
+{% highlight gherkin %}
+Scenario: Correct username or password
+  Given I clear out the username and password fields
+  When I fill in username
+  And I fill in correct password
+  And I tap "Login" button
+  Then I expect to go to home screen
+{% endhighlight %}
+
+The implementation:
+
+{% highlight swift %}
+func testWrongUsernameOrPassword() {
+  fillInUsername()
+  fillInCorrectPassword()
+  tapButton("Login")
+  expectToSeeAlert("Username or password is incorrect")
+  tapButton("OK")
+}
+{% endhighlight %}
+
+The **fillInCorrectPassword** method:
+
+{% highlight swift %}
+func fillInCorrectPassword() {
+  tester().enterText("correctPassword", intoViewWithAccessibilityLabel: "Login - Password")
+}
+{% endhighlight %}
+
+This is the correct password because I hard-coded it. (a combination of "username" and "correctPassword") 😜
 
 ## Test the home screen:
 
