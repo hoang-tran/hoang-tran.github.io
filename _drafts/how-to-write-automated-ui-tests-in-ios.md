@@ -5,9 +5,15 @@ categories: ios development
 tags: ios ui tests automated kif
 ---
 
-You probably have heard about automated tests before.
+You probably have heard about automated tests before. People talk about it a lot these days, especially when the topic is about software quality.
 
-There are 2 types of them in iOS:
+They say that if you don't write any tests for your project, you're in big trouble. It may not affect you at the moment. But in the long run, it would become a huge technical debt.
+
+That's true.
+
+Project with no tests is impossibile to maintain when it gets big and there are multiple developers involved. As you change something in the code, things start to break. You don't even know that it breaks until your boss comes to your desk and starts yelling.
+
+There are 2 types of automated tests in iOS:
 
 * Unit test:
   * test a specific case in a class.
@@ -15,17 +21,21 @@ There are 2 types of them in iOS:
 * UI test:
   * is also called Integration test.
   * test user interactions with the app.
-  * make sure that all the pieces fit well together.
+  * make sure that all classes fit well together.
 
 Both are equally important.
 
-If you only write unit tests, you can only guarantee that each class/component is good by itself. But in reality, it usually breaks when put together with other parts. It would become like this:
+If you only write unit tests and completely ignore UI tests, you'll be trapped in this situation:
 
 ![2 unit tests, 0 integration test](/images/how-to-write-automated-ui-tests-in-ios/unittest-integrationtest.gif)
 
-Writing only UI tests is not recommended either. Many edge cases can be spotted early using uint test
+Each window works fine on its own. But when put together, bad things happen. You can see how mad that man is. 😉
 
-# Our sample app:
+UI tests are simple. Even simpler than unit tests.
+
+Today we're gonna learn to write some very basic UI tests and yet still cover a fully-functional app from start to finish.
+
+# What app will we be working on?
 
 It's a simple note-taking app with the following features:
 
