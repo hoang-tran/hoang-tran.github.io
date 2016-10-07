@@ -23,7 +23,7 @@ If you only write unit tests, you can only guarantee that each class/component i
 
 ![2 unit tests, 0 integration test](/images/how-to-write-automated-ui-tests-in-ios/unittest-integrationtest.gif)
 
-The reverse is also true. Writing only UI tests is not recommended either. Many edge cases can be spotted early using uint test
+Writing only UI tests is not recommended either. Many edge cases can be spotted early using uint test
 
 # Our sample app:
 
@@ -692,6 +692,59 @@ import KIF
 
 class HomeTests: KIFTestCase {
 
+}
+{% endhighlight %}
+
+And its corresponding *HomeSteps.swift*.
+
+{% highlight swift %}
+extension HomeTests {
+
+}
+{% endhighlight %}
+
+Now that we have 2 test classes (*LoginTests* and *HomeTests*). There will be common step methods that we're gonna reuse between them. Let's create a base class called *BaseUITests.swift*.
+
+{% highlight swift %}
+class BaseUITests: KIFTestCase {
+
+}
+{% endhighlight %}
+
+Then make *LoginTests* and *HomeTest* inherit from it.
+
+{% highlight swift %}
+// in LoginTests.swift
+class LoginTests: BaseUITests { ... }
+
+// in HomeTests.swift
+class HomeTests: BaseUITests { ... }
+{% endhighlight %}
+
+Create another file called *CommonSteps.swift*. Move all common step methods there:
+
+{% highlight swift %}
+extension BaseUITests {
+  // move common steps here
+}
+{% endhighlight %}
+
+So whenever you write a step method, remember to put it into the right place.
+
+{% highlight swift %}
+// in CommonSteps.swift
+extension BaseUITests {
+  // common steps
+}
+
+// in LoginSteps.swift
+extension LoginTests {
+  // step specific for Login screen
+}
+
+// in HomeSteps.swift
+extension HomeTests {
+  // step specific for Home screen
 }
 {% endhighlight %}
 
