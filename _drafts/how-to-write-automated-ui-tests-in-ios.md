@@ -649,8 +649,7 @@ func testWrongUsernameOrPassword() {
   fillInUsername()
   fillInCorrectPassword()
   tapButton("Login")
-  expectToSeeAlert("Username or password is incorrect")
-  tapButton("OK")
+  expectToGoToHomeScreen()
 }
 {% endhighlight %}
 
@@ -664,6 +663,142 @@ func fillInCorrectPassword() {
 
 This is the correct password because I hard-coded it. (a combination of "username" and "correctPassword") 😜
 
+About the **expectToGoToHomeScreen**, how do we know if we've already transitioned into another screen?
+
+We do it by:
+
+* expect the UI elements in the login screen to disappear.
+* expect to see UI elements of the Home screen.
+
+{% highlight swift %}
+func expectToGoToHomeScreen() {
+  // expect login screen to disappear
+  tester().waitForAbsenceOfViewWithAccessibilityLabel("Login - Username")
+  tester().waitForAbsenceOfViewWithAccessibilityLabel("Login - Password")
+  tester().waitForAbsenceOfViewWithAccessibilityLabel("Login")
+
+  // expect to see Home screen
+  tester().waitForViewWithAccessibilityLabel("No notes")
+  tester().waitForViewWithAccessibilityLabel("Add note")
+}
+{% endhighlight %}
+
 ## Test the home screen:
+
+Create file *HomeTests.swift*.
+
+{% highlight swift %}
+import KIF
+
+class HomeTests: KIFTestCase {
+
+}
+{% endhighlight %}
+
+The Home screen is where we create/edit/delete our notes so there're a lot of database interations happening.
+
+We don't want put a bunch of test records into our production database every time we run the UI tests. Instead, we will create a test database and use it in our testing environment.
+
+I'm using Realm as the database layer. It provides a very convenient way of setting up a test database, which is only 1 line of code:
+
+{% highlight swift %}
+func useTestDatabase() {
+  Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "put any name here"
+}
+{% endhighlight %}
+
+This will create a Realm database in memory and it only exists for as long as the tests are still running.
+
+We're gonna put this database setup into the **beforeAll** block so that it is executed only once.
+
+{% highlight swift %}
+class HomeTests: KIFTestCase {
+
+  override func beforeAll() {
+    useTestDatabase()
+  }
+
+}
+{% endhighlight %}
+
+Now we're ready for the 4 scenarios of the Home screen.
+
+### Scenario 1: When there's no notes, display label "No notes"
+
+Since Home is not the initial screen. We must have a step to go to Home before we can do anything else.
+
+The scenario design:
+
+{% highlight gherkin %}
+Scenario: If there's no notes, display label "No notes"
+  Given I have no notes
+  When I visit home screen
+  Then I expect to see label "No notes"
+  And I expect not to see the note list
+{% endhighlight %}
+
+The implementation:
+
+{% highlight swift %}
+func testNoNotes() {
+  haveNoNotes()
+  visitHomeScreen()
+  expectToSeeLabel("No notes")
+  expectNotToSeeNoteList()
+}
+{% endhighlight %}
+
+For the **haveNoNotes**, we have to delete all records from database:
+
+{% highlight swift %}
+func haveNoNotes() {
+  let realm = try! Realm()
+  try! realm.write {
+    realm.deleteAll()
+  }
+}
+{% endhighlight %}
+
+For **visitHomeScreen**, it's a little bit tricky because after the previous test finishes, you may not know which screen you're on. You may be at the Login screen, Home screen, or any other screen.
+
+It's hard to go anywhere when you have no idea where you are at the moment, right?
+
+However, if we put ourselves at the initial (Login) screen, there is always at least 1 way to reach every screens in the app.
+
+Therefore, the solution is that no matter where you are, go back to the initial screen first, then you can proceed to other screens very easily.
+
+But how to do that?
+
+The first thing to do is grabbing a reference to the root view controller:
+
+{% highlight swift %}
+let rootViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
+{% endhighlight %}
+
+Then depends on your app architecture, we will proceed in different ways. In my case, it's a navigation controller on top of everything. So all I need to do is popping back to first controller in the navigation stack:
+
+{% highlight swift %}
+func backToRoot() {
+  if let rootViewController = UIApplication.sharedApplication().keyWindow?.rootViewController as? UINavigationController {
+    rootViewController.popToRootViewControllerAnimated(false)
+  }
+}
+{% endhighlight %}
+
+With this in place, we'll put it in the **beforeEach** method so every time a test gets executed, it has to go back to root first.
+
+{% highlight swift %}
+class HomeTests: KIFTestCase {
+
+  override func beforeAll() {
+    useTestDatabase()
+  }
+
+  override func beforeEach() {
+    backToRoot()
+  }
+
+}
+{% endhighlight %}
 
 # Wrap up
