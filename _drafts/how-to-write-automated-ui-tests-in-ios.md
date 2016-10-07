@@ -851,6 +851,210 @@ class HomeTests: KIFTestCase {
     backToRoot()
   }
 
+  func testNoNotes() {
+    haveNoNotes()
+    visitHomeScreen()
+    expectToSeeLabel("No notes")
+    expectNotToSeeNoteList()
+  }
+
+}
+{% endhighlight %}
+
+The **visitHomeScreen** method:
+
+{% highlight swift %}
+func visitHomeScreen() {
+  fillInUsername()
+  fillInCorrectPassword()
+  tapButton("Login")
+}
+{% endhighlight %}
+
+The **expectToSeeLabel** method:
+
+{% highlight swift %}
+func expectToSeeLabel(label: String) {
+  tester().waitForViewWithAccessibilityLabel(text)
+}
+{% endhighlight %}
+
+The **expectNotToSeeNoteList** method:
+
+{% highlight swift %}
+func expectNotToSeeNoteList() {
+  tester().waitForAbsenceOfViewWithAccessibilityLabel("Note - Table View")
+}
+{% endhighlight %}
+
+### Scenario 2: Create new note.
+
+The scenario design:
+
+{% highlight gherkin %}
+Scenario: Create new note
+  Given I have no notes
+  When I visit home screen
+  And I tap "Add note" button
+  Then I expect the Create button to be disabled
+  When I fill in the note title with "new note"
+  Then I expect the Create button to be enabled
+  And I fill in the note body with "new body"
+  And I tap "Create" button
+  Then I expect to see note with title "new note" and body "new body" at row 0
+  And I expect the number of notes in list to be 1
+{% endhighlight %}
+
+The implementation:
+
+{% highlight swift %}
+func testCreateNewNote() {
+  haveNoNotes()
+  visitHomeScreen()
+  tapButton("Add note")
+  expectTheCreateButtonToBeDisabled()
+  fillInNoteTitle("new note")
+  expectTheCreateButtonToBeEnabled()
+  fillInNoteBody("new body")
+  tapButton("Create")
+  expectToSeeNoteWithTitle("new note", body: "new body", atRow: 0)
+  expectNumberOfNotesInListToEqual(1)
+}
+{% endhighlight %}
+
+The **expectTheCreateButtonToBeDisabled** method:
+
+{% highlight swift %}
+func expectTheCreateButtonToBeDisabled() {
+  let createButton = tester().waitForViewWithAccessibilityLabel("Create") as! UIButton
+  expect(createButton.enabled).to(beFalsy())
+}
+{% endhighlight %}
+
+Same with **expectTheCreateButtonToBeEnabled**:
+
+{% highlight swift %}
+func expectTheCreateButtonToBeEnabled() {
+  let createButton = tester().waitForViewWithAccessibilityLabel("Create") as! UIButton
+  expect(createButton.enabled).to(beTruthy())
+}
+{% endhighlight %}
+
+The **fillInNoteTitle** and **fillInNoteBody** are easy. We just need to fill in the field with some texts.
+
+The **expectToSeeNoteWithTitle** method:
+
+{% highlight swift %}
+func expectToSeeNoteWithTitle(title: String, body: String, atRow row: NSInteger) {
+  let indexPath = NSIndexPath(forRow: row, inSection: 0)
+  let noteCell = tester().waitForCellAtIndexPath(indexPath, inTableViewWithAccessibilityIdentifier: "Note - TableView")
+  expect(noteCell.textLabel?.text) == title
+  expect(noteCell.detailTextLabel?.text) == body
+}
+{% endhighlight %}
+
+The **expectNumberOfNotesInListToEqual** method:
+
+{% highlight swift %}
+func expectNumberOfNotesInListToEqual(count: Int) {
+  let noteTableView = tester().waitForViewWithAccessibilityLabel("Note - TableView") as! UITableView
+  expect(noteTableView.numberOfRowsInSection(0)) == count
+}
+{% endhighlight %}
+
+### Scenario 3: Edit a note
+
+The scenario design:
+
+{% highlight gherkin %}
+Scenario: Edit a note
+  Given I have 3 notes
+  When I visit home screen
+  And I tap on note at row 1
+  And I update note title to "updated note"
+  And I update note body to "updated body"
+  And I tap "Update" button
+  Then I expect to see note with title "updated note" and body "updated body" at row 1
+{% endhighlight %}
+
+The implementation:
+
+{% highlight swift %}
+func editANote() {
+  have3Notes()
+  visitHomeScreen()
+  tapOnNoteAtRow(1)
+  updateNoteTitleTo("updated note")
+  updateNoteBodyTo("updated body")
+  tapButton("Update")
+  expectToSeeNoteWithTitle("updated note", body: "updated body", atRow: 1)
+}
+{% endhighlight %}
+
+The **have3Notes** method:
+
+{% highlight swift %}
+func have3Notes() {
+  let realm = try! Realm()
+  try! realm.write {
+    for i in 0...2 {
+      let note = Note()
+      note.title = "title \(i)"
+      note.body = "body \(i)"
+      realm.add(note)
+    }
+  }
+}
+{% endhighlight %}
+
+The **tapOnNoteAtRow** method:
+
+{% highlight swift %}
+func tapOnNoteAtRow(row: Int) {
+  let indexPath = NSIndexPath(forRow: row, inSection: 0)
+  tester().tapRowAtIndexPath(indexPath, inTableViewWithAccessibilityIdentifier: "Note - TableView")
+}
+{% endhighlight %}
+
+### Scenario 4: Delete notes
+
+The scenario design:
+
+{% highlight gherkin %}
+Scenario: Delete notes
+  Given I have 3 notes
+  When I visit home screen
+  When I delete a note
+  Then I expect the number of note in list to be 2
+  When I delete a note
+  Then I expect the number of note in list to be 1
+  When I delete a note
+  Then I expect to see label "No notes"
+{% endhighlight %}
+
+The implementation:
+
+{% highlight swift %}
+func deleteNotes() {
+  have3Notes()
+  visitHomeScreen()
+  deleteANote()
+  expectNumberOfNotesInListToEqual(2)
+  deleteANote()
+  expectNumberOfNotesInListToEqual(1)
+  deleteANote()
+  expectToSeeLabel("No notes")
+}
+{% endhighlight %}
+
+The **deleteANote** method:
+
+{% highlight swift %}
+func deleteANote() {
+  let noteTableView = tester().waitForViewWithAccessibilityLabel("Note - TableView") as! UITableView
+  let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+  tester().swipeRowAtIndexPath(indexPath, inTableView: noteTableView, inDirection: .Left)
+  tapButton("Delete")
 }
 {% endhighlight %}
 
