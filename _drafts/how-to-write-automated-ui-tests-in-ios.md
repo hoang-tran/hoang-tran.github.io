@@ -13,6 +13,8 @@ That's true.
 
 Project with no tests is impossibile to maintain when it gets big and there are multiple developers involved. As you change something in the code, things start to break. You don't even know that it breaks until your boss comes to your desk and starts yelling.
 
+So, it's better to know a thing or two about testing, right?
+
 There are 2 types of automated tests in iOS:
 
 * Unit test:
@@ -29,7 +31,7 @@ If you only write unit tests and completely ignore UI tests, you'll be trapped i
 
 ![2 unit tests, 0 integration test](/images/how-to-write-automated-ui-tests-in-ios/unittest-integrationtest.gif)
 
-Each window works fine on its own. But when put together, bad things happen. You can see how mad that man is. 😉
+As you can see, each window works fine on its own. But when put together, bad things happen. You can see how mad that man is. 😉
 
 UI tests are simple. Even simpler than unit tests.
 
@@ -39,7 +41,7 @@ Today we're gonna learn to write some very basic UI tests and yet still cover a 
 
 It's a simple note-taking app with the following features:
 
-* Login.
+* Login with username and password.
 * View list of notes.
 * Create new note.
 * Update existing note.
@@ -49,9 +51,11 @@ Here's a gif that runs through all functionalities of the app:
 
 ![simple note taking app in ios](/images/how-to-write-automated-ui-tests-in-ios/note-app.gif)
 
-However, our job today is not about how to build such app. What we're gonna do instead is learning how to write automated UI tests for it. That's the exciting part.
+Look like a piece of cake, right?
 
-# But what does automated UI tests look like anyway?
+However, our job today is not about how to build such app. What we're gonna do instead is learning to write automated UI tests for it, for all screens and functionalities. That's the exciting part.
+
+# But what does automated UI tests look like?
 
 Let's have a look at this video:
 
@@ -70,16 +74,14 @@ It travels through each screen and test all scenarios in sequence:
   * password field is empty.
   * username field is empty.
   * entering incorrect username or password.
-* at Note screen, it tests scenario when:
+* at Home screen, it tests scenario when:
   * adding a new note.
   * deleting notes.
   * editting an existing note.
 
-**It looks funny**.
+I don't know about you but I have to admit that **it looks funny**.
 
-Firing up the UI tests and watch it flies through everything is a fun experience.
-
-So the next time someone asks you to show the app, just run the UI tests. He'll be amazed and impressed at the same time. 😜
+Firing up the UI tests and watch it flies through everything is a fun experience. So next time when someone asks you to show your app, just run the UI tests. He'll be amazed and impressed at the same time. 😜
 
 # Why should we write automated UI tests?
 
@@ -112,8 +114,8 @@ There are some key benefits here:
   Look at this:
 
 {% highlight swift %}
-func testLoginWithWrongCredentials() {
-  fillInWrongUsername()
+func testWrongUsernameOrPassword() {
+  fillInUsername()
   fillInWrongPassword()
   tapButton("Login")
   expectToSeeAlert("Username or password is incorrect")
@@ -121,17 +123,17 @@ func testLoginWithWrongCredentials() {
 }
 {% endhighlight %}
 
-  This is a UI test for the scenario when user tries to login with the wrong credentials.
+  This is a UI test for scenario when user tries to login with wrong credentials (username or password).
 
-  Actually you don't need me to tell you what it is. It's obvious.
+  Actually you don't need me to tell you what that is. It's obvious.
 
-  If you organize your tests mindfully, you'll get this same effect. People will understand what the app can do just by reading the tests. It's the best documentation.
+  You'll quickly understand what the app can do just by reading the tests. It's the best documentation.
 
 * **Provides a visual run-through of your app**:
 
-  As I mentioned earlier, this is simply fun.
+  As I mentioned earlier, this is simply fun. It's a nice thing to have and you're gonna love it.
 
-  It's a nice thing to have and you're gonna love it.
+  Seriously, you're gonna love it for sure.
 
 Alright! I hope that gets you a little bit more excited about UI testings. Let's dive deeper.
 
@@ -170,9 +172,9 @@ swipe to delete a row
 expect the row to be deleted from the table view
 {% endhighlight %}
 
-Simple, right?
+In UI tests, we care about user interactions much more than the underlying code structure. We focus heavily on what a user can do and what he'll see on the screen. All the background stuffs can be ignored.
 
-## But how do we express UI test in Swift?
+## How do we express UI test in Swift?
 
 We're gonna need a framework called [KIF](https://github.com/kif-framework/KIF). It offers a whole lot of APIs to deal with UI interactions. For example:
 
@@ -202,29 +204,31 @@ tester().tapViewWithAccessibilityLabel("my button")
 
 Here's a couple more examples:
 
-Expect a view to appear on the screen:
+Expect a view (with accessibility label of *"my view"*) to appear on the screen:
 
 {% highlight swift %}
 tester().waitForViewWithAccessibilityLabel("my view")
 {% endhighlight %}
 
-Expect a view to disappear from the screen:
+Expect a view (with accessibility label of *"my view"*) to disappear from the screen:
 
 {% highlight swift %}
 tester().waitForAbsenceOfViewWithAccessibilityLabel("my view")
 {% endhighlight %}
 
-Delete the first cell from a UITableView:
+Get a reference to a view with accessibility label of *"my view"*:
 
 {% highlight swift %}
-let tableview = tester().waitForViewWithAccessibilityLabel("my tableview") as! UITableView
-
-let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-
-tester().swipeRowAtIndexPath(firstRow, inTableView: tableView, inDirection: .Left)
-
-tester().tapViewWithAccessibilityLabel("Delete")
+let myView = tester().waitForViewWithAccessibilityLabel("my view") as! UIView
 {% endhighlight %}
+
+Swipe left on view with accessibility label of *"my view"*:
+
+{% highlight swift %}
+tester().swipeViewWithAccessibilityLabel("my view", inDirection: .Left)
+{% endhighlight %}
+
+For full list of supported UI interactions in KIF, you can read [here](https://github.com/kif-framework/KIF/blob/master/Classes/KIFUITestActor.h).
 
 ## How do we assign accessibility label for UIView?
 
@@ -243,11 +247,13 @@ There are 2 ways that we can do:
 
 ![set accessibility label in storyboard - 2](/images/how-to-write-automated-ui-tests-in-ios/al-storyboard-2.jpg)
 
-For UITableView and UICollectionView, there won't be an **Accessibility** section available. I have no idea why Apple does that but we can workaround anyway:
+For UITableView and UICollectionView, there won't be an **Accessibility** section available. I have no idea why Apple does that. However, we can workaround anyway:
 
 ![set accessibility label in storyboard - uitableview](/images/how-to-write-automated-ui-tests-in-ios/al-tableview.gif)
 
-So basically what we do is we assign a key path that matches the **accessibilityLabel** property of UIView (UITableView inherits from UIView). Then at runtime, it will read value from key path and set its property accordingly.
+So basically what we do is we assign a key path that matches the **accessibilityLabel** property of UITableView. Then at runtime, it will read value from key path and set its property accordingly.
+
+Another thing to note is that: for UIButton or UILabel, it has a default accessibility label which is equal to its **text** property. Let's say you have a button with the text *"click me"*, then its accessibility label is also *"click me"*. You don't need to set it again.
 
 2. Using code:
 
@@ -265,11 +271,21 @@ usernameTextField.accessibilityLabel = "my username textfield"
 
 Although it looks simpler when using code, it is still recommended to set your accessibility label directly from the Storyboard if possible. The best code is no code at all.
 
-# How to setup UI testing?
+# Prepare the project:
 
-## Step 1: Import KIF and Nimble using cocoapods
+First, download the project here.
 
-Add `pod 'KIF'` and `pod 'Nimble'` to your *Podfile*. Remember to put them in the test target instead.
+Run it. Make sure it compiles fine.
+
+Play around with the app to get a sense of what we're gonna do next.
+
+# How to setup KIF for UI testing?
+
+## Step 1: Import KIF and Nimble using cocoapods.
+
+Add `pod 'KIF'` and `pod 'Nimble'` to your *Podfile*. Remember to put them in the test target.
+
+Nimble is a framework to help you better express your expectation in test. I once wrote an article about it [here](http://hoangtran.me/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble/).
 
 {% highlight ruby %}
 platform :ios, '9.0'
@@ -294,7 +310,7 @@ Open Terminal and run:
 pod install
 {% endhighlight %}
 
-## Step 2: Create KIF helper for Swift
+## Step 2: Create KIF helper for Swift.
 
 Create a *KIF+Extensions.swift* file in your test target.
 
@@ -322,17 +338,17 @@ extension KIFTestActor {
 }
 {% endhighlight %}
 
-Create a briding header:
+## Step 3: Create a briding header.
 
-* Create a new temporary Objective-C file in your test target. You can name it to anything.
+Create a new temporary Objective-C file in your test target. You can name it to anything.
 
 ![](/images/how-to-setup-testing-for-new-ios-project/create-objc-file.png)
 
-* Xcode will ask whether you also want to add a briding header. Hit **Create Bridging Header**.
+Xcode will ask whether you also want to add a briding header. Hit **Create Bridging Header**.
 
 ![](/images/how-to-setup-testing-for-new-ios-project/add-bridging-header.png)
 
-* Delete the temporary ObjC file we just created above. We don't need it anymore.
+Delete the temporary ObjC file we just created above. We don't need it anymore.
 
 Import **KIF** from within the bridging header (*SimpleNoteTakingApp-Bridging-Header.h*).
 
@@ -340,7 +356,9 @@ Import **KIF** from within the bridging header (*SimpleNoteTakingApp-Bridging-He
 #import <KIF/KIF.h>
 {% endhighlight %}
 
-Create our first UI test (also in the test target). Let's name it *LoginTests.swift*.
+## Step 4: Create our first UI test.
+
+Create a new file in the test target and name it to *LoginTests.swift*.
 
 {% highlight swift %}
 import KIF
@@ -363,7 +381,7 @@ Now let's run the test to see how it works (Cmd + U).
 
 It should open up the iOS simulator and stop at the login screen. Wait for a couple of seconds. Then fail.
 
-That's because we haven't had any view with accessibility label of **hello** yet. We're gonna fix that later. But for now, we have our first UI test up and running. That's cool.
+That's because we haven't had any view with accessibility label of **hello** yet. We're gonna fix that later. But for now, our first UI test is up and running. It's cool.
 
 # Let's start writing UI tests for our elegent note-taking app
 
