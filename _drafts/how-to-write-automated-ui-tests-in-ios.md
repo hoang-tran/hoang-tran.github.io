@@ -358,7 +358,7 @@ Import **KIF** from within the bridging header (*SimpleNoteTakingApp-Bridging-He
 
 ## Step 4: Create our first UI test.
 
-Create a new file in the test target and name it to *LoginTests.swift*.
+Create a new file in the test target and name it to `LoginTests.swift`.
 
 {% highlight swift %}
 import KIF
@@ -393,19 +393,23 @@ There are 4 scenarios in the login screen:
 
 In this case, the user should see an alert telling him that *"Username cannot be empty"*.
 
-Before writing UI test, you should take some time to describe the entire scenario first. It would help to visualize the whole picture and organize your code better.
+Now before we move on to the nitty gritty, I want you to take some time and design the scenario first: what step will you perform? And what do you expect out of it?
 
-The recommended way is to use the Gherkin format:
+* First, we would like our username and password fields to be cleared out.
+* Then we tap the Login button.
+* And we expect to see an alert that says "Username cannot be empty".
+
+Actually there's a better way to express these steps, using Gherkin format. Here's the basic structure of a scenario:
 
 {% highlight gherkin %}
-Scenario: Put your scenario name here
-  Given some precondition
+Scenario: Your scenario name
+  Given some pre-condition
   When I do something
   Then I expect something to happen
   ...
 {% endhighlight %}
 
-In our case, the scenario would look like this:
+In our case, the scenario would become:
 
 {% highlight gherkin %}
 Scenario: Empty username and password
@@ -414,9 +418,11 @@ Scenario: Empty username and password
   Then I expect to see alert "Username cannot be empty"
 {% endhighlight %}
 
+Although this is just something we draft on a paper, or directly in our mind, it's very close to the human language. Everyone should be able to read and understand.
+
 Let's translate it into Swift.
 
-Open *LoginTests.swift* and write the first test:
+Open `LoginTests.swift` and write our first test. Again, test method name must begin with prefix **test**.
 
 {% highlight swift %}
 func testEmptyUsernameAndPassword() {
@@ -458,7 +464,7 @@ func testEmptyUsernameAndPassword() {
 
 Now we have the whole scenario written down in Swift. It's time to fill in the definition for each method.
 
-To clear the text field, we use the KIF method *clearTextFromViewWithAccessibilityLabel*, which is quite self-explanatory. So the **clearOutUsernameAndPasswordFields** would be:
+To clear the text field, we use the KIF method **clearTextFromViewWithAccessibilityLabel**, which is quite self-explanatory. So the **clearOutUsernameAndPasswordFields** would be:
 
 {% highlight swift %}
 func clearOutUsernameAndPasswordFields() {
@@ -483,7 +489,7 @@ func expectToSeeAlert(text: String) {
 }
 {% endhighlight %}
 
-This is the *LoginTests.swift* at this point:
+This is the `LoginTests.swift` at this point:
 
 {% highlight swift %}
 import KIF
@@ -521,7 +527,7 @@ The simulator will pop up and run over your steps auto-magically.
 
 The test should pass. (since all functionalities are already implemented)
 
-Let's do a litte refactoring here. Create a new file called *LoginSteps.swift* and move all step methods there.
+Let's do a litte refactoring here. Create a new file called `LoginSteps.swift` and move all step methods there.
 
 {% highlight swift %}
 extension LoginTests {
@@ -542,7 +548,7 @@ extension LoginTests {
 }
 {% endhighlight %}
 
-Then the *LoginTests.swift* would look fairly short and sweet.
+Then the `LoginTests.swift` would look fairly short and sweet.
 
 {% highlight swift %}
 import KIF
@@ -587,15 +593,15 @@ The **fillInUsername** method is also very straightforward.
 
 {% highlight swift %}
 func fillInUsername() {
-  tester().enterText("username", intoViewWithAccessibilityLabel: "Login - Username")
+  tester().enterText("appcoda", intoViewWithAccessibilityLabel: "Login - Username")
 }
 {% endhighlight %}
 
-Remember to put the step method in *LoginSteps.swift* instead of *LoginTests.swift*. Always keep the test clean.
+Remember to put the step method in `LoginSteps.swift` instead of `LoginTests.swift`. Always keep the test clean.
 
 Run the test. Make sure it passes.
 
-Notice that the 2 tests have a same common step (*clearOutUsernameAndPasswordFields*). We will move it to the **beforeEach** method.
+Notice that the 2 tests now have a same common step (**clearOutUsernameAndPasswordFields**). We will move it to the **beforeEach** method. That's where you put things you wanna execute first before each test runs.
 
 {% highlight swift %}
 class LoginTests : KIFTestCase {
@@ -647,7 +653,7 @@ func testWrongUsernameOrPassword() {
 }
 {% endhighlight %}
 
-Note that the first step (*clearOutUsernameAndPasswordFields*) is already in the **beforeEach** method so we don't need to call it here anymore.
+Note that the first step (**clearOutUsernameAndPasswordFields**) is already in the **beforeEach** method so we don't need to call it here anymore.
 
 The **fillInWrongPassword** method:
 
@@ -689,11 +695,11 @@ func fillInCorrectPassword() {
 }
 {% endhighlight %}
 
-This is the correct password because I hard-coded it. (a combination of "username" and "correctPassword") 😜
+This is the correct password because I hard-coded it. (a combination of "appcoda" and "correctPassword") 😜
 
 About the **expectToGoToHomeScreen**, how do we know if we've already transitioned into another screen?
 
-We do it by:
+Well, we do it by:
 
 * expect the UI elements in the login screen to disappear.
 * expect to see UI elements of the Home screen.
@@ -713,7 +719,7 @@ func expectToGoToHomeScreen() {
 
 ## Test the home screen:
 
-Create file *HomeTests.swift*.
+Create file `HomeTests.swift`.
 
 {% highlight swift %}
 import KIF
@@ -723,7 +729,7 @@ class HomeTests: KIFTestCase {
 }
 {% endhighlight %}
 
-And its corresponding *HomeSteps.swift*.
+And its corresponding `HomeSteps.swift`.
 
 {% highlight swift %}
 extension HomeTests {
@@ -731,7 +737,7 @@ extension HomeTests {
 }
 {% endhighlight %}
 
-Now that we have 2 test classes (*LoginTests* and *HomeTests*). There will be common step methods that we're gonna reuse between them. Let's create a base class called *BaseUITests.swift*.
+Now that we have more than 1 test class (`LoginTests` and `HomeTests`). There will be common step methods that we're gonna reuse between them. Let's create a base class called `BaseUITests.swift`.
 
 {% highlight swift %}
 class BaseUITests: KIFTestCase {
@@ -749,7 +755,7 @@ class LoginTests: BaseUITests { ... }
 class HomeTests: BaseUITests { ... }
 {% endhighlight %}
 
-Create another file called *CommonSteps.swift*. Move all common step methods there:
+Create another file called `CommonSteps.swift`. Move all common step methods there:
 
 {% highlight swift %}
 extension BaseUITests {
@@ -757,7 +763,10 @@ extension BaseUITests {
 }
 {% endhighlight %}
 
-So whenever you write a step method, remember to put it into the right place.
+So whenever you write a step method, be sure to put it into the right place:
+
+* steps that are widely used among test classes should belong to `CommonSteps.swift`.
+* steps that are only used in a specific screen should go to its corresponding step file. (Ex: `LoginSteps.swift` or `HomeSteps.swift`)
 
 {% highlight swift %}
 // in CommonSteps.swift
@@ -776,11 +785,11 @@ extension HomeTests {
 }
 {% endhighlight %}
 
-The Home screen is where we create/edit/delete our notes so there're a lot of database interations happening.
+The Home screen is where we create/edit/delete our notes so there're a lot of database interactions happening.
 
-We don't want put a bunch of test records into our production database every time we run the UI tests. Instead, we will create a test database and use it in our testing environment.
+We don't wanna put a bunch of test records into our production database every time we run the UI tests. Instead, we will create a test database and use it in our testing environment.
 
-I'm using Realm as the database layer. It provides a very convenient way of setting up a test database, which is only 1 line of code:
+Since I'm using Realm as the database layer. It only takes me 1 line of code to setup a test database:
 
 {% highlight swift %}
 func useTestDatabase() {
@@ -789,6 +798,8 @@ func useTestDatabase() {
 {% endhighlight %}
 
 This will create a Realm database in memory and it only exists for as long as the tests are still running.
+
+Your project may use a different database technology (CoreData, FMDB, SQLite) but the idea is the same. You create a test database file and direct all test records into it. Your main database file is safe.
 
 We're gonna put this database setup into the **beforeAll** block so that it is executed only once.
 
@@ -807,8 +818,6 @@ Now we're ready for the 4 scenarios of the Home screen.
 ### Scenario 1: When there's no notes, display label "No notes"
 
 Since Home is not the initial screen. We must have a step to go to Home before we can do anything else.
-
-The scenario design:
 
 {% highlight gherkin %}
 Scenario: If there's no notes, display label "No notes"
@@ -933,6 +942,8 @@ Scenario: Create new note
   And I expect the number of notes in list to be 1
 {% endhighlight %}
 
+There's little bit of logic here. The create button is only enabled if there's some text in the title field, otherwise it will be disabled.
+
 The implementation:
 
 {% highlight swift %}
@@ -955,7 +966,7 @@ The **expectTheCreateButtonToBeDisabled** method:
 {% highlight swift %}
 func expectTheCreateButtonToBeDisabled() {
   let createButton = tester().waitForViewWithAccessibilityLabel("Create") as! UIButton
-  expect(createButton.enabled).to(beFalsy())
+  expect(createButton.enabled) == false
 }
 {% endhighlight %}
 
@@ -964,7 +975,7 @@ Same with **expectTheCreateButtonToBeEnabled**:
 {% highlight swift %}
 func expectTheCreateButtonToBeEnabled() {
   let createButton = tester().waitForViewWithAccessibilityLabel("Create") as! UIButton
-  expect(createButton.enabled).to(beTruthy())
+  expect(createButton.enabled) == true
 }
 {% endhighlight %}
 
