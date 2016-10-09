@@ -11,9 +11,9 @@ They say that if you don't write any tests for your project, you're in big troub
 
 That's true.
 
-Project with no tests is impossibile to maintain when it gets big and there are multiple developers involved. As you change something in the code, things start to break. You don't even know that it breaks until your boss comes to your desk and starts yelling.
+Project with no tests is impossibile to maintain when it gets big and there are multiple developers involved. As you change something in the code, things start to break. You don't even know that it breaks until your boss comes to your desk and starts yelling. You know that feeling, right?
 
-So, it's better to know a thing or two about testing, right?
+So, it's better to know a thing or two about testing so that you can improve your project quality and also improve yourself as a software engineer.
 
 There are 2 types of automated tests in iOS:
 
@@ -668,7 +668,7 @@ func fillInWrongPassword() {
 The scenario design:
 
 {% highlight gherkin %}
-Scenario: Correct username or password
+Scenario: Correct username and password
   Given I clear out the username and password fields
   When I fill in username
   And I fill in correct password
@@ -679,7 +679,7 @@ Scenario: Correct username or password
 The implementation:
 
 {% highlight swift %}
-func testWrongUsernameOrPassword() {
+func testCorrectUsernameAndPassword() {
   fillInUsername()
   fillInCorrectPassword()
   tapButton("Login")
@@ -877,6 +877,8 @@ func backToRoot() {
 
 With this in place, we'll put it in the **beforeEach** method so every time a test gets executed, it has to go back to root first.
 
+After that, it's recommended to clear out the database to ensure a fresh start for subsequent tests. We're gonna move the **haveNoNotes** step into the **beforeEach** method too.
+
 {% highlight swift %}
 class HomeTests: KIFTestCase {
 
@@ -886,10 +888,10 @@ class HomeTests: KIFTestCase {
 
   override func beforeEach() {
     backToRoot()
+    haveNoNotes()
   }
 
   func testNoNotes() {
-    haveNoNotes()
     visitHomeScreen()
     expectToSeeLabel("No notes")
     expectNotToSeeNoteList()
@@ -961,7 +963,10 @@ func testCreateNewNote() {
 }
 {% endhighlight %}
 
-The **expectTheCreateButtonToBeDisabled** method:
+For the **expectTheCreateButtonToBeDisabled** method, we have to:
+
+* First, get a reference to the Create button.
+* Then assert its property using Nimble. (If you don't know what Nimble is, read [here](http://hoangtran.me/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble/))
 
 {% highlight swift %}
 func expectTheCreateButtonToBeDisabled() {
@@ -981,7 +986,10 @@ func expectTheCreateButtonToBeEnabled() {
 
 The **fillInNoteTitle** and **fillInNoteBody** are easy. We just need to fill in the field with some texts.
 
-The **expectToSeeNoteWithTitle** method:
+The **expectToSeeNoteWithTitle** method can be done using the same approach too.
+
+* Get a reference to the cell.
+* Assert for its property.
 
 {% highlight swift %}
 func expectToSeeNoteWithTitle(title: String, body: String, atRow row: NSInteger) {
@@ -1030,7 +1038,7 @@ func editANote() {
 }
 {% endhighlight %}
 
-The **have3Notes** method:
+The **have3Notes** method: we add 3 records to Realm database.
 
 {% highlight swift %}
 func have3Notes() {
@@ -1098,3 +1106,17 @@ func deleteANote() {
 {% endhighlight %}
 
 # Wrap up
+
+UI tests are easy to learn but yield a lot of benefits.
+
+It might take a couple of days to familiarize yourself with KIF and how to work with accessibility labels. But then after that, you're unstoppable.
+
+Your UI tests are going to cover all user scenarios across the app. Whenever you change something in the code, you're good to go as long as the tests are still passing.
+
+The only downside I found is that it really take time to run the whole UI test suite as your app grows. For this note taking app, it take me around 80 seconds to run through everything, considering I'm using an old hackintosh with Intel Core i3.
+
+For bigger real-world app, it may take much longer, from a couple of minutes to even hours. But the good news is we can delegate the test running task to another service called **Continuous Integration**. That deserves another blog post for itself.
+
+You can download the full project (with all UI tests) here.
+
+If you have any questions regarding UI tests, feel free to put a comment down below. I would love to hear more from you guys. Thanks and have a good day.
