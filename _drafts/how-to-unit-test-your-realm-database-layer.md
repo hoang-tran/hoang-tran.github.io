@@ -457,14 +457,343 @@ describe("all") {
 
 ### Filtering:
 
+What we have:
+
+{% highlight swift %}
+class Person: Object {
+  ...
+
+  class func adults() -> Results<Person> {
+    let realm = try! Realm()
+    return realm.objects(Person.self).filter("age >= 18")
+  }
+
+  ...
+}
+{% endhighlight %}
+
+Steps to test:
+
+{% highlight abc %}
+1. Create 3 dummy persons in database with age 17, 18 and 19 respectively.
+2. Call the "adults" method.
+3. Expect the returned results to only contain 2 persons with age 18 and 19.
+{% endhighlight %}
+
+Create the test:
+
+{% highlight swift %}
+describe("adults") {
+  it("returns persons who are 18+ only") {
+
+  }
+}
+{% endhighlight %}
+
+Fill in the test body:
+
+{% highlight swift %}
+describe("adults") {
+  it("returns persons who are 18+ only") {
+    // 1. Create 3 dummy persons in database with age 17, 18 and 19 respectively
+    self.createPersons(3)
+
+    // 2. Call the "adults" method
+    let adults = Person.adults()
+
+    // 3. Expect the returned results to only contain 2 persons with age 18 and 19
+    expect(adults.count) == 2
+    expect(adults[0].age) == 18
+    expect(adults[1].age) == 19
+  }
+}
+{% endhighlight %}
+
 ### Sorting:
 
-### Limiting results:
+What we have:
+
+{% highlight swift %}
+class Person: Object {
+  ...
+
+  class func oldestFirst() -> Results<Person> {
+    let realm = try! Realm()
+    return realm.objects(Person.self).sorted("age", ascending: false)
+  }
+
+  ...
+}
+{% endhighlight %}
+
+Steps to test:
+
+{% highlight abc %}
+1. Create 3 dummy persons in database with age 17, 18 and 19 respectively.
+2. Call the "oldestFirst" method.
+3. Expect the returned results to be in sorted order. (old -> young)
+{% endhighlight %}
+
+Create the test:
+
+{% highlight swift %}
+describe("oldestFirst") {
+  it("returns persons in sorted order, old to young") {
+
+  }
+}
+{% endhighlight %}
+
+Fill in the test body:
+
+{% highlight swift %}
+describe("oldestFirst") {
+  it("returns persons in sorted order, old to young") {
+    // 1. Create 3 dummy persons in database with age 17, 18 and 19 respectively
+    self.createPersons(3)
+
+    // 2. Call the "oldestFirst" method
+    let results = Person.oldestFirst()
+
+    // 3. Expect the returned results to be in sorted order (old -> young)
+    expect(results.count) == 3
+    expect(results[0].age) == 19
+    expect(results[1].age) == 18
+    expect(results[2].age) == 17
+  }
+}
+{% endhighlight %}
 
 ## 2.3. Update:
 
 ### Update properties:
 
+What we have:
+
+{% highlight swift %}
+class Person: Object {
+  dynamic var name = ""
+  dynamic var age = 0
+  ...
+
+  func updateName(name: String, age: Int) {
+    let realm = try! Realm()
+    try! realm.write {
+      self.name = name
+      self.age = age
+    }
+  }
+
+  ...
+}
+{% endhighlight %}
+
+Steps to test:
+
+{% highlight abc %}
+1. Create a person.
+2. Save the person to database.
+3. Call the "updateName:age" method
+4. Expect the updated properties are saved to database.
+{% endhighlight %}
+
+Create the test:
+
+{% highlight swift %}
+describe("updateName:age") {
+  it("updates properties to database correctly") {
+
+  }
+}
+{% endhighlight %}
+
+Fill in the test body:
+
+{% highlight swift %}
+describe("updateName:age") {
+  it("updates properties to database correctly") {
+    // 1. Create a person
+    let person = Person(name: personName, age: personAge)
+
+    // 2. Save the person to database
+    person.save()
+
+    // 3. Call the "updateName:age" method
+    person.updateName(newName, age: newAge)
+
+    // 4. Expect the updated properties are saved to database
+    let realm = try! Realm()
+    let personFromDatabase = realm.objects(Person.self).last
+    expect(personFromDatabase?.name) == newName
+    expect(personFromDatabase?.age) == newAge
+  }
+}
+{% endhighlight %}
+
 ### Update with primary key:
 
+What we have:
+
+{% highlight swift %}
+class Person: Object {
+  ...
+  dynamic var id = 0
+
+  override static func primaryKey() -> String? {
+    return "id"
+  }
+
+  func updateFrom(person: Person) {
+    guard self.id == person.id else { return }
+
+    let realm = try! Realm()
+    try! realm.write {
+      realm.add(person, update: true)
+    }
+  }
+
+  ...
+}
+{% endhighlight %}
+
+Steps to test:
+
+Context 1: different primary key (id)
+
+{% highlight abc %}
+1. Create person A.
+2. Save person A to database.
+3. Create person B with different id than person A.
+4. Call "updateFrom" on person A, pass person B in as argument.
+5. Expect person A not to update anything.
+{% endhighlight %}
+
+Context 2: same primary key (id)
+
+{% highlight abc %}
+1. Create person A.
+2. Save person A to database.
+3. Create person B with the same id as person A.
+4. Call "updateFrom" on person A, pass person B in as argument.
+5. Expect person A to have its properties updated from person B.
+{% endhighlight %}
+
+Create the test:
+
+{% highlight swift %}
+describe("update with id") {
+  context("different id") {
+    it("does not update anything") {
+
+    }
+  }
+
+  context("same id") {
+    it("updates properties to database correctly") {
+
+    }
+  }
+}
+{% endhighlight %}
+
+Fill in the test body:
+
+{% highlight swift %}
+describe("update with id") {
+  context("different id") {
+    it("does not update anything") {
+      // 1. Create a person A
+      let personA = Person(id: 1, name: personName, age: personAge)
+
+      // 2. Save person A to database
+      personA.save()
+
+      // 3. Create person B with different id than person A
+      let personB = Person(id: 2, name:newName, age: newAge)
+
+      // 4. Call "updateFrom" on person A, pass person B in as argument
+      personA.updateFrom(personB)
+
+      // 5. Expect person A not to update anything
+      let realm = try! Realm()
+      let personFromDatabase = realm.objects(Person.self).last
+      expect(personFromDatabase?.name) == personName
+      expect(personFromDatabase?.age) == personAge
+    }
+  }
+
+  context("same id") {
+    it("updates properties to database correctly") {
+      // 1. Create a person A
+      let personA = Person(id: 1, name: personName, age: personAge)
+
+      // 2. Save person A to database
+      personA.save()
+
+      // 3. Create person B with the same id as person A
+      let personB = Person(id: 1, name:newName, age: newAge)
+
+      // 4. Call "updateFrom" on person A, pass person B in as argument
+      personA.updateFrom(personB)
+
+      // 5. Expect person A to have its properties updated from person B
+      let realm = try! Realm()
+      let personFromDatabase = realm.objects(Person.self).last
+      expect(personFromDatabase?.name) == newName
+      expect(personFromDatabase?.age) == newAge
+    }
+  }
+}
+{% endhighlight %}
+
 ## 2.4. Delete:
+
+What we have:
+
+{% highlight swift %}
+class Person: Object {
+  ...
+
+  func delete() {
+    let realm = try! Realm()
+    try! realm.write {
+      realm.delete(self)
+    }
+  }
+
+  ...
+}
+{% endhighlight %}
+
+Steps to test:
+
+{% highlight abc %}
+1. Create 3 dummy persons.
+2. Find the second person in database.
+3. Call "delete" method on that person.
+4. Expect 2 persons remain in the database: the first and third one.
+{% endhighlight %}
+
+Create the test:
+
+{% highlight swift %}
+describe("delete") {
+  it("deletes the object from database") {
+    // 1. Create 3 dummy persons
+    self.createPersons(3)
+
+    // 2. Find the second person in database
+    let realm = try! Realm()
+    let secondPerson = realm.objectForPrimaryKey(Person.self, key: 1)
+
+    // 3. Call "delete" method on that person
+    secondPerson?.delete()
+
+    // 4. Expect 2 persons remain in the database: the first and third one
+    let persons = Person.all()
+    expect(persons.count) == 2
+    expect(persons[0].id) == 0
+    expect(persons[1].id) == 2
+  }
+}
+{% endhighlight %}
