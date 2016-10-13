@@ -5,9 +5,88 @@ categories: ios testing
 tags: ios realm unittest database
 ---
 
+# Prerequisite:
+
+Before we start, make sure you're familiar with:
+
+* [How to write unit tests in iOS Part 1: XCTestCase](/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase).
+* [How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)](/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd).
+* [Write better unit test assertions with Nimble](/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble).
+
 # Setup Realm for testing:
 
+When we're testing, we may create/update or delete some records from the Realm database. We don't want those changes to affect the production database. If we let that happens, it would become a disaster.
+
+What we're gonna do is directing all Realm operations into a test database instead of the real one. Realm provides a very convenient way to do exactly just that.
+
+{% highlight swift %}
+Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "database A"
+{% endhighlight %}
+
+This will point Realm to a in-memory database (namely "database A") where we can freely experiment and do whatever we want. Since it's in memory, it won't affect the production database at all.
+
+Now we need to call this Realm configuration line before any tests get executed. The ideal place is in the **beforeSuite** method:
+
+{% highlight swift %}
+class PersonSpec: QuickSpec {
+  override func spec() {
+    super.spec()
+
+    beforeSuite {
+      Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+    }
+  }
+}
+{% endhighlight %}
+
+Note: you can set the `inMemoryIdentifier` to anything as long as it's not nil. In this case, I'm setting it to the Spec's name so every Spec will use different in-memory database.
+
+Additionally, we wanna clear out all records so that each test would start with a fresh empty database. Override the **beforeEach** and put in the code to delete everything within Realm:
+
+{% highlight swift %}
+class PersonSpec: QuickSpec {
+  override func spec() {
+    super.spec()
+
+    beforeSuite {
+      Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+    }
+
+    beforeEach {
+      let realm = try! Realm()
+      try! realm.write {
+        realm.deleteAll()
+      }
+    }
+  }
+}
+{% endhighlight %}
+
+We now have a clean and isolated testing environment. Let's move on and write some real tests.
+
+* [1. Testing models](#testing-models)
+  * [1.1. Test custom initializer](#test-custom-initializer)
+  * [1.2. Test relationships](#test-relationships)
+    * [To-One Relationships](#to-one-relationships)
+    * [To-Many Relationships](#to-many-relationships)
+    * [Inverse Relationships](#inverse-relationships)
+  * [1.3. Test ignored properties](#test-ignored-properties)
+* [2. Testing **CRUD** operations](#testing-crud-operations)
+  * [2.1. **C**reate](#create)
+  * [2.2. **R**ead](#read)
+    * [Retrieving all objects](#retrieving-all-objects)
+    * [Filtering](#filtering)
+    * [Sorting](#sorting)
+  * [2.3. **U**pdate](#update)
+    * [Update properties](#update-properties)
+    * [Update with primary key](#update-with-primary-key)
+  * [2.4. **D**elete](#delete)
+
 # 1. Testing models:
+
+Although Realm is a well-tested framework, we still need to write a certain amount of unit tests to make sure that everything works as expected.
+
+We may end up having a short Realm model but super long testing code. But bear with me, it's totally worth it.
 
 ## 1.1. Test custom initializer:
 
@@ -30,7 +109,7 @@ Steps to test:
 
 {% highlight abc %}
 1. Create a person using the custom initializer.
-2. Expect that all properties of that person are correctly assigned.
+2. Expect all properties of that person are correctly assigned.
 {% endhighlight %}
 
 Create the test:
@@ -51,7 +130,7 @@ describe("initialize with name and age") {
     // 1. Create a person using the custom initializer
     let person = Person(name: "name A", age: 18)
 
-    // 2. Expect that all properties of that person are correctly assigned.
+    // 2. Expect all properties of that person are correctly assigned.
     expect(person.name) == "name A"
     expect(person.age) == 18
   }
@@ -317,7 +396,7 @@ describe("ignored properties") {
 
 Again, the `personAddress` and `personHeight` are just some constants defined elsewhere.
 
-# 2. Testing Realm transactions:
+# 2. Testing CRUD operations:
 
 ## 2.1. Create:
 
