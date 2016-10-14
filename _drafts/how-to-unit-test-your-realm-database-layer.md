@@ -5,13 +5,17 @@ categories: ios testing
 tags: ios realm unittest database
 ---
 
+# Realm is a well-tested framework, why bother writing your own?
+
 # Prerequisite:
 
-Before we start, make sure you're familiar with:
+Before we start, make sure you know:
 
-* [How to write unit tests in iOS Part 1: XCTestCase](/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase).
-* [How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)](/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd).
-* [Write better unit test assertions with Nimble](/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble).
+* [how to use Realm Swift](https://realm.io/docs/swift/latest/).
+* how to write basic unit tests:
+  * [How to write unit tests in iOS Part 1: XCTestCase](/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase).
+  * [How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)](/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd).
+  * [Write better unit test assertions with Nimble](/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble).
 
 # Setup Realm for testing:
 
@@ -84,13 +88,18 @@ We now have a clean and isolated testing environment. Let's move on and write so
 
 # 1. Testing models:
 
-Although Realm is a well-tested framework, we still need to write a certain amount of unit tests to make sure that everything works as expected.
-
-We may end up having a short Realm model but super long testing code. But bear with me, it's totally worth it.
-
 ## 1.1. Test custom initializer:
 
-What you have:
+Let's say we have a **Person** model with 2 properties: name and age.
+
+{% highlight swift %}
+class Person: Object {
+  dynamic var name = ""
+  dynamic var age = 0
+}
+{% endhighlight %}
+
+We also have a custom initializer to quickly set those properites:
 
 {% highlight swift %}
 class Person: Object {
@@ -105,14 +114,16 @@ class Person: Object {
 }
 {% endhighlight %}
 
-Steps to test:
+Now how do we test this intializer method?
+
+Well, we do it in 2 steps:
 
 {% highlight abc %}
 1. Create a person using the custom initializer.
 2. Expect all properties of that person are correctly assigned.
 {% endhighlight %}
 
-Create the test:
+Let's go ahead and add the test to your Spec file: (`PersonSpec.swift` in this case)
 
 {% highlight swift %}
 describe("initialize with name and age") {
@@ -122,7 +133,7 @@ describe("initialize with name and age") {
 }
 {% endhighlight %}
 
-Fill in the test body:
+Fill in the test body with 2 steps we mentioned above:
 
 {% highlight swift %}
 describe("initialize with name and age") {
@@ -135,13 +146,16 @@ describe("initialize with name and age") {
     expect(person.age) == 18
   }
 }
+
 {% endhighlight %}
+
+Run the test (Cmd + U) and make sure that it passes.
 
 ## 1.2. Test relationships:
 
 ### To-One Relationships:
 
-What you have:
+What we have:
 
 {% highlight swift %}
 class Dog: Object {
@@ -203,7 +217,7 @@ Note that `personName`, `personAge` and `dogName` are just some constants define
 
 ### To-Many Relationships:
 
-What you have:
+What we have:
 
 {% highlight swift %}
 class Person: Object {
@@ -268,7 +282,7 @@ describe("to-many relationship") {
 
 ### Inverse Relationships:
 
-What you have:
+What we have:
 
 {% highlight swift %}
 class Dog: Object {
