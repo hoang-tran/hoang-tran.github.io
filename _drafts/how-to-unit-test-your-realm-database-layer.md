@@ -2,7 +2,17 @@
 layout: post
 title:  'How to unit test your Realm database layer'
 categories: ios testing
+meta_description: Learn how to write unit tests to cover most of Realm features and make sure that your database layer works flawlessly.
+description: Learn how to write unit tests to cover most of Realm features and make sure that your database layer works flawlessly.
+summary: Learn how to write unit tests to cover most of Realm features and make sure that your database layer works flawlessly.
 tags: ios realm unittest database swift
+image: how-to-unit-test-your-realm-database-layer/realm-logo.jpg
+related: [
+  'How to unit test your Network Layer in iOS',
+  'How to write unit tests in iOS Part 1: XCTestCase',
+  'How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)',
+  'Write better unit test assertions with Nimble'
+]
 ---
 
 Database is a crucial part of any softwares nowadays, especially mobile applications. We use database to store various things, such as:
@@ -25,7 +35,7 @@ The database techonology I'm gonna use today is **Realm**. Although there are ma
 
 * It's fast, like... extremely fast. Look at this chart: (Source: [qiita](http://qiita.com/moriyaman/items/1a2916f4c2b79e934370))
 
-![Realm speed test](/images/how-to-write-unit-test-your-realm-database-layer/realm-chart.png)
+![Realm speed test](/images/how-to-unit-test-your-realm-database-layer/realm-chart.png)
 
 * It's easy to use. The interface is very simple and swift-friendly. You can do all kinds of database operations with minimal efforts.
 
@@ -78,7 +88,7 @@ Before we start, make sure you know:
 
 When we're testing, we may create/update or delete some records from the Realm database. We don't want those changes to affect the production database. If we let that happens, it would become a disaster.
 
-What we're gonna do is directing all Realm operations into a test database instead of the real one. Realm provides a very convenient way to do exactly just that.
+What we're gonna do is we direct all Realm operations into a test database instead of the real one. Realm provides a very convenient way to do exactly just that.
 
 {% highlight swift %}
 Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "database A"
@@ -959,4 +969,3 @@ Alright, that's it for today. The sample project can be found at: <https://githu
 I wish to hear more from you guys too. Please drop me a comment down below.
 
 **Have you ever used Realm? Do you write unit tests for it? Do you have any tips you wanna share with everyone?**
-
