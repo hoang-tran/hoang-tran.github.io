@@ -2,12 +2,69 @@
 layout: post
 title:  'How to unit test your Realm database layer'
 categories: ios testing
-tags: ios realm unittest database
+tags: ios realm unittest database swift
 ---
 
-# Realm is a well-tested framework, why bother writing your own?
+Database is a crucial part of any softwares nowadays, especially mobile applications. We use database to store various things, such as:
 
-# Prerequisite:
+* app settings: to make it consistent between app launches.
+* app context: to perserve the last screen user visited. (in case the app was killed, either intentionally by the user or automatically by the system to reclaim memory)
+* data from a network reponse: to better support offline mode.
+* anything you want to save for later submission when network is available.
+* etc and etc...
+
+Those are the things that make an app fast and responsive and eventually useful.
+
+Therefore, we wanna make sure that our database works correctly. No mistakes or errors is tolerant here.
+
+But **how do we achieve that?**
+
+Well, you know, we write unit tests for it.
+
+The database techonology I'm gonna use today is **Realm**. Although there are many other good alternatives out there that can do the job well, they're just not as great as Realm. Here's a couple of reasons why Realm is my database of choice:
+
+* It's fast, like... extremely fast. Look at this chart: (Source: [qiita](http://qiita.com/moriyaman/items/1a2916f4c2b79e934370))
+
+![Realm speed test](/images/how-to-write-unit-test-your-realm-database-layer/realm-chart.png)
+
+* It's easy to use. The interface is very simple and swift-friendly. You can do all kinds of database operations with minimal efforts.
+
+{% highlight swift %}
+// Define a Dog model
+class Dog: Object {
+  dynamic var name = ""
+  dynamic var age = 0
+}
+
+// Create a Dog instance
+let myDog = Dog()
+myDog.name = "Rex"
+myDog.age = 1
+
+// Add the dog the database
+let realm = try! Realm()
+try! realm.write {
+  realm.add(myDog)
+}
+
+// Retrieve dogs from database
+let puppies = realm.objects(Dog.self).filter("age < 2")
+puppies.count // => 1
+{% endhighlight %}
+
+* It's open source, mostly.
+  * If you encounter a bug, you can hop in and take a look at the underlying implementation. That would help you get an understanding of how things work and hopefully fix your bug.
+  * If you find something that can be improved, you can work on it and open a Pull-Request to contribute back to Realm. That's powerful.
+
+Realm is late to the game but proves to be one of the best mobile databases in the market, if not the best, apparently.
+
+However, we're **not** gonna learn how to use Realm today. Instead, we will try to write unit tests for it.
+
+We're gonna write a lot and cover most of Realm features. It may take time so make sure you're passionate about it.
+
+Alright, if that gets you excited, let's jump in.
+
+# Prerequisites:
 
 Before we start, make sure you know:
 
@@ -27,7 +84,7 @@ What we're gonna do is directing all Realm operations into a test database inste
 Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "database A"
 {% endhighlight %}
 
-This will point Realm to a in-memory database (namely "database A") where we can freely experiment and do whatever we want. Since it's in memory, it won't affect the production database at all.
+This will point Realm to an in-memory database (namely "database A") where we can freely experiment and do whatever we want. Since it's in memory, it won't affect the production database at all.
 
 Now we need to call this Realm configuration line before any tests get executed. The ideal place is in the **beforeSuite** method:
 
@@ -890,3 +947,16 @@ describe("delete") {
   }
 }
 {% endhighlight %}
+
+# Wrap up
+
+These are just some simple use cases of Realm. They serve as the building blocks for writing more complex ones.
+
+In a real-world scenario, it might require a combination of multiple Realm operations at a time. However, the testing approach is basically the same. You can extend it very easily.
+
+Alright, that's it for today. The sample project can be found at: <https://github.com/hoang-tran/UnitTestRealm>
+
+I wish to hear more from you guys too. Please drop me a comment down below.
+
+**Have you ever used Realm? Do you write unit tests for it? Do you have any tips you wanna share with everyone?**
+
