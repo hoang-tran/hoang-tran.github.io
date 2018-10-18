@@ -1,0 +1,7 @@
+<div class="posts">
+  {% for post in paginator.posts %}
+    {% include post-list-item.html item=post %}
+  {% endfor %}
+</div>
+
+{% include pagination.html %}
