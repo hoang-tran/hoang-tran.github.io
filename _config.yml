@@ -120,5 +120,10 @@ sass:
 gems:
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-multiple-languages-plugin
 # https://github.com/jekyll/jekyll/issues/2938
 exclude: [vendor]
+languages: ["en", "vi"]
+exclude_from_localizations: ["javascript", "images", "css", "scripts", 
+"CNAME", "Gemfile", "Gemfile.lock", "LICENSE.txt",
+"nitrous.json", "Rakefile", "README.md", "README.nitrous.md"]
