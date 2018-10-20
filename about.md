@@ -1,9 +1,9 @@
 ---
 layout: page
 title: About
-namespace: about
-permalink: /about
-permalink_vi: /gioi-thieu
+permalink: about
+permalink_en: about
+permalink_vi: gioi-thieu
 tags: about
 ---
 

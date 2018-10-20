@@ -1,3 +1,4 @@
 {% include language-switcher.html %}
-<a href="{% tl archives %}">{% t global.archives %}</a>
-<a href="{% tl about %}">{% t global.about %}</a>
+
+<a href="{{ site.url }}/{% include function/permalink_archives.html %}">{% t global.archives %}</a>
+<a href="{{ site.url }}/{% include function/permalink_about.html %}">{% t global.about %}</a>

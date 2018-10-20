@@ -1,7 +1,7 @@
 <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure">
-      <a href="{{ site.url }}" class="site-title">{% t global.my_name %}</a>
+      <a href="{{ site.url }}/{% include function/language_code.html %}" class="site-title">{% t global.my_name %}</a>
       <nav class="site-nav">
         {% include navigation.html %}
       </nav>
