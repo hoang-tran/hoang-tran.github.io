@@ -1,7 +1,7 @@
-Hi, my name is Hoang Tran.
+Hi, I'm Hoang. 
 
-I’m a guy who loves to make great software. I write weekly about iOS development, testing and deployment.
+I'm a software engineer. 
 
-When I’m not programming, I usually find myself traveling to somewhere new with my wife.
+I blog about career, travel, investing, personal development and many other spontanious stuffs on my mind. 
 
-I have a small dream of leaving a mark to this world someday. I hope I’m still alive when that happens :)
+I hope this blog is useful to you.

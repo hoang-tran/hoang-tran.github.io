@@ -3,10 +3,7 @@ global:
   archives: Archives
   my_name: Hoang Tran
   site_description: >
-    Hi guys, I'm Hoang Tran. This is my blog.
-    I write weekly about iOS development/testing/deployment.
-    If you have any questions related to iOS, feel free to ask me.
-    Would love to make friends with all of you
+    Hi, I'm Hoang. I'm a software engineer. I blog about career, travel, investing, personal development and many other spontanious stuffs on my mind. I hope this blog is useful to you.
 pagination:
   next: Next
   prev: Prev
