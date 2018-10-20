@@ -74,7 +74,7 @@ pre a:only-of-type::before {
 }
 
 pre, .highlight .p {
-  font-size: 1rem;
+  font-size: $code-font-size;
 }
 
 .highlight {

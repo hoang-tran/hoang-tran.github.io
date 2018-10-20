@@ -1,0 +1,5 @@
+{% if site.lang == 'en' %}
+  {{ include.date | date: "%B" }}
+{% else %} 
+  tháng {{ include.date | date: "%m" }}
+{% endif %}

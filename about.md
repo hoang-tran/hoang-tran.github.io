@@ -1,9 +1,9 @@
 ---
 layout: page
-title: About Me
+title: global.about
 namespace: about
-permalink: /about/
-permalink_vi: /gioi-thieu/
+permalink: /about
+permalink_vi: /gioi-thieu
 tags: about
 ---
 

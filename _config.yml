@@ -17,6 +17,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://hoangtran.me"
 repository: hoang-tran/hoang-tran.github.io
 date_format: "%b %-d, %Y"
+date_format_vi: "%d/%m/%Y"
 
 # Google services
 google_verification: rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM
