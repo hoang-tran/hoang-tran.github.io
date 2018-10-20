@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% if page.title %}{{ page.title | strip_html }} &#8211; {% endif %}{{ site.title | strip_html }}</title>
+    <title>{% if page.title %}{{ page.title | strip_html }} &#8211; {% endif %}{% t global.my_name %}</title>
     <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
     <link rel="dns-prefetch" href="//cdn.mathjax.org">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
@@ -12,7 +12,7 @@
     <meta name="author" content="{{ site.author }}">
     {% if page.categories %}<meta name="keywords" content="{{ page.categories | join: ', ' }}">{% endif %}
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed for {{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl }}" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for {% t global.my_name %}" href="{{ "/feed.xml" | prepend: site.baseurl }}" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ "/css/pixyll.css" | prepend: site.baseurl }}?{{ site.time | date: "%Y%m%d%H%M" }}" type="text/css">
@@ -41,10 +41,10 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="{{ site.text.og_locale }}">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif %}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title | xml_escape }}{% else %}{% t global.my_name %}{% endif %}">
     <meta property="og:description" content="{% if page.description %}{{ page.description | xml_escape }}{% else %}{% t global.site_description %}{% endif %}">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-    <meta property="og:site_name" content="{{ site.title | xml_escape }}">
+    <meta property="og:site_name" content="{% t global.my_name %}">
     <meta property="og:image" content="{{ site.url }}/images/{% if page.image %}{{ page.image }}{% else %}swift_logo.png{% endif %}">
     <meta property="fb:app_id" content="{{ site.facebook_appid }}" />
 
@@ -53,7 +53,7 @@
     {% if site.twitter_username %}
         <meta name="twitter:site" content="@{{ site.twitter_username }}" />
     {% endif %}
-    <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+    <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{% t global.my_name %}{% endif %}" />
     <meta name="twitter:description" content="{% if page.summary %}{{ page.summary }}{% else %}{% t global.site_description %}{% endif %}" />
     <meta name="twitter:url" content="{{ site.url }}{{ page.url }}" />
     <meta name="twitter:image" content="{{ site.url }}/images/{% if page.image %}{{ page.image }}{% else %}swift_icon.png{% endif %}" />
