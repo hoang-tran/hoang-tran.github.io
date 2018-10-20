@@ -2,6 +2,8 @@ global:
   about: Giới thiệu
   archives: Tổng hợp
   my_name: Hoàng Trần
+  site_description: >
+    Hi guys, I'm Hoàng
 pagination:
   next: Xem bài viết mới
   prev: Xem bài viết cũ
