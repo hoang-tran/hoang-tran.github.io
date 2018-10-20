@@ -2,11 +2,5 @@
 layout: default
 ---
 <div class="home">
-  {% include language-switcher.html %}
-  
-  {% if paginator.posts.size > 0 %}
-    {% include post-list.html %}
-  {% else %}
-    {% include coming-soon.html %}
-  {% endif %}
+  {% include post-list.html %}
 </div>

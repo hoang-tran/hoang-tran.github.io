@@ -77,6 +77,9 @@ share_stumbleupon: false
 share_hackernews: false
 
 text:
+  languages:
+    en: English
+    vi: Tiếng Việt
   pagination:
     newer: 'Next'
     older: 'Prev'
@@ -121,6 +124,7 @@ gems:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-multiple-languages-plugin
+  - octopress-debugger
 # https://github.com/jekyll/jekyll/issues/2938
 exclude: [vendor]
 languages: ["en", "vi"]
