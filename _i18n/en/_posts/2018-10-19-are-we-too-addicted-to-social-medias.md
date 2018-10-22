@@ -6,7 +6,7 @@ description: Are we spending too much time on Facebook, Instagram and Youtube?
 summary: Are we spending too much time on Facebook, Instagram and Youtube? 
 permalink: are-we-too-addicted-to-social-medias
 permalink_en: are-we-too-addicted-to-social-medias
-permalink_vi: co-phai-chung-ta-qua-nghien-mang-xa-hoi
+permalink_vi: co-phai-chung-ta-dang-qua-nghien-mang-xa-hoi
 ---
 
 It's 8:30 am in the morning. 
@@ -37,13 +37,15 @@ At 11:30 pm, I brushed my teeth, lied down comfortably in bed and watched some m
 
 "It was a good day".
 
-The next morning, I was woken up by the alarm, reached out to my phone and repeated the routine all over again. This continued for months.
+The next morning, I was woken up by the alarm, reached out to my phone and repeated the routine all over again.
 
 ## What's wrong?
 
 Actually, there's nothing wrong with that. It all depends on priorities. 
 
-At that time, I decided to only focus on 2 things: "work" and "family". After a stressful day at work, after my family has been taken care of, there's nothing wrong with watching a bunch of videos or browsing Facebook mindlessly. It's my free time after all, I need to relax and be entertained.
+At that time, I decided to only focus on 2 things: "work" and "family". 
+
+After a stressful day at work, after my family has been taken care of, there's nothing wrong with watching a bunch of videos or browsing Facebook mindlessly. It's my free time after all, I need to relax and be entertained.
 
 The problem comes when you start compromising your main priorities to make time for Facebook, Instagram or Youtube. For examples:
 * You try to find idle time at work to check your social content. You easily get distracted by notifications and couldn't concentrate for long hours. You constantly check your phone during meetings and have no idea what other people are discussing about.
