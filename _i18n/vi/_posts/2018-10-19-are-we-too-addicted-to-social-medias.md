@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Có phải chúng ta đang quá nghiện mạng xã hội?
-meta_description: test description
-description: test description
-summary: test description
+meta_description: Có phải chúng ta đang dành quá nhiều thời gian cho Facebook, Instagram, Youtube?
+description: Có phải chúng ta đang dành quá nhiều thời gian cho Facebook, Instagram, Youtube?
+summary: Có phải chúng ta đang dành quá nhiều thời gian cho Facebook, Instagram, Youtube?
 permalink: co-phai-chung-ta-dang-qua-nghien-mang-xa-hoi
 permalink_en: are-we-too-addicted-to-social-medias
 permalink_vi: co-phai-chung-ta-dang-qua-nghien-mang-xa-hoi

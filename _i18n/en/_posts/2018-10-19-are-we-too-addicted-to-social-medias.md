@@ -15,13 +15,15 @@ An alarm rang.
 
 I reached out to my phone to turn it off. 
 
-Before my feet even hit the ground, I noticed that there were 2 new notifications on my Facebook app. One was about a new post in some online market that I didn't even remember following. Another was from a stranger who just liked my silly selfie. "Great, someone liked it".
+Before my feet even hit the ground, I noticed that there were 2 new notifications on my Facebook. 
+* ZYZ posted in Online shoes market... "Hmm? When did I follow this market?. 
+* A stranger just liked my silly photo. "Great, someone liked it".
 
-While scrolling through my Facebook feeds, I came across a dozen of videos that kept playing by themselves. I watched one video about a funny dog getting trolled by his owner. That was hillarious. 
+While scrolling through my Facebook feeds, I wasn't sure whether I saw any updates from my friends. I mostly came across a dozen of videos that kept playing by themselves. I watched one video about a funny dog getting trolled by his owner. "That was hillarious".
 
 Then the next video showed up which also looked interesting. I tapped on it and continued watching.
 
-45 minutes passed, I jumped out of bed, got ready and headed to the office at 9:30 am. 
+45 minutes passed, it's time for work. I jumped out of bed, got ready and headed to the office at 9:30 am. 
 
 It was a productive day. I got back home and had dinner. It's 9:00 pm already.
 
@@ -35,27 +37,27 @@ I watched a few of them and subscribed to more channels.
 
 At 11:30 pm, I brushed my teeth, lied down comfortably in bed and watched some more videos until my eyes force themselves to close. 
 
-"It was a good day".
+"It was a boring day".
 
-The next morning, I was woken up by the alarm, reached out to my phone and repeated the routine all over again.
+The next morning, I was woken up by the annoying alarm, reached out to my phone and repeated the routine all over again.
 
-## What's wrong?
+## Something is not right?
 
 Actually, there's nothing wrong with that. It all depends on priorities. 
 
 At that time, I decided to only focus on 2 things: "work" and "family". 
 
-After a stressful day at work, after my family has been taken care of, there's nothing wrong with watching a bunch of videos or browsing Facebook mindlessly. It's my free time after all, I need to relax and be entertained.
+After a stressful day at work, after spending my time with my family, there's nothing wrong with watching a bunch of videos or browsing Facebook mindlessly. It's my free time after all, I need to relax and be entertained.
 
 The problem comes when you start compromising your main priorities to make time for Facebook, Instagram or Youtube. For examples:
-* You try to find idle time at work to check your social content. You easily get distracted by notifications and couldn't concentrate for long hours. You constantly check your phone during meetings and have no idea what other people are discussing about.
+* You always try to utilize idle time at work to check your social content. You easily get distracted by notifications and couldn't concentrate for long hours. You constantly check your phone during meetings and have no idea what other people are discussing about.
 * While having dinner with your family, you stare at your phone most of the time instead of listening or thinking about what to say.
 
-However, I didn't do any these behaviours. Even if I did, I consider that to be an easy problem. It's easy to notice and easy to make adjustment. If I get too distracted at work, my boss will tell me. If I don't pay attention to my family, they will tell me. There's no way I won't notice my social addiction. 
+However, I didn't have these behaviours. Even if I did, I consider that to be an easy problem. It's easy to notice and easy to make adjustment. If I get too distracted at work, my boss will tell me. If I don't pay attention to my family, they will tell me. There's no way I won't notice my social addiction. 
 
 ## So what is the real problem?
 
-The real problem here is that because of this addiction, I didn't bother reflecting on myself anymore, to see whether I'm improving everyday and whether I'm on track of achieving my goals. 
+Because of this addiction, I didn't bother "reflecting on myself" anymore, to see whether I'm improving everyday and whether I'm on track of achieving my goals. 
 
 If I aim to reach the top of my career, would it be enough to just spend a minimal time at work and then call it a day? Is there anything else that I can contribute? Do I need to learn something else?
 
@@ -67,7 +69,7 @@ Are those questions important to me? When is the time to sit back and think if m
 
 This problem was more difficult because:
 * I didn't know that it existed at all. Nobody's gonna tell me that I need to work on my long-term goals besides "work" and "family". I just happened to realize that something was missing. I felt unfulfilled as every week passed by.
-* It's hard to resist the instant gratification of opening that little blue app to see how my friends are doing. Who wants to sit down and work on some goals without any noticeable results for the next 6-12 months, right?
+* It's hard to resist the instant gratification of opening that little blue app to see how my friends are doing. Who wants to sit down and work on some inspiring goals without any noticeable results for the next 6-12 months, right?
 
 ## How did I address the problem?
 
@@ -77,16 +79,17 @@ Therefore, I went on and made massive changes:
 * Instead of getting up at 8:30 am, I get up at 6:30 am. 
   * The trick is to go to bed before 11pm. 
   * I also plan my morning ahead of time so that I have something exciting to jump out of bed for.
-* After getting up, I turn the alarm off without picking up the phone. Then I head to my working desk. The sun still hasn't risen yet.
+* After getting up, I turn the alarm off without picking up the phone. Then I head straight to my working desk. The sun still hasn't risen yet.
 * I look at my important questions and try to search for the answers. Most of them lead to a series of blogs and a plenty of book recommendations. As I go through each blog and book, I get more and more excited to absorb the knowledge that I believe to be useful for my goals.
 * At 8:15 am, I go to the gym downstair and excercise for 30 minutes.
-* At 9:15 am, I head to work.
+* At 9:15 am, head to work.
 * Now that I have discovered a lot of reading materials, I need a plan to consume all of them as soon as possible. 
-  * I read blogs/books from 6:30 to 8:15 am.
+  * from 6:30 to 8:15 am, I read blogs/books a bit, then I write for my own blog.
   * On the train to and from work, I also try to read some more.
   * When I need to walk in and out of a train station, it requires my attention so I stop reading and play an audiobook instead. 
   * I keep on listening to the audiobook until I get to my desk at the office.
-  * This helps maximize my learning and keep me interested the whole journey. 40-minute commute feels like a 15-minute massage. Sometimes, I even want more commute ;>
+
+This helps maximize my learning and keep me interested the whole journey. 40-minute commute feels like a 15-minute massage. Sometimes, I even want more commute ;>
 
 I've been following this practice for a while. Not only do I not feel tired from waking up early, but I'm also full of energy when I get to work. I guess it's thanks to the engaging books and the regular morning exercises that I do daily. So far, everything has been working for me.
 
@@ -94,4 +97,6 @@ I've been following this practice for a while. Not only do I not feel tired from
 
 Social media has become an integrated part of every day's life. It's great to connect with many friends across the globe and be able to watch a tremendous amount of creative content everywhere. But we better be cautious not to get too addicted to it and forget what the important things in our life are.
 
-I know that everyone has his/her own priorities. But by sharing my problems and how I addressed them, I hope it will help you look back and maybe discover something useful in your life. Please feel free to leave a comment down below to let me know what you think.
+I know that everyone has his/her own priorities. But by sharing my problems and how I addressed them, I hope it will help you look back and maybe discover something useful in your life. 
+
+Please feel free to leave a comment down below to let me know what you think.
