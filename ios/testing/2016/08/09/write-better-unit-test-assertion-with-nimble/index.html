@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -130,7 +130,7 @@
 </div>
 
 <article class="post-content">
-  <p>Normally, when we write unit tests in iOS, we usually use the <code class="highlighter-rouge">XCTAssert</code> method to describe our expectation for the test. The syntax is very simple.</p>
+  <p>Normally, when we write unit tests in iOS, we usually use the <code class="language-plaintext highlighter-rouge">XCTAssert</code> method to describe our expectation for the test. The syntax is very simple.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">XCTAssert</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
 
@@ -140,7 +140,7 @@
 
 <p>However, when these tests fail, we have no idea <strong>why</strong>.</p>
 
-<p>Xcode only shows us <code class="highlighter-rouge">XCTAssertTrue failed</code> or <code class="highlighter-rouge">XCTAssertFalse failed</code> without any explanation.</p>
+<p>Xcode only shows us <code class="language-plaintext highlighter-rouge">XCTAssertTrue failed</code> or <code class="language-plaintext highlighter-rouge">XCTAssertFalse failed</code> without any explanation.</p>
 
 <p><img src="/images/write-better-unit-test-assertions-with-nimble/xctassert-fail.png" alt="" /></p>
 
@@ -224,7 +224,7 @@
 
 <h2 id="so-how-do-we-install-nimble">So how do we install Nimble?</h2>
 
-<p>Just like any other pod, all you need to do is adding one single line <code class="highlighter-rouge">pod 'Nimble'</code> to your Podfile. Note that since we only use Nimble for testing purpose, we want to add it to the test target only.</p>
+<p>Just like any other pod, all you need to do is adding one single line <code class="language-plaintext highlighter-rouge">pod 'Nimble'</code> to your Podfile. Note that since we only use Nimble for testing purpose, we want to add it to the test target only.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'9.0'</span>
 
@@ -238,17 +238,17 @@
   <span class="k">end</span>
 <span class="k">end</span></code></pre></figure>
 
-<p>Finally open <code class="highlighter-rouge">Terminal</code> and type:</p>
+<p>Finally open <code class="language-plaintext highlighter-rouge">Terminal</code> and type:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod install</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod <span class="nb">install</span></code></pre></figure>
 
-<p>If you don’t know how to setup <code class="highlighter-rouge">cocoapods</code> properly, you can read this <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-2-setup-cocoapods">post</a> for detailed steps.</p>
+<p>If you don’t know how to setup <code class="language-plaintext highlighter-rouge">cocoapods</code> properly, you can read this <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-2-setup-cocoapods">post</a> for detailed steps.</p>
 
 <h2 id="wrap-up">Wrap up</h2>
 
-<p>In this post, we discussed about some of <code class="highlighter-rouge">XCTAssert</code>’s shortcomings and how <code class="highlighter-rouge">Nimble</code> can fill that gap.</p>
+<p>In this post, we discussed about some of <code class="language-plaintext highlighter-rouge">XCTAssert</code>’s shortcomings and how <code class="language-plaintext highlighter-rouge">Nimble</code> can fill that gap.</p>
 
-<p><code class="highlighter-rouge">Nimble</code> also provides an expressive way of writing your expectation so that it reads just like plain English. I highly recommend <code class="highlighter-rouge">Nimble</code> to anyone who is learning to write unit tests and want to write them beautifully.</p>
+<p><code class="language-plaintext highlighter-rouge">Nimble</code> also provides an expressive way of writing your expectation so that it reads just like plain English. I highly recommend <code class="language-plaintext highlighter-rouge">Nimble</code> to anyone who is learning to write unit tests and want to write them beautifully.</p>
 
 </article>
 

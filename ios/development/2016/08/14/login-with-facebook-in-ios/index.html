@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -149,7 +149,7 @@
 
 <ul>
   <li>Has 2 screens: Login screen and Home screen.</li>
-  <li>There is a <code class="highlighter-rouge">Login with Facebook</code> button on the Login screen. When users tap on that button, they will be taken to Safari or Facebook iOS app (if installed) to do the authentication.</li>
+  <li>There is a <code class="language-plaintext highlighter-rouge">Login with Facebook</code> button on the Login screen. When users tap on that button, they will be taken to Safari or Facebook iOS app (if installed) to do the authentication.</li>
   <li>After successfully authenticated, they will move to the Home screen, which only has a welcome label and a Logout button. When they tap on the Logout button, they will be right back at the Login screen again.</li>
 </ul>
 
@@ -177,7 +177,7 @@
   <li>ect…</li>
 </ul>
 
-<p>The act of <code class="highlighter-rouge">asking users for permissions to use their information</code> and <code class="highlighter-rouge">having them to accept</code> is called <code class="highlighter-rouge">authentication</code>. They trust you enough to give those information and even let you do something on their behalf. (post to their Timeline, invite their friends…)</p>
+<p>The act of <code class="language-plaintext highlighter-rouge">asking users for permissions to use their information</code> and <code class="language-plaintext highlighter-rouge">having them to accept</code> is called <code class="language-plaintext highlighter-rouge">authentication</code>. They trust you enough to give those information and even let you do something on their behalf. (post to their Timeline, invite their friends…)</p>
 
 <h2 id="so-what-do-we-need-to-prepare-for-facebook-authentication">So what do we need to prepare for Facebook authentication?</h2>
 
@@ -186,14 +186,14 @@
 <ol>
   <li>A booth:
     <ul>
-      <li>this refers to as a <code class="highlighter-rouge">Facebook app</code>.</li>
-      <li>I’m <strong>not</strong> talking about the <code class="highlighter-rouge">Facebook iOS app</code> on your phone. I’m talking about the <code class="highlighter-rouge">Facebook app</code> you registered on Facebook Developers website.</li>
-      <li>A <code class="highlighter-rouge">Facebook app</code> is like an identity of your business on Facebook. All authentications will happen through that.</li>
+      <li>this refers to as a <code class="language-plaintext highlighter-rouge">Facebook app</code>.</li>
+      <li>I’m <strong>not</strong> talking about the <code class="language-plaintext highlighter-rouge">Facebook iOS app</code> on your phone. I’m talking about the <code class="language-plaintext highlighter-rouge">Facebook app</code> you registered on Facebook Developers website.</li>
+      <li>A <code class="language-plaintext highlighter-rouge">Facebook app</code> is like an identity of your business on Facebook. All authentications will happen through that.</li>
     </ul>
   </li>
   <li>A way for user to come to our booth:
     <ul>
-      <li>this refers to as <code class="highlighter-rouge">platform</code>.</li>
+      <li>this refers to as <code class="language-plaintext highlighter-rouge">platform</code>.</li>
       <li>It can be a website, a game, an app… In our case, it’ll be an iOS app.</li>
     </ul>
   </li>
@@ -226,7 +226,7 @@
 
 <h3 id="step-1-create-a-new-facebook-app">Step 1: Create a new Facebook app.</h3>
 
-<p>Visit <a href="https://developers.facebook.com/apps">Facebook Developers website</a> and click on <code class="highlighter-rouge">Add a New App</code>.</p>
+<p>Visit <a href="https://developers.facebook.com/apps">Facebook Developers website</a> and click on <code class="language-plaintext highlighter-rouge">Add a New App</code>.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/facebook-developers-apps.jpg" alt="" /></p>
 
@@ -235,27 +235,27 @@
 <p><img src="/images/login-with-facebook-in-ios/create-new-app-id.png" alt="" /></p>
 
 <ul>
-  <li>Display Name: this is what the user will see when the authentication happens. You can put any text here, including spaces and special characters. Ex: <code class="highlighter-rouge">My Awesome App</code>, <code class="highlighter-rouge">Super News Reader</code>, etc…</li>
+  <li>Display Name: this is what the user will see when the authentication happens. You can put any text here, including spaces and special characters. Ex: <code class="language-plaintext highlighter-rouge">My Awesome App</code>, <code class="language-plaintext highlighter-rouge">Super News Reader</code>, etc…</li>
   <li>Is this a test version of another app? <strong>No</strong>.</li>
   <li>Contact Email: put your email address here.</li>
-  <li>Categories: Choose the category that best describe your app. Ex: if you’re building a news reader app, choose <code class="highlighter-rouge">News</code>.</li>
+  <li>Categories: Choose the category that best describe your app. Ex: if you’re building a news reader app, choose <code class="language-plaintext highlighter-rouge">News</code>.</li>
 </ul>
 
-<p>Then hit <code class="highlighter-rouge">Create App ID</code>.</p>
+<p>Then hit <code class="language-plaintext highlighter-rouge">Create App ID</code>.</p>
 
 <p>Facebook will challenge you with a simple quiz to detect whether you’re a real human. Ex: select all the photos which show a flower.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/security-check.jpg" alt="" /></p>
 
-<p>Select all the correct photos and hit <code class="highlighter-rouge">Submit</code> (scroll down if you don’t see the button). You will then be redirected to the app dashboard.</p>
+<p>Select all the correct photos and hit <code class="language-plaintext highlighter-rouge">Submit</code> (scroll down if you don’t see the button). You will then be redirected to the app dashboard.</p>
 
 <h3 id="step-2-add-ios-platform-to-your-facebook-app">Step 2: Add iOS platform to your Facebook app.</h3>
 
-<p>Click on <code class="highlighter-rouge">Settings</code>.</p>
+<p>Click on <code class="language-plaintext highlighter-rouge">Settings</code>.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/app-dashboard-product.jpg" alt="" /></p>
 
-<p>Click on <code class="highlighter-rouge">Add Platform</code>.</p>
+<p>Click on <code class="language-plaintext highlighter-rouge">Add Platform</code>.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/add-platform.jpg" alt="" /></p>
 
@@ -271,17 +271,17 @@
 
 <ol>
   <li>Tap on the project icon on the left sidebar.</li>
-  <li>Choose <code class="highlighter-rouge">General</code> tab.</li>
-  <li>Copy the <code class="highlighter-rouge">Bundle Identifier</code> field.</li>
+  <li>Choose <code class="language-plaintext highlighter-rouge">General</code> tab.</li>
+  <li>Copy the <code class="language-plaintext highlighter-rouge">Bundle Identifier</code> field.</li>
 </ol>
 
 <p><img src="/images/login-with-facebook-in-ios/bundle-id.jpg" alt="" /></p>
 
 <p>Go back to the iOS form on the web and paste in the bundle ID you just copied.</p>
 
-<p>Turn on <code class="highlighter-rouge">Single Sign On</code>.</p>
+<p>Turn on <code class="language-plaintext highlighter-rouge">Single Sign On</code>.</p>
 
-<p>Then click <code class="highlighter-rouge">Save Changes</code>.</p>
+<p>Then click <code class="language-plaintext highlighter-rouge">Save Changes</code>.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/ios-platform-filled.jpg" alt="" /></p>
 
@@ -291,9 +291,9 @@
 
 <h3 id="step-1-import-facebook-sdk">Step 1: Import Facebook SDK.</h3>
 
-<p>The easiest way is to use <code class="highlighter-rouge">cocoapods</code>. If you haven’t installed <code class="highlighter-rouge">cocoapods</code> yet, please read <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-2-setup-cocoapods">this guide at step 2</a>.</p>
+<p>The easiest way is to use <code class="language-plaintext highlighter-rouge">cocoapods</code>. If you haven’t installed <code class="language-plaintext highlighter-rouge">cocoapods</code> yet, please read <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-2-setup-cocoapods">this guide at step 2</a>.</p>
 
-<p>Add <code class="highlighter-rouge">FBSDKCoreKit</code> and <code class="highlighter-rouge">FBSDKLoginKit</code> pods to your Podfile:</p>
+<p>Add <code class="language-plaintext highlighter-rouge">FBSDKCoreKit</code> and <code class="language-plaintext highlighter-rouge">FBSDKLoginKit</code> pods to your Podfile:</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># replace 'TestFacebookLogin' with your own target name</span>
 <span class="n">target</span> <span class="s1">'TestFacebookLogin'</span> <span class="k">do</span>
@@ -303,47 +303,47 @@
   <span class="n">pod</span> <span class="s1">'FBSDKLoginKit'</span>
 <span class="k">end</span></code></pre></figure>
 
-<p>Open <code class="highlighter-rouge">Terminal</code> and run this command:</p>
+<p>Open <code class="language-plaintext highlighter-rouge">Terminal</code> and run this command:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod install</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod <span class="nb">install</span></code></pre></figure>
 
 <h3 id="step-2-configure-the-infoplist-file">Step 2: Configure the Info.plist file.</h3>
 
-<p>Open the generated <code class="highlighter-rouge">.xcworkspace</code>.</p>
+<p>Open the generated <code class="language-plaintext highlighter-rouge">.xcworkspace</code>.</p>
 
-<p>Right-click on the <code class="highlighter-rouge">Info.plist</code>.</p>
+<p>Right-click on the <code class="language-plaintext highlighter-rouge">Info.plist</code>.</p>
 
-<p>Choose to open as <code class="highlighter-rouge">Source Code</code>.</p>
+<p>Choose to open as <code class="language-plaintext highlighter-rouge">Source Code</code>.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/info-plist-open.png" alt="" /></p>
 
-<p>You will see the content of <code class="highlighter-rouge">Info.plist</code> in XML format:</p>
+<p>You will see the content of <code class="language-plaintext highlighter-rouge">Info.plist</code> in XML format:</p>
 
 <p><img src="/images/login-with-facebook-in-ios/info-plist-before.jpg" alt="" /></p>
 
 <p>Go back to your Facebook app settings on the web.</p>
 
-<p>Click on <code class="highlighter-rouge">Quick Start</code></p>
+<p>Click on <code class="language-plaintext highlighter-rouge">Quick Start</code></p>
 
 <p><img src="/images/login-with-facebook-in-ios/ios-platform-quick-start.jpg" alt="" /></p>
 
-<p>Scroll down to the <code class="highlighter-rouge">Configure your info.plist</code> part.</p>
+<p>Scroll down to the <code class="language-plaintext highlighter-rouge">Configure your info.plist</code> part.</p>
 
 <p>Facebook already generated 2 blocks of XML code for us with all the necessary information prefilled.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/configure-plist.jpg" alt="" /></p>
 
-<p>Copy the first block to your <code class="highlighter-rouge">Info.plist</code> (under the <code class="highlighter-rouge">&lt;dict&gt;</code> tag).</p>
+<p>Copy the first block to your <code class="language-plaintext highlighter-rouge">Info.plist</code> (under the <code class="language-plaintext highlighter-rouge">&lt;dict&gt;</code> tag).</p>
 
 <p>Then copy the second block just below the first one.</p>
 
-<p>If you do it correctly, your <code class="highlighter-rouge">Info.plist</code> will look like this:</p>
+<p>If you do it correctly, your <code class="language-plaintext highlighter-rouge">Info.plist</code> will look like this:</p>
 
 <p><img src="/images/login-with-facebook-in-ios/info-plist-after.jpg" alt="" /></p>
 
 <h3 id="step-3-wire-it-up-in-appdelegate">Step 3: Wire it up in AppDelegate.</h3>
 
-<p>Open <code class="highlighter-rouge">AppDelegate.swift</code>.</p>
+<p>Open <code class="language-plaintext highlighter-rouge">AppDelegate.swift</code>.</p>
 
 <p>Import Facebook SDK module at the top of the file.</p>
 
@@ -370,13 +370,13 @@
 <p>What do these 2 lines do?</p>
 
 <ol>
-  <li>This is when the app first launch, we want to call the <code class="highlighter-rouge">FBSDKApplicationDelegate</code> to initialize the Facebook SDK.</li>
-  <li>This is after the app switch to Safari (or the Facebook iOS app), finish the authentication and then switch back to our app, it will store the <code class="highlighter-rouge">accessToken</code> that Facebook passes back to us as a proof of successful authentication.</li>
+  <li>This is when the app first launch, we want to call the <code class="language-plaintext highlighter-rouge">FBSDKApplicationDelegate</code> to initialize the Facebook SDK.</li>
+  <li>This is after the app switch to Safari (or the Facebook iOS app), finish the authentication and then switch back to our app, it will store the <code class="language-plaintext highlighter-rouge">accessToken</code> that Facebook passes back to us as a proof of successful authentication.</li>
 </ol>
 
 <h3 id="step-4-call-login-action-in-viewcontroller">Step 4: Call login action in ViewController.</h3>
 
-<p>In your <code class="highlighter-rouge">LoginViewController</code>, when user tap on the <code class="highlighter-rouge">Login With Facebook</code> button, you will make the call to Facebook:</p>
+<p>In your <code class="language-plaintext highlighter-rouge">LoginViewController</code>, when user tap on the <code class="language-plaintext highlighter-rouge">Login With Facebook</code> button, you will make the call to Facebook:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">onTapLoginWithFacebook</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">//1.</span>
@@ -407,29 +407,29 @@
 <p>This is what the code above does:</p>
 
 <ol>
-  <li>Instantiate a <code class="highlighter-rouge">loginManager</code>. This object is used to make the call to authenticate with Facebook.</li>
+  <li>Instantiate a <code class="language-plaintext highlighter-rouge">loginManager</code>. This object is used to make the call to authenticate with Facebook.</li>
   <li>Define a list of permissions to request. For simplicity, we only ask for the public profile of our users.</li>
   <li>Define a closure to handle callback when the Facebook authentication finished. There are 3 cases to handle here:
     <ul>
-      <li>3.1: There is an error occured while authenticating. You can look into the <code class="highlighter-rouge">error</code> variable to see what went wrong.</li>
-      <li>3.2: User tap <code class="highlighter-rouge">Cancel</code> while authenticating. Usually you don’t want to do anything here.</li>
-      <li>3.3: The authentication succeeded. We should redirect them to the <code class="highlighter-rouge">Home View Controller</code>.</li>
+      <li>3.1: There is an error occured while authenticating. You can look into the <code class="language-plaintext highlighter-rouge">error</code> variable to see what went wrong.</li>
+      <li>3.2: User tap <code class="language-plaintext highlighter-rouge">Cancel</code> while authenticating. Usually you don’t want to do anything here.</li>
+      <li>3.3: The authentication succeeded. We should redirect them to the <code class="language-plaintext highlighter-rouge">Home View Controller</code>.</li>
     </ul>
   </li>
-  <li>Actually make the call to authenticate user via the <code class="highlighter-rouge">loginManager</code> object. We also pass all variables defined above into this method call.</li>
+  <li>Actually make the call to authenticate user via the <code class="language-plaintext highlighter-rouge">loginManager</code> object. We also pass all variables defined above into this method call.</li>
 </ol>
 
 <p>After this step, the users will be brought to Safari (or Facebook iOS app) to review the permissions. If they’re happy with it, they would grant our app access to those information.</p>
 
 <p><img src="/images/login-with-facebook-in-ios/permission-review.png" alt="" /></p>
 
-<p>Then the user will be switched back to our app and into the callback <code class="highlighter-rouge">application:openURL:sourceApplication:annotation</code> in the <code class="highlighter-rouge">AppDelegate</code> we just defined above.</p>
+<p>Then the user will be switched back to our app and into the callback <code class="language-plaintext highlighter-rouge">application:openURL:sourceApplication:annotation</code> in the <code class="language-plaintext highlighter-rouge">AppDelegate</code> we just defined above.</p>
 
 <h3 id="step-5-handle-autologin">Step 5: Handle autologin.</h3>
 
-<p>After you have been successfully authenticated, you are provided an <code class="highlighter-rouge">accessToken</code>. The next time users open the app, you want to log them in automatically.</p>
+<p>After you have been successfully authenticated, you are provided an <code class="language-plaintext highlighter-rouge">accessToken</code>. The next time users open the app, you want to log them in automatically.</p>
 
-<p>Facebook SDK does provide the <code class="highlighter-rouge">FBSDKAccessToken.currentAccessToken()</code> method which returns the <code class="highlighter-rouge">accessToken</code> obtained from previous authentication. If it is not nil, we know that we don’t need to login anymore.</p>
+<p>Facebook SDK does provide the <code class="language-plaintext highlighter-rouge">FBSDKAccessToken.currentAccessToken()</code> method which returns the <code class="language-plaintext highlighter-rouge">accessToken</code> obtained from previous authentication. If it is not nil, we know that we don’t need to login anymore.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">LoginViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
 
@@ -474,9 +474,9 @@
 
 <p>The full source code of this demo app can be found at <a href="https://github.com/hoang-tran/TestFacebookLogin">https://github.com/hoang-tran/TestFacebookLogin</a>.</p>
 
-<p>Today we went over the process of authenticating our app with Facebook users. We went from creating a <code class="highlighter-rouge">Facebook app</code> on Facebook developers website to integrate the whole flow into our iOS app. The process is simple in theory yet requires a lot of steps.</p>
+<p>Today we went over the process of authenticating our app with Facebook users. We went from creating a <code class="language-plaintext highlighter-rouge">Facebook app</code> on Facebook developers website to integrate the whole flow into our iOS app. The process is simple in theory yet requires a lot of steps.</p>
 
-<p>On the next post, we will learn how to take advantage of the Facebook <code class="highlighter-rouge">accessToken</code> once we have it. We’re gonna explore how to retrieve the user information and what we can do with it.</p>
+<p>On the next post, we will learn how to take advantage of the Facebook <code class="language-plaintext highlighter-rouge">accessToken</code> once we have it. We’re gonna explore how to retrieve the user information and what we can do with it.</p>
 
 <p>Stay tune, guys 😎</p>
 

@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -183,29 +183,29 @@
 
 <ul>
   <li>Open Xcode.</li>
-  <li>Choose <code class="highlighter-rouge">Create a new Xcode project</code>.</li>
-  <li>Choose template <code class="highlighter-rouge">iOS</code> &gt; <code class="highlighter-rouge">Application</code> &gt; <code class="highlighter-rouge">Single View Application</code> &gt; <code class="highlighter-rouge">Next</code>.</li>
-  <li>Fill in your project information. Make sure the <code class="highlighter-rouge">Include Unit Tests</code> option is ticked.</li>
+  <li>Choose <code class="language-plaintext highlighter-rouge">Create a new Xcode project</code>.</li>
+  <li>Choose template <code class="language-plaintext highlighter-rouge">iOS</code> &gt; <code class="language-plaintext highlighter-rouge">Application</code> &gt; <code class="language-plaintext highlighter-rouge">Single View Application</code> &gt; <code class="language-plaintext highlighter-rouge">Next</code>.</li>
+  <li>Fill in your project information. Make sure the <code class="language-plaintext highlighter-rouge">Include Unit Tests</code> option is ticked.</li>
   <li>Choose a path for the project.</li>
   <li>Xcode will open the project automatically for you.</li>
 </ul>
 
-<p>Try to <strong>Run</strong> the project (<code class="highlighter-rouge">⌘ + R</code>). It should compile and run smoothly in the simulator.</p>
+<p>Try to <strong>Run</strong> the project (<code class="language-plaintext highlighter-rouge">⌘ + R</code>). It should compile and run smoothly in the simulator.</p>
 
-<p>For the rest of this tutorial, let’s just assume that your project name is <code class="highlighter-rouge">MyAwesomeProject</code> and it is located at <code class="highlighter-rouge">~/Documents/MyAwesomeProject</code>.</p>
+<p>For the rest of this tutorial, let’s just assume that your project name is <code class="language-plaintext highlighter-rouge">MyAwesomeProject</code> and it is located at <code class="language-plaintext highlighter-rouge">~/Documents/MyAwesomeProject</code>.</p>
 
 <h2 id="step-2-setup-cocoapods">Step 2: Setup cocoapods</h2>
 <p>In case you haven’t installed <a href="https://cocoapods.org/">cocoapods</a>, you should do it now.</p>
 
-<p>Open <code class="highlighter-rouge">Terminal</code> or <code class="highlighter-rouge">iTerm</code> and type in this command.</p>
+<p>Open <code class="language-plaintext highlighter-rouge">Terminal</code> or <code class="language-plaintext highlighter-rouge">iTerm</code> and type in this command.</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gem install cocoapods</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gem <span class="nb">install </span>cocoapods</code></pre></figure>
 
 <p>Go to the project you just created.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> ~/Documents/MyAwesomeProject</code></pre></figure>
 
-<p>Initialize <code class="highlighter-rouge">cocoapods</code>.</p>
+<p>Initialize <code class="language-plaintext highlighter-rouge">cocoapods</code>.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># this will generate a file called `Podfile` in your project directory</span>
 pod init
@@ -233,9 +233,9 @@ open Podfile</code></pre></figure>
 
 <h2 id="step-3-setup-unit-tests">Step 3: Setup unit tests</h2>
 
-<p>Declare necessary pods for unit tests in your <code class="highlighter-rouge">Podfile</code>:</p>
+<p>Declare necessary pods for unit tests in your <code class="language-plaintext highlighter-rouge">Podfile</code>:</p>
 
-<p>For <code class="highlighter-rouge">Swift</code>: we’ll use:</p>
+<p>For <code class="language-plaintext highlighter-rouge">Swift</code>: we’ll use:</p>
 
 <ul>
   <li><a href="https://github.com/Quick/Quick">Quick</a>: a behavior-driven development framework for Swift.</li>
@@ -254,7 +254,7 @@ open Podfile</code></pre></figure>
   <span class="k">end</span>
 <span class="k">end</span></code></pre></figure>
 
-<p>For <code class="highlighter-rouge">ObjC</code>: since we don’t want to use dynamic framework, we’ll remove the <code class="highlighter-rouge">use_frameworks!</code> line. And the pods we need are:</p>
+<p>For <code class="language-plaintext highlighter-rouge">ObjC</code>: since we don’t want to use dynamic framework, we’ll remove the <code class="language-plaintext highlighter-rouge">use_frameworks!</code> line. And the pods we need are:</p>
 
 <ul>
   <li><a href="https://github.com/specta/specta">Specta</a>: A light-weight TDD / BDD framework for Objective-C &amp; Cocoa.</li>
@@ -273,18 +273,18 @@ open Podfile</code></pre></figure>
 
 <p>Install all the pods we just declared (type this into your terminal).</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">pod install</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">pod <span class="nb">install</span></code></pre></figure>
 
-<p>Open the generated <code class="highlighter-rouge">.xcworkspace</code> file.</p>
+<p>Open the generated <code class="language-plaintext highlighter-rouge">.xcworkspace</code> file.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">open MyAwesomeProject.xcworkspace</code></pre></figure>
 
 <p>Now we’re going to write our first unit test.</p>
 
-<p>For <code class="highlighter-rouge">Swift</code>:</p>
+<p>For <code class="language-plaintext highlighter-rouge">Swift</code>:</p>
 
 <ul>
-  <li>Create a new file in the test target and name it to something like <code class="highlighter-rouge">MyFirstSpec.swift</code>.</li>
+  <li>Create a new file in the test target and name it to something like <code class="language-plaintext highlighter-rouge">MyFirstSpec.swift</code>.</li>
   <li>Put this content into it.</li>
 </ul>
 
@@ -309,10 +309,10 @@ open Podfile</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>For <code class="highlighter-rouge">ObjC</code>:</p>
+<p>For <code class="language-plaintext highlighter-rouge">ObjC</code>:</p>
 
 <ul>
-  <li>Create a new file in the test target and name it to something like <code class="highlighter-rouge">MyFirstSpec.m</code>.</li>
+  <li>Create a new file in the test target and name it to something like <code class="language-plaintext highlighter-rouge">MyFirstSpec.m</code>.</li>
   <li>Put this content into it.</li>
 </ul>
 
@@ -335,17 +335,17 @@ open Podfile</code></pre></figure>
 
 <span class="n">SpecEnd</span></code></pre></figure>
 
-<p>Run your tests by pressing <code class="highlighter-rouge">⌘ + U</code>.
+<p>Run your tests by pressing <code class="language-plaintext highlighter-rouge">⌘ + U</code>.
 It should fail at the appropriate line.</p>
 
 <p><img src="/images/how-to-setup-testing-for-new-ios-project/MyFirstSpec-fail.png" alt="" /></p>
 
-<p>At this point, although it’s quite easy to extend and write more unit tests. I would recommend to check out the pods’s <code class="highlighter-rouge">README</code> to get more understanding and learn how to use them effectively.</p>
+<p>At this point, although it’s quite easy to extend and write more unit tests. I would recommend to check out the pods’s <code class="language-plaintext highlighter-rouge">README</code> to get more understanding and learn how to use them effectively.</p>
 
 <h2 id="step-4-setup-ui-tests">Step 4: Setup UI tests</h2>
-<p>For UI tests, we’ll use the same pod for both <code class="highlighter-rouge">ObjC</code> and <code class="highlighter-rouge">Swift</code>. It is called <a href="https://github.com/kif-framework/KIF">KIF</a>: An iOS Functional Testing Framework.</p>
+<p>For UI tests, we’ll use the same pod for both <code class="language-plaintext highlighter-rouge">ObjC</code> and <code class="language-plaintext highlighter-rouge">Swift</code>. It is called <a href="https://github.com/kif-framework/KIF">KIF</a>: An iOS Functional Testing Framework.</p>
 
-<p>Add pod <code class="highlighter-rouge">KIF</code> to your <code class="highlighter-rouge">Podfile</code>.</p>
+<p>Add pod <code class="language-plaintext highlighter-rouge">KIF</code> to your <code class="language-plaintext highlighter-rouge">Podfile</code>.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#...</span>
 <span class="n">target</span> <span class="s1">'MyAwesomeProjectTests'</span> <span class="k">do</span>
@@ -356,33 +356,33 @@ It should fail at the appropriate line.</p>
 
 <p>Install pod by typing this command into the terminal.</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">pod install</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">pod <span class="nb">install</span></code></pre></figure>
 
 <p>Now we’re going to write our first UI test.</p>
 
-<p>For <code class="highlighter-rouge">Swift</code>:</p>
+<p>For <code class="language-plaintext highlighter-rouge">Swift</code>:</p>
 
 <ul>
-  <li>Create a new temporary <code class="highlighter-rouge">Objective-C File</code> to tell Xcode that we want to use <code class="highlighter-rouge">ObjC</code> along with <code class="highlighter-rouge">Swift</code>. We can name this file to anything and save it to anywhere as long as it is still in the test target folder. (for example: <code class="highlighter-rouge">something.m</code>)</li>
+  <li>Create a new temporary <code class="language-plaintext highlighter-rouge">Objective-C File</code> to tell Xcode that we want to use <code class="language-plaintext highlighter-rouge">ObjC</code> along with <code class="language-plaintext highlighter-rouge">Swift</code>. We can name this file to anything and save it to anywhere as long as it is still in the test target folder. (for example: <code class="language-plaintext highlighter-rouge">something.m</code>)</li>
 </ul>
 
 <p><img src="/images/how-to-setup-testing-for-new-ios-project/create-objc-file.png" alt="" /></p>
 
 <ul>
-  <li>Xcode will then ask if we want to also add a bridging header. Proceed with <code class="highlighter-rouge">Create Bridging Header</code>.</li>
+  <li>Xcode will then ask if we want to also add a bridging header. Proceed with <code class="language-plaintext highlighter-rouge">Create Bridging Header</code>.</li>
 </ul>
 
 <p><img src="/images/how-to-setup-testing-for-new-ios-project/add-bridging-header.png" alt="" /></p>
 
 <ul>
-  <li>Now that we have the bridging header added and correctly configured, we can safely remove the temporary <code class="highlighter-rouge">something.m</code> file. (Right click to file in <code class="highlighter-rouge">Xcode</code> &gt; <code class="highlighter-rouge">Delete</code> &gt; <code class="highlighter-rouge">Move to Trash</code>)</li>
-  <li>Import <code class="highlighter-rouge">KIF</code> from within the bridging header (<code class="highlighter-rouge">MyAwesomeProjectTests-Bridging-Header.h</code>).</li>
+  <li>Now that we have the bridging header added and correctly configured, we can safely remove the temporary <code class="language-plaintext highlighter-rouge">something.m</code> file. (Right click to file in <code class="language-plaintext highlighter-rouge">Xcode</code> &gt; <code class="language-plaintext highlighter-rouge">Delete</code> &gt; <code class="language-plaintext highlighter-rouge">Move to Trash</code>)</li>
+  <li>Import <code class="language-plaintext highlighter-rouge">KIF</code> from within the bridging header (<code class="language-plaintext highlighter-rouge">MyAwesomeProjectTests-Bridging-Header.h</code>).</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#import &lt;KIF/KIF.h&gt;</span></code></pre></figure>
 
 <ul>
-  <li>Create a <code class="highlighter-rouge">KIF+Extensions.swift</code> file in your test target. This step is to expose the <code class="highlighter-rouge">tester</code> method required for accessing the <code class="highlighter-rouge">KIF</code> API in Swift.</li>
+  <li>Create a <code class="language-plaintext highlighter-rouge">KIF+Extensions.swift</code> file in your test target. This step is to expose the <code class="language-plaintext highlighter-rouge">tester</code> method required for accessing the <code class="language-plaintext highlighter-rouge">KIF</code> API in Swift.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">KIF</span>
@@ -408,7 +408,7 @@ It should fail at the appropriate line.</p>
 <span class="p">}</span></code></pre></figure>
 
 <ul>
-  <li>Create our first UI test file (again, in the test target) and name it to something like <code class="highlighter-rouge">HomeTests.swift</code>.</li>
+  <li>Create our first UI test file (again, in the test target) and name it to something like <code class="language-plaintext highlighter-rouge">HomeTests.swift</code>.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">KIF</span>
@@ -442,10 +442,10 @@ It should fail at the appropriate line.</p>
 
 <span class="p">}</span></code></pre></figure>
 
-<p>For <code class="highlighter-rouge">ObjC</code>:</p>
+<p>For <code class="language-plaintext highlighter-rouge">ObjC</code>:</p>
 
 <ul>
-  <li>Create 2 new files in the test target and name them to something like <code class="highlighter-rouge">HomeTests.h</code> and <code class="highlighter-rouge">HomeTests.m</code> respectively.</li>
+  <li>Create 2 new files in the test target and name them to something like <code class="language-plaintext highlighter-rouge">HomeTests.h</code> and <code class="language-plaintext highlighter-rouge">HomeTests.m</code> respectively.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#import &lt;KIF/KIF.h&gt;
@@ -459,9 +459,9 @@ It should fail at the appropriate line.</p>
 
 <span class="cp">#pragma mark - tests
 </span>
-<span class="c1">// test method name MUST have the prefix `test`
-// for example: testA, testB, testLogin, ect...
-</span><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testHomeScreen</span> <span class="p">{</span>
+<span class="c1">// test method name MUST have the prefix `test`</span>
+<span class="c1">// for example: testA, testB, testLogin, ect...</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testHomeScreen</span> <span class="p">{</span>
   <span class="p">[</span><span class="n">self</span> <span class="nf">visitHomeScreen</span><span class="p">];</span>
   <span class="p">[</span><span class="n">self</span> <span class="nf">tapOn</span><span class="p">:</span><span class="s">@"Button"</span><span class="p">];</span>
   <span class="p">[</span><span class="n">self</span> <span class="nf">expectToSee</span><span class="p">:</span><span class="s">@"Some random label"</span><span class="p">];</span>
@@ -469,25 +469,25 @@ It should fail at the appropriate line.</p>
 
 <span class="cp">#pragma mark - steps definition
 </span>
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">visitHomeScreen</span> <span class="p">{</span>
-  <span class="c1">// since we already at the home screen by default, we don't need to do anything specifically here
-</span><span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">visitHomeScreen</span> <span class="p">{</span>
+  <span class="c1">// since we already at the home screen by default, we don't need to do anything specifically here</span>
+<span class="p">}</span>
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">tapOn</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">button</span> <span class="p">{</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tapOn</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">button</span> <span class="p">{</span>
   <span class="p">[</span><span class="n">tester</span> <span class="nf">tapViewWithAccessibilityLabel</span><span class="p">:</span><span class="n">button</span><span class="p">];</span>
 <span class="p">}</span>
 
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">expectToSee</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">something</span> <span class="p">{</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">expectToSee</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">something</span> <span class="p">{</span>
   <span class="p">[</span><span class="n">tester</span> <span class="nf">waitForViewWithAccessibilityLabel</span><span class="p">:</span><span class="n">something</span><span class="p">];</span>
 <span class="p">}</span>
 
 <span class="k">@end</span></code></pre></figure>
 
-<p>Press <code class="highlighter-rouge">⌘ + U</code> to run all tests (including unit tests and UI tests). It should fail because we haven’t implemented anything yet. (there’s nothing on the screen)</p>
+<p>Press <code class="language-plaintext highlighter-rouge">⌘ + U</code> to run all tests (including unit tests and UI tests). It should fail because we haven’t implemented anything yet. (there’s nothing on the screen)</p>
 
 <h2 id="wrap-up">Wrap up</h2>
 
-<p>In this post, you learnt how to setup a testing environment for iOS, including all the necessary pods for both <code class="highlighter-rouge">ObjC</code> and <code class="highlighter-rouge">Swift</code>. You’re also provided some basic test samples to use as a starting point. Once again, I highly recommend you to read more about those testing frameworks (<a href="https://github.com/Quick/Quick">Quick</a>, <a href="https://github.com/specta/specta">Specta</a>, <a href="https://github.com/kif-framework/KIF">KIF</a>). It would help a lot on your testing journey.</p>
+<p>In this post, you learnt how to setup a testing environment for iOS, including all the necessary pods for both <code class="language-plaintext highlighter-rouge">ObjC</code> and <code class="language-plaintext highlighter-rouge">Swift</code>. You’re also provided some basic test samples to use as a starting point. Once again, I highly recommend you to read more about those testing frameworks (<a href="https://github.com/Quick/Quick">Quick</a>, <a href="https://github.com/specta/specta">Specta</a>, <a href="https://github.com/kif-framework/KIF">KIF</a>). It would help a lot on your testing journey.</p>
 
 </article>
 

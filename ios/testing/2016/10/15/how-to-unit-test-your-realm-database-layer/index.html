@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -239,7 +239,7 @@
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Note: you can set the <code class="highlighter-rouge">inMemoryIdentifier</code> to anything as long as it’s not nil. In this case, I’m setting it to the Spec’s name so every Spec will use different in-memory database.</p>
+<p>Note: you can set the <code class="language-plaintext highlighter-rouge">inMemoryIdentifier</code> to anything as long as it’s not nil. In this case, I’m setting it to the Spec’s name so every Spec will use different in-memory database.</p>
 
 <p>Additionally, we wanna clear out all records so that each test would start with a fresh empty database. Override the <strong>beforeEach</strong> and put in the code to delete everything within Realm:</p>
 
@@ -314,7 +314,7 @@
   <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
   <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">0</span>
 
-  <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">self</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
     <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
     <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
@@ -328,7 +328,7 @@
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person using the custom initializer.
 2. Expect all properties of that person are correctly assigned.</code></pre></figure>
 
-<p>Let’s go ahead and add the test to your Spec file: (<code class="highlighter-rouge">PersonSpec.swift</code> in this case)</p>
+<p>Let’s go ahead and add the test to your Spec file: (<code class="language-plaintext highlighter-rouge">PersonSpec.swift</code> in this case)</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"initialize with name and age"</span><span class="p">)</span> <span class="p">{</span>
   <span class="nf">it</span><span class="p">(</span><span class="s">"initializes and assign properties correctly"</span><span class="p">)</span> <span class="p">{</span>
@@ -405,7 +405,7 @@
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Note that <code class="highlighter-rouge">personName</code>, <code class="highlighter-rouge">personAge</code> and <code class="highlighter-rouge">dogName</code> are just some constants defined elsewhere to make the code less duplicated.</p>
+<p>Note that <code class="language-plaintext highlighter-rouge">personName</code>, <code class="language-plaintext highlighter-rouge">personAge</code> and <code class="language-plaintext highlighter-rouge">dogName</code> are just some constants defined elsewhere to make the code less duplicated.</p>
 
 <h3 id="to-many-relationships">To-Many Relationships:</h3>
 
@@ -576,7 +576,7 @@
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Again, the <code class="highlighter-rouge">personAddress</code> and <code class="highlighter-rouge">personHeight</code> are just some constants defined elsewhere.</p>
+<p>Again, the <code class="language-plaintext highlighter-rouge">personAddress</code> and <code class="language-plaintext highlighter-rouge">personHeight</code> are just some constants defined elsewhere.</p>
 
 <h1 id="2-testing-crud-operations">2. Testing CRUD operations:</h1>
 

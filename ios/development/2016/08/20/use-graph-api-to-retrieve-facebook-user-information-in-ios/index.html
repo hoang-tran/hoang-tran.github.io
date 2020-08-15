@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -164,7 +164,7 @@
   <li>parameters: a dictionary to specify what to include in the request.</li>
 </ul>
 
-<p>Here is an example of initializing a Graph API request that points to the <code class="highlighter-rouge">me</code> path with no parameters:</p>
+<p>Here is an example of initializing a Graph API request that points to the <code class="language-plaintext highlighter-rouge">me</code> path with no parameters:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="s">"me"</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span></code></pre></figure>
 
@@ -184,13 +184,13 @@
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>In case the request succeeds, you’ll receive a <code class="highlighter-rouge">result</code> dictionary in JSON format which contains all the user information in it.</p>
+<p>In case the request succeeds, you’ll receive a <code class="language-plaintext highlighter-rouge">result</code> dictionary in JSON format which contains all the user information in it.</p>
 
 <p>To avoid a lot of ugly code for parsing that dictionary, I highly recommend that we use the <a href="https://github.com/SwiftyJSON/SwiftyJSON">SwiftyJSON</a> pod to make the process more smoothly. Here’s <a href="https://github.com/SwiftyJSON/SwiftyJSON#why-is-the-typical-json-handling-in-swift-not-good">why</a>.</p>
 
 <h2 id="integrate-swiftyjson-to-your-project">Integrate SwiftyJSON to your project</h2>
 
-<p>First, add the <code class="highlighter-rouge">SwiftyJSON</code> pod to your Podfile:</p>
+<p>First, add the <code class="language-plaintext highlighter-rouge">SwiftyJSON</code> pod to your Podfile:</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">target</span> <span class="s1">'TestFacebookLogin'</span> <span class="k">do</span>
   <span class="n">use_frameworks!</span>
@@ -200,7 +200,7 @@
   <span class="n">pod</span> <span class="s1">'SwiftyJSON'</span>
 <span class="k">end</span></code></pre></figure>
 
-<p>Run <code class="highlighter-rouge">pod install</code> on your terminal.</p>
+<p>Run <code class="language-plaintext highlighter-rouge">pod install</code> on your terminal.</p>
 
 <p>Import it where you want to use: (Ex: HomeViewController.swift)</p>
 
@@ -210,7 +210,7 @@
 
 <h3 id="to-get-user-public-profile">To get user public profile:</h3>
 
-<p>The <code class="highlighter-rouge">public_profile</code> permission allow us to access the following information:</p>
+<p>The <code class="language-plaintext highlighter-rouge">public_profile</code> permission allow us to access the following information:</p>
 
 <ul>
   <li>id</li>
@@ -246,7 +246,7 @@
 
 <span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
 
-<p>The <code class="highlighter-rouge">print(json)</code> will give you this output:</p>
+<p>The <code class="language-plaintext highlighter-rouge">print(json)</code> will give you this output:</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">{
   "locale" : "en_US",
@@ -288,7 +288,7 @@
 
 <h3 id="get-user-email">Get user email:</h3>
 
-<p>To get this, you need to ask for the <code class="highlighter-rouge">email</code> permission. Open <code class="highlighter-rouge">LoginViewController</code> and add <code class="highlighter-rouge">email</code> to the permission array:</p>
+<p>To get this, you need to ask for the <code class="language-plaintext highlighter-rouge">email</code> permission. Open <code class="language-plaintext highlighter-rouge">LoginViewController</code> and add <code class="language-plaintext highlighter-rouge">email</code> to the permission array:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">loginManager</span> <span class="o">=</span> <span class="kt">FBSDKLoginManager</span><span class="p">()</span>
 <span class="k">let</span> <span class="nv">permissions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"public_profile"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">]</span>
@@ -318,14 +318,14 @@
 
 <h3 id="get-user-friend-list">Get user friend list</h3>
 
-<p>To get this, you need to ask for the <code class="highlighter-rouge">user_friends</code> permission:</p>
+<p>To get this, you need to ask for the <code class="language-plaintext highlighter-rouge">user_friends</code> permission:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">loginManager</span> <span class="o">=</span> <span class="kt">FBSDKLoginManager</span><span class="p">()</span>
 <span class="k">let</span> <span class="nv">permissions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"public_profile"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">,</span> <span class="s">"user_friends"</span><span class="p">]</span>
 <span class="k">let</span> <span class="nv">handler</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">loginManager</span><span class="o">.</span><span class="nf">logInWithReadPermissions</span><span class="p">(</span><span class="n">permissions</span><span class="p">,</span> <span class="nv">fromViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">handler</span><span class="p">)</span></code></pre></figure>
 
-<p>Now we’ll make a request to <code class="highlighter-rouge">me/friends</code> instead of <code class="highlighter-rouge">me</code>.</p>
+<p>Now we’ll make a request to <code class="language-plaintext highlighter-rouge">me/friends</code> instead of <code class="language-plaintext highlighter-rouge">me</code>.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/friends"</span>
 <span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"fields"</span><span class="p">:</span> <span class="s">""</span><span class="p">]</span>
@@ -346,7 +346,7 @@
 <span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="n">graphPath</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">)</span>
 <span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
 
-<p>This does not return all friends on the users’s account. Only those that already installed your app will be returned. If there are too many friends, Facebook only returns the first 25 results. The remaining friends can be accessed using the <code class="highlighter-rouge">nextPageToken</code> and <code class="highlighter-rouge">prevPageToken</code>.</p>
+<p>This does not return all friends on the users’s account. Only those that already installed your app will be returned. If there are too many friends, Facebook only returns the first 25 results. The remaining friends can be accessed using the <code class="language-plaintext highlighter-rouge">nextPageToken</code> and <code class="language-plaintext highlighter-rouge">prevPageToken</code>.</p>
 
 <p>To request for the next 25 friends:</p>
 
@@ -362,7 +362,7 @@
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"before"</span><span class="p">:</span> <span class="n">prevPageToken</span><span class="p">]</span></code></pre></figure>
 
-<p>You can also change the <code class="highlighter-rouge">returned limit</code> to some bigger number instead of just 25 results:</p>
+<p>You can also change the <code class="language-plaintext highlighter-rouge">returned limit</code> to some bigger number instead of just 25 results:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/friends"</span>
 <span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"limit"</span><span class="p">:</span> <span class="mi">100</span><span class="p">]</span></code></pre></figure>
@@ -377,9 +377,9 @@
 
 <h3 id="get-user-avatar-with-different-sizes">Get user avatar with different sizes:</h3>
 
-<p>Although you can access the <code class="highlighter-rouge">picture</code> field when fetching public profile, it only contains a very small version of the user’s avatar (50x50).</p>
+<p>Although you can access the <code class="language-plaintext highlighter-rouge">picture</code> field when fetching public profile, it only contains a very small version of the user’s avatar (50x50).</p>
 
-<p>To get bigger sizes, you should make a request to <code class="highlighter-rouge">me/picture</code> with some custom parameters:</p>
+<p>To get bigger sizes, you should make a request to <code class="language-plaintext highlighter-rouge">me/picture</code> with some custom parameters:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/picture"</span>
 <span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
@@ -400,7 +400,7 @@
 <p>There are 4 parameters that we can consider here:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">type</code>: this is some preset sizes for the avatar. It can be one of the following:
+  <li><code class="language-plaintext highlighter-rouge">type</code>: this is some preset sizes for the avatar. It can be one of the following:
     <ul>
       <li>large (200x200)</li>
       <li>normal (100x100)</li>
@@ -409,19 +409,19 @@
       <li>small (50x50)</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">redirect</code>:
+  <li><code class="language-plaintext highlighter-rouge">redirect</code>:
     <ul>
       <li>if it is true,  it will return the actual image data.</li>
       <li>if it is false, it will return a JSON response.</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">width</code>: the width of the avatar in pixels.</li>
-  <li><code class="highlighter-rouge">height</code>: the height of the avatar in pixels.</li>
+  <li><code class="language-plaintext highlighter-rouge">width</code>: the width of the avatar in pixels.</li>
+  <li><code class="language-plaintext highlighter-rouge">height</code>: the height of the avatar in pixels.</li>
 </ul>
 
-<p>You can specify custom <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> in the parameters and it will fall down to the closest size that match.</p>
+<p>You can specify custom <code class="language-plaintext highlighter-rouge">width</code> and <code class="language-plaintext highlighter-rouge">height</code> in the parameters and it will fall down to the closest size that match.</p>
 
-<p>For example: If you set <code class="highlighter-rouge">width</code> to 300, it will return 320. If set to 400, it’ll return 480.</p>
+<p>For example: If you set <code class="language-plaintext highlighter-rouge">width</code> to 300, it will return 320. If set to 400, it’ll return 480.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s">"width"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
@@ -429,7 +429,7 @@
   <span class="s">"redirect"</span><span class="p">:</span> <span class="s">"false"</span>
 <span class="p">]</span></code></pre></figure>
 
-<p>To get maximum size, just set <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> to some large numbers:</p>
+<p>To get maximum size, just set <code class="language-plaintext highlighter-rouge">width</code> and <code class="language-plaintext highlighter-rouge">height</code> to some large numbers:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s">"width"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>

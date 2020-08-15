@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -134,13 +134,13 @@
 </div>
 
 <article class="post-content">
-  <p>When you read tutorials online, there will come times when they tell you to open up the <code class="highlighter-rouge">Terminal</code> and type in some commands. Those are the scary moments that may confuse or even stop you from following along. You might wonder why it has to be that complicated.</p>
+  <p>When you read tutorials online, there will come times when they tell you to open up the <code class="language-plaintext highlighter-rouge">Terminal</code> and type in some commands. Those are the scary moments that may confuse or even stop you from following along. You might wonder why it has to be that complicated.</p>
 
-<p>Can we have any other way that does not involve the use of <code class="highlighter-rouge">Terminal</code>?</p>
+<p>Can we have any other way that does not involve the use of <code class="language-plaintext highlighter-rouge">Terminal</code>?</p>
 
 <p>Well, I guess we don’t. In fact, it should be an important part in your development workflow.</p>
 
-<p>As an iOS developer, you may not be comfortable using the <code class="highlighter-rouge">Terminal</code> yet. Some people don’t even know that such thing does exist at all. We’re too familiar with GUI (Graphical User Interface) tools.</p>
+<p>As an iOS developer, you may not be comfortable using the <code class="language-plaintext highlighter-rouge">Terminal</code> yet. Some people don’t even know that such thing does exist at all. We’re too familiar with GUI (Graphical User Interface) tools.</p>
 
 <ul>
   <li>We code in Xcode.</li>
@@ -148,7 +148,7 @@
   <li>We use SourceTree for source version control.</li>
 </ul>
 
-<p>Hardly do we know that all the above tasks can also be accomplished using <code class="highlighter-rouge">Terminal</code>.</p>
+<p>Hardly do we know that all the above tasks can also be accomplished using <code class="language-plaintext highlighter-rouge">Terminal</code>.</p>
 
 <ul>
   <li>We can code in Terminal.</li>
@@ -163,9 +163,9 @@
 <h2 id="how-to-open-terminal">How to open Terminal?</h2>
 
 <ol>
-  <li>Open <code class="highlighter-rouge">Finder</code></li>
+  <li>Open <code class="language-plaintext highlighter-rouge">Finder</code></li>
   <li>Go to <em>Applications</em> directory</li>
-  <li>Go to <em>Utilities</em>, open <code class="highlighter-rouge">Terminal</code>.</li>
+  <li>Go to <em>Utilities</em>, open <code class="language-plaintext highlighter-rouge">Terminal</code>.</li>
 </ol>
 
 <p><img src="/images/terminal-for-ios-developers/open-terminal.jpg" alt="how to open terminal on mac" /></p>
@@ -184,28 +184,28 @@
 
 <p>It’s a place where you write <strong>command</strong> in <strong>a line</strong>.</p>
 
-<p>Each line is called a <code class="highlighter-rouge">command-line</code> and it has 4 parts:</p>
+<p>Each line is called a <code class="language-plaintext highlighter-rouge">command-line</code> and it has 4 parts:</p>
 
 <p><img src="/images/terminal-for-ios-developers/terminal-look-explained.jpg" alt="terminal look explained" /></p>
 
 <ol>
   <li>Your computer name.</li>
-  <li>This tells which directory you are in at the moment. By default, when you first open the <code class="highlighter-rouge">Terminal</code>, it will bring you to the Home directory, which has a symbol of <code class="highlighter-rouge">~</code></li>
+  <li>This tells which directory you are in at the moment. By default, when you first open the <code class="language-plaintext highlighter-rouge">Terminal</code>, it will bring you to the Home directory, which has a symbol of <code class="language-plaintext highlighter-rouge">~</code></li>
   <li>Your current user name for this computer. (because you may have multiple users in the same computer)</li>
-  <li>This is where you write your command. The <code class="highlighter-rouge">$</code> sign indicates that everything after it is going to be a command.</li>
+  <li>This is where you write your command. The <code class="language-plaintext highlighter-rouge">$</code> sign indicates that everything after it is going to be a command.</li>
 </ol>
 
 <p>For most of the time, we will only need to care about 2 and 4, which is <strong>where we are now</strong> and <strong>what command we’re gonna run next</strong>.</p>
 
 <h2 id="lets-run-some-commands">Let’s run some commands:</h2>
 
-<p>Type <code class="highlighter-rouge">cd Documents</code> and hit <code class="highlighter-rouge">Enter</code> to go to the <em>Documents</em> directory.</p>
+<p>Type <code class="language-plaintext highlighter-rouge">cd Documents</code> and hit <code class="language-plaintext highlighter-rouge">Enter</code> to go to the <em>Documents</em> directory.</p>
 
 <p><img src="/images/terminal-for-ios-developers/terminal-test-command-1.jpg" alt="terminal cd" /></p>
 
 <p>Another line will appear and wait for our next command. Note that we are now in the <em>Documents</em> directory.</p>
 
-<p>Let’s see what’s inside it. Type <code class="highlighter-rouge">ls</code> and hit <code class="highlighter-rouge">Enter</code>.</p>
+<p>Let’s see what’s inside it. Type <code class="language-plaintext highlighter-rouge">ls</code> and hit <code class="language-plaintext highlighter-rouge">Enter</code>.</p>
 
 <p><img src="/images/terminal-for-ios-developers/terminal-test-command-2.jpg" alt="terminal ls" /></p>
 
@@ -219,11 +219,11 @@
 
 <p>We’re gonna install a framework called <a href="https://github.com/robbyrussell/oh-my-zsh">Oh My Zsh</a> (pronounced as <em>oh my zee shell</em>).</p>
 
-<p>Paste this in the <code class="highlighter-rouge">Terminal</code> and hit <code class="highlighter-rouge">Enter</code>.</p>
+<p>Paste this in the <code class="language-plaintext highlighter-rouge">Terminal</code> and hit <code class="language-plaintext highlighter-rouge">Enter</code>.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">sh <span class="nt">-c</span> <span class="s2">"</span><span class="k">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh<span class="k">)</span><span class="s2">"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">sh <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh<span class="si">)</span><span class="s2">"</span></code></pre></figure>
 
-<p>It will run for a couple of seconds and then prompt for your password. Just type the password in and hit <code class="highlighter-rouge">Enter</code>.</p>
+<p>It will run for a couple of seconds and then prompt for your password. Just type the password in and hit <code class="language-plaintext highlighter-rouge">Enter</code>.</p>
 
 <p><img src="/images/terminal-for-ios-developers/terminal-zsh-password.png" alt="terminal oh my zsh password" /></p>
 
@@ -231,20 +231,20 @@
 
 <p><img src="/images/terminal-for-ios-developers/terminal-zsh-done.png" alt="terminal oh my zsh done" /></p>
 
-<p>Now with <code class="highlighter-rouge">Oh My Zsh</code> installed, we have this colorful terminal:</p>
+<p>Now with <code class="language-plaintext highlighter-rouge">Oh My Zsh</code> installed, we have this colorful terminal:</p>
 
 <p><img src="/images/terminal-for-ios-developers/terminal-zsh-demo.png" alt="terminal oh my zsh demo" /></p>
 
-<p>As you can see, the unnecessary informations (computer name, user name, <code class="highlighter-rouge">$</code> sign) have been stripped away. Directory name now has different color so it’s easier to read the terminal content.</p>
+<p>As you can see, the unnecessary informations (computer name, user name, <code class="language-plaintext highlighter-rouge">$</code> sign) have been stripped away. Directory name now has different color so it’s easier to read the terminal content.</p>
 
 <h2 id="some-basic-things-you-should-know-before-using-terminal">Some basic things you should know before using Terminal:</h2>
 
 <ul>
   <li>The Home directory:
     <ul>
-      <li>It has a symbol of <code class="highlighter-rouge">~</code>.</li>
+      <li>It has a symbol of <code class="language-plaintext highlighter-rouge">~</code>.</li>
       <li>It is located at <em>/Users/your_user_name</em></li>
-      <li>If you open it with <code class="highlighter-rouge">Finder</code>, it’s the one with the Home icon.</li>
+      <li>If you open it with <code class="language-plaintext highlighter-rouge">Finder</code>, it’s the one with the Home icon.</li>
     </ul>
   </li>
 </ul>
@@ -253,37 +253,37 @@
 
 <ul>
   <li>Maximize the Terminal window for best readability.</li>
-  <li>When your Terminal gets messy (it will), <code class="highlighter-rouge">Cmd + K</code> will clear out the screen.</li>
-  <li>Press the <code class="highlighter-rouge">Up</code> arrow to reuse the previous command, press again to go through the command history.</li>
-  <li>Press <code class="highlighter-rouge">Down</code> arrow will go in the opposite direction.</li>
-  <li>When we talk about <code class="highlighter-rouge">path</code>, we’re talking about 2 types of paths here:
+  <li>When your Terminal gets messy (it will), <code class="language-plaintext highlighter-rouge">Cmd + K</code> will clear out the screen.</li>
+  <li>Press the <code class="language-plaintext highlighter-rouge">Up</code> arrow to reuse the previous command, press again to go through the command history.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">Down</code> arrow will go in the opposite direction.</li>
+  <li>When we talk about <code class="language-plaintext highlighter-rouge">path</code>, we’re talking about 2 types of paths here:
     <ul>
       <li><strong>absolute path</strong>:
         <ul>
           <li>is a path that starts from your root directory.</li>
-          <li>begins with <code class="highlighter-rouge">~/</code> (since we usually work with files from the Home directory so it’s easier to say this way)</li>
-          <li>Ex: <code class="highlighter-rouge">~/Documents</code> , <code class="highlighter-rouge">~/Downloads/Movies/hello.zip</code> , <code class="highlighter-rouge">~/Documents/Music/US-UK/we-dont-talk-anymore.mp3</code></li>
+          <li>begins with <code class="language-plaintext highlighter-rouge">~/</code> (since we usually work with files from the Home directory so it’s easier to say this way)</li>
+          <li>Ex: <code class="language-plaintext highlighter-rouge">~/Documents</code> , <code class="language-plaintext highlighter-rouge">~/Downloads/Movies/hello.zip</code> , <code class="language-plaintext highlighter-rouge">~/Documents/Music/US-UK/we-dont-talk-anymore.mp3</code></li>
         </ul>
       </li>
       <li><strong>relative path</strong>:
         <ul>
           <li>is a path that is relative to the current directory.</li>
-          <li>Ex: <code class="highlighter-rouge">Books</code> , <code class="highlighter-rouge">Movies/hello.zip</code> , <code class="highlighter-rouge">Documents/Music/US-UK/we-dont-talk-anymore.mp3</code></li>
+          <li>Ex: <code class="language-plaintext highlighter-rouge">Books</code> , <code class="language-plaintext highlighter-rouge">Movies/hello.zip</code> , <code class="language-plaintext highlighter-rouge">Documents/Music/US-UK/we-dont-talk-anymore.mp3</code></li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
 
-<p>Example: If you want to go to <em>~/Documents/Books</em> and you’re currently at <em>~/Documents</em>, you can use absolute path by running this command <code class="highlighter-rouge">cd ~/Documents/Books</code>. Or you can use relative path for shorter command <code class="highlighter-rouge">cd Books</code>.</p>
+<p>Example: If you want to go to <em>~/Documents/Books</em> and you’re currently at <em>~/Documents</em>, you can use absolute path by running this command <code class="language-plaintext highlighter-rouge">cd ~/Documents/Books</code>. Or you can use relative path for shorter command <code class="language-plaintext highlighter-rouge">cd Books</code>.</p>
 
 <ul>
-  <li>When typing path name, you don’t need to type the whole word, just type some characters and then hit <code class="highlighter-rouge">Tab</code>, the Terminal will figure out the rest and auto complete it for you.
+  <li>When typing path name, you don’t need to type the whole word, just type some characters and then hit <code class="language-plaintext highlighter-rouge">Tab</code>, the Terminal will figure out the rest and auto complete it for you.
     <ul>
-      <li>For example if you want to type this command <code class="highlighter-rouge">cd ~/Documents/Books</code>
+      <li>For example if you want to type this command <code class="language-plaintext highlighter-rouge">cd ~/Documents/Books</code>
         <ul>
-          <li>Just type <code class="highlighter-rouge">cd ~/doc</code> then hit <code class="highlighter-rouge">Tab</code>, it will automatically become <code class="highlighter-rouge">cd ~/Documents/</code></li>
-          <li>Type <code class="highlighter-rouge">bo</code> and hit <code class="highlighter-rouge">Tab</code> again, it would become <code class="highlighter-rouge">cd ~/Documents/Books/</code></li>
+          <li>Just type <code class="language-plaintext highlighter-rouge">cd ~/doc</code> then hit <code class="language-plaintext highlighter-rouge">Tab</code>, it will automatically become <code class="language-plaintext highlighter-rouge">cd ~/Documents/</code></li>
+          <li>Type <code class="language-plaintext highlighter-rouge">bo</code> and hit <code class="language-plaintext highlighter-rouge">Tab</code> again, it would become <code class="language-plaintext highlighter-rouge">cd ~/Documents/Books/</code></li>
         </ul>
       </li>
     </ul>
@@ -346,21 +346,21 @@
 <span class="nb">cd</span> -</code></pre></figure>
 
 <ol>
-  <li>If you don’t provide any argument to the <code class="highlighter-rouge">cd</code> command, it will go to Home directory by default.</li>
+  <li>If you don’t provide any argument to the <code class="language-plaintext highlighter-rouge">cd</code> command, it will go to Home directory by default.</li>
   <li>Go to Home directory.</li>
   <li>Go to <em>Desktop</em>.</li>
   <li>Go to <em>Documents</em>.</li>
   <li>Go to parent directory. If you’re at <em>~/Documents/Books</em>:
     <ul>
-      <li><code class="highlighter-rouge">cd ..</code> will bring you to <em>~/Documents</em>.</li>
-      <li><code class="highlighter-rouge">cd ..</code> again will lead to home.</li>
+      <li><code class="language-plaintext highlighter-rouge">cd ..</code> will bring you to <em>~/Documents</em>.</li>
+      <li><code class="language-plaintext highlighter-rouge">cd ..</code> again will lead to home.</li>
     </ul>
   </li>
   <li>Go back. Let’s say you are at <em>~/Downloads</em>:
     <ul>
-      <li>You go to <em>Desktop</em> by running <code class="highlighter-rouge">cd ~/Desktop</code>.</li>
-      <li>Now when you run <code class="highlighter-rouge">cd -</code>, it will bring you back to <em>~/Downloads</em>.</li>
-      <li><code class="highlighter-rouge">cd -</code> again will go to <em>Desktop</em> again.</li>
+      <li>You go to <em>Desktop</em> by running <code class="language-plaintext highlighter-rouge">cd ~/Desktop</code>.</li>
+      <li>Now when you run <code class="language-plaintext highlighter-rouge">cd -</code>, it will bring you back to <em>~/Downloads</em>.</li>
+      <li><code class="language-plaintext highlighter-rouge">cd -</code> again will go to <em>Desktop</em> again.</li>
     </ul>
   </li>
 </ol>
@@ -371,7 +371,7 @@
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">pwd</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">pwd</code> stands for <strong>p</strong>rint <strong>w</strong>orking <strong>d</strong>irectory. This will print out the absolute path to your current directory, which is where you are in now.</p>
+<p><code class="language-plaintext highlighter-rouge">pwd</code> stands for <strong>p</strong>rint <strong>w</strong>orking <strong>d</strong>irectory. This will print out the absolute path to your current directory, which is where you are in now.</p>
 
 <p>Examples:</p>
 
@@ -392,12 +392,12 @@
 
 open path/to/file</code></pre></figure>
 
-<p>When you use the <code class="highlighter-rouge">open</code> command, it will choose the most appropriate program to do the task:</p>
+<p>When you use the <code class="language-plaintext highlighter-rouge">open</code> command, it will choose the most appropriate program to do the task:</p>
 
 <ul>
-  <li>If you open a directory, it will use <code class="highlighter-rouge">Finder</code>.</li>
-  <li>If you open a <code class="highlighter-rouge">txt</code> file, <code class="highlighter-rouge">TextEdit</code> will be used. (or <code class="highlighter-rouge">SublimeText</code>/<code class="highlighter-rouge">Atom</code> if that’s your default text editor)</li>
-  <li>If you open a <code class="highlighter-rouge">.xcodeproj</code> file, it will launch <code class="highlighter-rouge">Xcode</code>.</li>
+  <li>If you open a directory, it will use <code class="language-plaintext highlighter-rouge">Finder</code>.</li>
+  <li>If you open a <code class="language-plaintext highlighter-rouge">txt</code> file, <code class="language-plaintext highlighter-rouge">TextEdit</code> will be used. (or <code class="language-plaintext highlighter-rouge">SublimeText</code>/<code class="language-plaintext highlighter-rouge">Atom</code> if that’s your default text editor)</li>
+  <li>If you open a <code class="language-plaintext highlighter-rouge">.xcodeproj</code> file, it will launch <code class="language-plaintext highlighter-rouge">Xcode</code>.</li>
   <li>ect…</li>
 </ul>
 
@@ -425,135 +425,135 @@ open <span class="nt">-a</span> Xcode Podfile
 open <span class="nt">-a</span> Sublime<span class="se">\ </span>Text Podfile</code></pre></figure>
 
 <ol>
-  <li>Open the <em>Documents</em> directory in <code class="highlighter-rouge">Finder</code>.</li>
-  <li>Open the current directory in <code class="highlighter-rouge">Finder</code>.</li>
-  <li>Open <em>Podfile</em> using <code class="highlighter-rouge">EditText</code>.</li>
-  <li>Open <em>MyAwesomeProject.xcworkspace</em> in <code class="highlighter-rouge">Xcode</code>.</li>
+  <li>Open the <em>Documents</em> directory in <code class="language-plaintext highlighter-rouge">Finder</code>.</li>
+  <li>Open the current directory in <code class="language-plaintext highlighter-rouge">Finder</code>.</li>
+  <li>Open <em>Podfile</em> using <code class="language-plaintext highlighter-rouge">EditText</code>.</li>
+  <li>Open <em>MyAwesomeProject.xcworkspace</em> in <code class="language-plaintext highlighter-rouge">Xcode</code>.</li>
   <li>Open file using a specified application.
     <ul>
-      <li>If application name contains space characters, you have to escape it by adding a <code class="highlighter-rouge">\ </code> character before the space:
+      <li>If application name contains space characters, you have to escape it by adding a <code class="language-plaintext highlighter-rouge">\ </code> character before the space:
         <ul>
-          <li><code class="highlighter-rouge">Sublime Text</code> -&gt; <code class="highlighter-rouge">Sublime\ Text</code></li>
-          <li><code class="highlighter-rouge">Google Chrome</code> -&gt; <code class="highlighter-rouge">Google\ Chrome</code></li>
+          <li><code class="language-plaintext highlighter-rouge">Sublime Text</code> -&gt; <code class="language-plaintext highlighter-rouge">Sublime\ Text</code></li>
+          <li><code class="language-plaintext highlighter-rouge">Google Chrome</code> -&gt; <code class="language-plaintext highlighter-rouge">Google\ Chrome</code></li>
           <li>ect…</li>
         </ul>
       </li>
     </ul>
   </li>
-  <li>Open <em>Podfile</em> in <code class="highlighter-rouge">Xcode</code>.</li>
-  <li>Open <em>Podfile</em> in <code class="highlighter-rouge">Sublime Text</code>.</li>
+  <li>Open <em>Podfile</em> in <code class="language-plaintext highlighter-rouge">Xcode</code>.</li>
+  <li>Open <em>Podfile</em> in <code class="language-plaintext highlighter-rouge">Sublime Text</code>.</li>
 </ol>
 
 <h3 id="5-create-new-directory">5. Create new directory:</h3>
 
 <p>The syntax:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">mkdir directory_name</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">mkdir </span>directory_name</code></pre></figure>
 
 <p>Examples:</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># 1.</span>
-mkdir Books
+<span class="nb">mkdir </span>Books
 
 <span class="c"># 2.</span>
-mkdir my<span class="se">\ </span>awesome<span class="se">\ </span>movies</code></pre></figure>
+<span class="nb">mkdir </span>my<span class="se">\ </span>awesome<span class="se">\ </span>movies</code></pre></figure>
 
 <ol>
-  <li>Create a new directory named <code class="highlighter-rouge">Books</code> in the current directory. If you’re at <em>~/Documents</em>, <code class="highlighter-rouge">mkdir Books</code> will create a directory at path <em>~/Documents/Books</em>.</li>
-  <li>Create a new directory named <code class="highlighter-rouge">my awesome movies</code> in the current directory.</li>
+  <li>Create a new directory named <code class="language-plaintext highlighter-rouge">Books</code> in the current directory. If you’re at <em>~/Documents</em>, <code class="language-plaintext highlighter-rouge">mkdir Books</code> will create a directory at path <em>~/Documents/Books</em>.</li>
+  <li>Create a new directory named <code class="language-plaintext highlighter-rouge">my awesome movies</code> in the current directory.</li>
 </ol>
 
 <h3 id="6-create-new-file">6. Create new file:</h3>
 
 <p>The syntax:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">touch file_name</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">touch </span>file_name</code></pre></figure>
 
 <p>Examples:</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># 1.</span>
-touch Podfile
+<span class="nb">touch </span>Podfile
 
 <span class="c"># 2.</span>
-touch .gitignore</code></pre></figure>
+<span class="nb">touch</span> .gitignore</code></pre></figure>
 
 <ol>
-  <li>Create a new file named <code class="highlighter-rouge">Podfile</code> in the current directory. If <em>Podfile</em> already exists, then <code class="highlighter-rouge">touch Podfile</code> will almost does nothing. (it only changes the modification time and access times of the file, but that’s not something you should care for now)</li>
-  <li>Create a new file named <code class="highlighter-rouge">.gitignore</code> in the current directory.</li>
+  <li>Create a new file named <code class="language-plaintext highlighter-rouge">Podfile</code> in the current directory. If <em>Podfile</em> already exists, then <code class="language-plaintext highlighter-rouge">touch Podfile</code> will almost does nothing. (it only changes the modification time and access times of the file, but that’s not something you should care for now)</li>
+  <li>Create a new file named <code class="language-plaintext highlighter-rouge">.gitignore</code> in the current directory.</li>
 </ol>
 
 <h3 id="7-remove-files-and-directories">7. Remove files and directories:</h3>
 
 <p>The syntax for removing files:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">rm path/to/file</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">rm </span>path/to/file</code></pre></figure>
 
 <p>The syntax for removing directories:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">rm <span class="nt">-r</span> path/to/directory</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">rm</span> <span class="nt">-r</span> path/to/directory</code></pre></figure>
 
-<p>Note that for directory, we use 1 additional option: <code class="highlighter-rouge">-r</code>, which will help remove all sub-directories and files inside. Without this option:</p>
+<p>Note that for directory, we use 1 additional option: <code class="language-plaintext highlighter-rouge">-r</code>, which will help remove all sub-directories and files inside. Without this option:</p>
 
 <ul>
   <li>You can only remove empty directory.</li>
-  <li>If directory is not empty, you will receive an error that says <code class="highlighter-rouge">rm: directory_name: is a directory</code>. (where <code class="highlighter-rouge">directory_name</code> is the directory you want to remove)</li>
+  <li>If directory is not empty, you will receive an error that says <code class="language-plaintext highlighter-rouge">rm: directory_name: is a directory</code>. (where <code class="language-plaintext highlighter-rouge">directory_name</code> is the directory you want to remove)</li>
 </ul>
 
 <p>Examples:</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># 1.</span>
-rm Podfile
+<span class="nb">rm </span>Podfile
 
 <span class="c"># 2.</span>
-rm ~/Downloads/abc.zip
+<span class="nb">rm</span> ~/Downloads/abc.zip
 
 <span class="c"># 3.</span>
-rm <span class="nt">-r</span> build
+<span class="nb">rm</span> <span class="nt">-r</span> build
 
 <span class="c"># 4.</span>
-rm <span class="nt">-r</span> ~/Documents/Books</code></pre></figure>
+<span class="nb">rm</span> <span class="nt">-r</span> ~/Documents/Books</code></pre></figure>
 
 <ol>
-  <li>Remove file <code class="highlighter-rouge">Podfile</code> in the current directory.</li>
-  <li>Remove file <code class="highlighter-rouge">abc.zip</code> at directory <em>~/Downloads</em></li>
-  <li>Remove directory named <code class="highlighter-rouge">build</code> in the current directory.</li>
-  <li>Remove directory named <code class="highlighter-rouge">Books</code> at directory <em>~/Documents</em></li>
+  <li>Remove file <code class="language-plaintext highlighter-rouge">Podfile</code> in the current directory.</li>
+  <li>Remove file <code class="language-plaintext highlighter-rouge">abc.zip</code> at directory <em>~/Downloads</em></li>
+  <li>Remove directory named <code class="language-plaintext highlighter-rouge">build</code> in the current directory.</li>
+  <li>Remove directory named <code class="language-plaintext highlighter-rouge">Books</code> at directory <em>~/Documents</em></li>
 </ol>
 
 <h3 id="8-rename-files-and-directories">8. Rename files and directories:</h3>
 
 <p>The syntax:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">mv old_file_name new_file_name
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">mv </span>old_file_name new_file_name
 
 <span class="c"># or</span>
 
-mv old_directory_name new_directory_name</code></pre></figure>
+<span class="nb">mv </span>old_directory_name new_directory_name</code></pre></figure>
 
 <p>Examples:</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># 1.</span>
-mv Podfile Podfile2
+<span class="nb">mv </span>Podfile Podfile2
 
 <span class="c"># 2.</span>
-mv .gitignora .gitignore
+<span class="nb">mv</span> .gitignora .gitignore
 
 <span class="c"># 3.</span>
-mv Classes Class</code></pre></figure>
+<span class="nb">mv </span>Classes Class</code></pre></figure>
 
 <ol>
-  <li>Rename file from <code class="highlighter-rouge">Podfile</code> to <code class="highlighter-rouge">Podfile2</code>.</li>
-  <li>Rename file from <code class="highlighter-rouge">.gitignora</code> to <code class="highlighter-rouge">.gitignore</code> to fix typo.</li>
-  <li>Rename directory from <code class="highlighter-rouge">Classes</code> to <code class="highlighter-rouge">Class</code>.</li>
+  <li>Rename file from <code class="language-plaintext highlighter-rouge">Podfile</code> to <code class="language-plaintext highlighter-rouge">Podfile2</code>.</li>
+  <li>Rename file from <code class="language-plaintext highlighter-rouge">.gitignora</code> to <code class="language-plaintext highlighter-rouge">.gitignore</code> to fix typo.</li>
+  <li>Rename directory from <code class="language-plaintext highlighter-rouge">Classes</code> to <code class="language-plaintext highlighter-rouge">Class</code>.</li>
 </ol>
 
 <h3 id="9-copymove-files-and-directories">9. Copy/move files and directories:</h3>
 
 <p>Nope.</p>
 
-<p>If you’re just getting started, you should not do this task in <code class="highlighter-rouge">Terminal</code>.</p>
+<p>If you’re just getting started, you should not do this task in <code class="language-plaintext highlighter-rouge">Terminal</code>.</p>
 
-<p>Use <code class="highlighter-rouge">open .</code> to launch <code class="highlighter-rouge">Finder</code> and do things there instead.</p>
+<p>Use <code class="language-plaintext highlighter-rouge">open .</code> to launch <code class="language-plaintext highlighter-rouge">Finder</code> and do things there instead.</p>
 
 <h2 id="putting-it-all-together">Putting it all together</h2>
 
@@ -572,7 +572,7 @@ mv Classes Class</code></pre></figure>
 <p>There’re some files I don’t want to track in git so I create a <em>.gitignore</em> file.</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># 1. create an empty file named `.gitignore`</span>
-touch .gitignore
+<span class="nb">touch</span> .gitignore
 
 <span class="c"># 2. open `.gitignore` file in your default text editor</span>
 open .gitignore</code></pre></figure>
@@ -614,9 +614,9 @@ Pods/</code></pre></figure>
 pod init
 
 <span class="c"># 2. Install pods, the --verbose option will help to print out the installation progress</span>
-pod install <span class="nt">--verbose</span></code></pre></figure>
+pod <span class="nb">install</span> <span class="nt">--verbose</span></code></pre></figure>
 
-<p>Run <code class="highlighter-rouge">ls</code> to check if all the neccessary files are generated. It should print out something like this to the terminal:</p>
+<p>Run <code class="language-plaintext highlighter-rouge">ls</code> to check if all the neccessary files are generated. It should print out something like this to the terminal:</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh">MyAwesomeProject             MyAwesomeProject.xcworkspace Podfile.lock
 MyAwesomeProject.xcodeproj   Podfile                      Pods</code></pre></figure>
@@ -625,7 +625,7 @@ MyAwesomeProject.xcodeproj   Podfile                      Pods</code></pre></fig
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh">open MyAwesomeProject.xcworkspace</code></pre></figure>
 
-<p>Wait a little for it to launch Xcode. Then press <code class="highlighter-rouge">Cmd + R</code> to run the project and make sure that everything works fine.</p>
+<p>Wait a little for it to launch Xcode. Then press <code class="language-plaintext highlighter-rouge">Cmd + R</code> to run the project and make sure that everything works fine.</p>
 
 <p>Then I stage all files to git.</p>
 

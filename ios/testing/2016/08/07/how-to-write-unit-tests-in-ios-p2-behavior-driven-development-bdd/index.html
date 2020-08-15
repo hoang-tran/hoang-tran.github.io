@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -130,7 +130,7 @@
 </div>
 
 <article class="post-content">
-  <p>In <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase">part 1</a>, we discovered the basic usage of <code class="highlighter-rouge">XCTestCase</code> and wrote some simple unit tests for the Gun class using Swift. For a quick recap, this is what we got so far:</p>
+  <p>In <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase">part 1</a>, we discovered the basic usage of <code class="language-plaintext highlighter-rouge">XCTestCase</code> and wrote some simple unit tests for the Gun class using Swift. For a quick recap, this is what we got so far:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">MyNativeTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
 
@@ -164,12 +164,12 @@ test method C case 2 sub-case 2
 
 <h2 id="but-is-that-the-best-we-can-do">But is that the best we can do?</h2>
 
-<p>Let’s look back at our example and further develop it. Currently we have 2 cases for the <code class="highlighter-rouge">shoot</code> method. (in pseudo code)</p>
+<p>Let’s look back at our example and further develop it. Currently we have 2 cases for the <code class="language-plaintext highlighter-rouge">shoot</code> method. (in pseudo code)</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">test Gun can shoot if it has bullets
 test Gun cannot shoot if it has no bullet</code></pre></figure>
 
-<p>Let’s make it a little bit more complicated. Our Gun now can only shoot if it is <code class="highlighter-rouge">unlocked</code>. That would require some changes in the test cases like so:</p>
+<p>Let’s make it a little bit more complicated. Our Gun now can only shoot if it is <code class="language-plaintext highlighter-rouge">unlocked</code>. That would require some changes in the test cases like so:</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">test Gun can shoot if it has bullets and it is unlocked
 test Gun cannnot shoot if it has bullets but it is locked
@@ -189,11 +189,11 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
 <p>Wouldn’t it be great if we could group all the common parts among test cases?</p>
 
-<p>Actually there is such way. It’s called <code class="highlighter-rouge">Behavior-driven Development</code>, or <code class="highlighter-rouge">BDD</code> for short.</p>
+<p>Actually there is such way. It’s called <code class="language-plaintext highlighter-rouge">Behavior-driven Development</code>, or <code class="language-plaintext highlighter-rouge">BDD</code> for short.</p>
 
-<p>The idea is: you describe how your class would <strong>behave</strong> from the top down to the bottom. You describe the <code class="highlighter-rouge">big picture</code> first, then go down to the nitty gritty.</p>
+<p>The idea is: you describe how your class would <strong>behave</strong> from the top down to the bottom. You describe the <code class="language-plaintext highlighter-rouge">big picture</code> first, then go down to the nitty gritty.</p>
 
-<p>Here is the <code class="highlighter-rouge">BDD</code> structure:</p>
+<p>Here is the <code class="language-plaintext highlighter-rouge">BDD</code> structure:</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">describe class Y
   describe method A
@@ -213,22 +213,22 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
 <h2 id="lets-try-it-with-our-gun-example">Let’s try it with our Gun example</h2>
 
-<p>We will go from the very top (<code class="highlighter-rouge">class</code>) and down one level at a time.</p>
+<p>We will go from the very top (<code class="language-plaintext highlighter-rouge">class</code>) and down one level at a time.</p>
 
 <p>First, we describe a Gun.</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">describe a Gun</code></pre></figure>
 
-<p>A Gun has 3 methods: <code class="highlighter-rouge">shoot</code>, <code class="highlighter-rouge">lock</code> and <code class="highlighter-rouge">unlock</code>.</p>
+<p>A Gun has 3 methods: <code class="language-plaintext highlighter-rouge">shoot</code>, <code class="language-plaintext highlighter-rouge">lock</code> and <code class="language-plaintext highlighter-rouge">unlock</code>.</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">describe a Gun
   describe shoot
   describe lock
   describe unlock</code></pre></figure>
 
-<p>The <code class="highlighter-rouge">shoot</code> method has 2 cases: <code class="highlighter-rouge">has bullets</code> and <code class="highlighter-rouge">has no bullet</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">shoot</code> method has 2 cases: <code class="language-plaintext highlighter-rouge">has bullets</code> and <code class="language-plaintext highlighter-rouge">has no bullet</code>.</p>
 
-<p>The <code class="highlighter-rouge">lock</code> and <code class="highlighter-rouge">unlock</code> methods each only has one case.</p>
+<p>The <code class="language-plaintext highlighter-rouge">lock</code> and <code class="language-plaintext highlighter-rouge">unlock</code> methods each only has one case.</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">describe a Gun
   describe shoot
@@ -238,7 +238,7 @@ test Gun unlock will make it unlocked</code></pre></figure>
   describe lock
   describe unlock</code></pre></figure>
 
-<p>In the <code class="highlighter-rouge">has bullets</code> case of the <code class="highlighter-rouge">shoot</code> method, we have 2 sub-cases: <code class="highlighter-rouge">is unlocked</code> and <code class="highlighter-rouge">is locked</code>.</p>
+<p>In the <code class="language-plaintext highlighter-rouge">has bullets</code> case of the <code class="language-plaintext highlighter-rouge">shoot</code> method, we have 2 sub-cases: <code class="language-plaintext highlighter-rouge">is unlocked</code> and <code class="language-plaintext highlighter-rouge">is locked</code>.</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">describe a Gun
   describe shoot
@@ -275,11 +275,11 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
 <h2 id="translating-into-swift">Translating into Swift</h2>
 
-<p>First, follow this <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-3-setup-unit-tests">guide</a> (from step 1 to step 3) to setup <code class="highlighter-rouge">cocoapods</code> and add the <a href="https://github.com/Quick/Quick">Quick</a> pod.</p>
+<p>First, follow this <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-3-setup-unit-tests">guide</a> (from step 1 to step 3) to setup <code class="language-plaintext highlighter-rouge">cocoapods</code> and add the <a href="https://github.com/Quick/Quick">Quick</a> pod.</p>
 
-<p>Add a new file called <code class="highlighter-rouge">GunSpec.swift</code> to your test target. Notice that unit tests written using <code class="highlighter-rouge">BDD</code> style should have the suffix <code class="highlighter-rouge">Spec</code> instead of <code class="highlighter-rouge">Tests</code> as the naming convention.</p>
+<p>Add a new file called <code class="language-plaintext highlighter-rouge">GunSpec.swift</code> to your test target. Notice that unit tests written using <code class="language-plaintext highlighter-rouge">BDD</code> style should have the suffix <code class="language-plaintext highlighter-rouge">Spec</code> instead of <code class="language-plaintext highlighter-rouge">Tests</code> as the naming convention.</p>
 
-<p>Your <code class="highlighter-rouge">GunSpec</code> class must subclass from <code class="highlighter-rouge">QuickSpec</code> and override the <code class="highlighter-rouge">spec</code> method.</p>
+<p>Your <code class="language-plaintext highlighter-rouge">GunSpec</code> class must subclass from <code class="language-plaintext highlighter-rouge">QuickSpec</code> and override the <code class="language-plaintext highlighter-rouge">spec</code> method.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Quick</span>
 
@@ -293,9 +293,9 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
 <p>First, we describe a Gun.</p>
 
-<p>(Actually the line <code class="highlighter-rouge">class GunSpec : QuickSpec</code> already tells this. We don’t need to write any more code)</p>
+<p>(Actually the line <code class="language-plaintext highlighter-rouge">class GunSpec : QuickSpec</code> already tells this. We don’t need to write any more code)</p>
 
-<p>A Gun has 3 methods: <code class="highlighter-rouge">shoot</code>, <code class="highlighter-rouge">lock</code> and <code class="highlighter-rouge">unlock</code>.</p>
+<p>A Gun has 3 methods: <code class="language-plaintext highlighter-rouge">shoot</code>, <code class="language-plaintext highlighter-rouge">lock</code> and <code class="language-plaintext highlighter-rouge">unlock</code>.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
@@ -313,9 +313,9 @@ test Gun unlock will make it unlocked</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>The <code class="highlighter-rouge">shoot</code> method has 2 cases: <code class="highlighter-rouge">has bullets</code> and <code class="highlighter-rouge">has no bullet</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">shoot</code> method has 2 cases: <code class="language-plaintext highlighter-rouge">has bullets</code> and <code class="language-plaintext highlighter-rouge">has no bullet</code>.</p>
 
-<p>The <code class="highlighter-rouge">lock</code> and <code class="highlighter-rouge">unlock</code> methods each only has one case. (Note that when translate to Swift code, we don’t use the word <code class="highlighter-rouge">when</code>. We use <code class="highlighter-rouge">context</code> instead)</p>
+<p>The <code class="language-plaintext highlighter-rouge">lock</code> and <code class="language-plaintext highlighter-rouge">unlock</code> methods each only has one case. (Note that when translate to Swift code, we don’t use the word <code class="language-plaintext highlighter-rouge">when</code>. We use <code class="language-plaintext highlighter-rouge">context</code> instead)</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
@@ -339,7 +339,7 @@ test Gun unlock will make it unlocked</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>In the context <code class="highlighter-rouge">has bullets</code> of the <code class="highlighter-rouge">shoot</code> method, we have 2 sub-cases: <code class="highlighter-rouge">is unlocked</code> and <code class="highlighter-rouge">is locked</code></p>
+<p>In the context <code class="language-plaintext highlighter-rouge">has bullets</code> of the <code class="language-plaintext highlighter-rouge">shoot</code> method, we have 2 sub-cases: <code class="language-plaintext highlighter-rouge">is unlocked</code> and <code class="language-plaintext highlighter-rouge">is locked</code></p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
@@ -422,7 +422,7 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
     <span class="c1">//...</span></code></pre></figure>
 
-<p>We’re going to write the 3 steps for this test just like we did in the previous post, which are: <code class="highlighter-rouge">setup</code>, <code class="highlighter-rouge">execution</code> and <code class="highlighter-rouge">expectation</code></p>
+<p>We’re going to write the 3 steps for this test just like we did in the previous post, which are: <code class="language-plaintext highlighter-rouge">setup</code>, <code class="language-plaintext highlighter-rouge">execution</code> and <code class="language-plaintext highlighter-rouge">expectation</code></p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">//...</span>
 <span class="nf">describe</span><span class="p">(</span><span class="s">"shoot"</span><span class="p">)</span> <span class="p">{</span>
@@ -442,9 +442,9 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
     <span class="c1">//...</span></code></pre></figure>
 
-<p>Now when we run the test (⌘ + U), it will fail because we don’t have the property <code class="highlighter-rouge">isLocked</code> in the Gun class yet. Open your <code class="highlighter-rouge">Gun.swift</code> file and add this:</p>
+<p>Now when we run the test (⌘ + U), it will fail because we don’t have the property <code class="language-plaintext highlighter-rouge">isLocked</code> in the Gun class yet. Open your <code class="language-plaintext highlighter-rouge">Gun.swift</code> file and add this:</p>
 
-<p>(If you forget where the <code class="highlighter-rouge">Gun.swift</code> is, please read <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase">part 1</a> again)</p>
+<p>(If you forget where the <code class="language-plaintext highlighter-rouge">Gun.swift</code> is, please read <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase">part 1</a> again)</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Gun</span> <span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
 
@@ -476,7 +476,7 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
     <span class="c1">//...</span></code></pre></figure>
 
-<p>This test will fail. We haven’t implemented anything related to the <code class="highlighter-rouge">isLocked</code> logic in the Gun class yet. We will do it now:</p>
+<p>This test will fail. We haven’t implemented anything related to the <code class="language-plaintext highlighter-rouge">isLocked</code> logic in the Gun class yet. We will do it now:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Gun</span> <span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
   <span class="c1">//...</span>
@@ -494,7 +494,7 @@ test Gun unlock will make it unlocked</code></pre></figure>
 
 <p>Rerun the tests to make sure they all pass.</p>
 
-<p>Now if we continue down the road with the remaining cases, we will have the full <code class="highlighter-rouge">Spec</code> for the Gun:</p>
+<p>Now if we continue down the road with the remaining cases, we will have the full <code class="language-plaintext highlighter-rouge">Spec</code> for the Gun:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">GunSpec</span> <span class="p">:</span> <span class="kt">QuickSpec</span> <span class="p">{</span>
   <span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
@@ -550,7 +550,7 @@ test Gun unlock will make it unlocked</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>And the full Gun class with 2 additional methods: <code class="highlighter-rouge">lock</code> and <code class="highlighter-rouge">unlock</code>.</p>
+<p>And the full Gun class with 2 additional methods: <code class="language-plaintext highlighter-rouge">lock</code> and <code class="language-plaintext highlighter-rouge">unlock</code>.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Gun</span> <span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
 
@@ -578,19 +578,19 @@ test Gun unlock will make it unlocked</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Although there is still some duplicated code in <code class="highlighter-rouge">GunSpec.swift</code>, you can refactor it out pretty easily using the <code class="highlighter-rouge">beforeEach</code> block as stated in <a href="https://github.com/Quick/Quick/blob/master/Documentation/en-us/QuickExamplesAndGroups.md#sharing-setupteardown-code-using-beforeeach-and-aftereach">Quick’s documentation</a>.</p>
+<p>Although there is still some duplicated code in <code class="language-plaintext highlighter-rouge">GunSpec.swift</code>, you can refactor it out pretty easily using the <code class="language-plaintext highlighter-rouge">beforeEach</code> block as stated in <a href="https://github.com/Quick/Quick/blob/master/Documentation/en-us/QuickExamplesAndGroups.md#sharing-setupteardown-code-using-beforeeach-and-aftereach">Quick’s documentation</a>.</p>
 
-<p>The important thing is you know the <strong>flow</strong>. You know how to do things the <code class="highlighter-rouge">BDD</code> way.</p>
+<p>The important thing is you know the <strong>flow</strong>. You know how to do things the <code class="language-plaintext highlighter-rouge">BDD</code> way.</p>
 
 <h2 id="wrap-up">Wrap up</h2>
 
-<p>Today we discussed about the problem with traditional way of writing unit tests where we list things out linearly. We then introduced the <code class="highlighter-rouge">BDD</code> approach of designing tests from the top down so that it’s easier to read and navigate through cases.</p>
+<p>Today we discussed about the problem with traditional way of writing unit tests where we list things out linearly. We then introduced the <code class="language-plaintext highlighter-rouge">BDD</code> approach of designing tests from the top down so that it’s easier to read and navigate through cases.</p>
 
-<p>Now I don’t say that you should dump the traditional way and only stick with <code class="highlighter-rouge">BDD</code>. If you’re just starting out, learn how to write a correct unit test first. Organizing your tests comes later.</p>
+<p>Now I don’t say that you should dump the traditional way and only stick with <code class="language-plaintext highlighter-rouge">BDD</code>. If you’re just starting out, learn how to write a correct unit test first. Organizing your tests comes later.</p>
 
 <p>The idea is that you get to know what options are available and which one to choose for your next project.</p>
 
-<p>In the next article, I’ll be talking about <code class="highlighter-rouge">Test-driven Development</code> and how we can apply it to build a <code class="highlighter-rouge">Calculator</code> class from the ground up.</p>
+<p>In the next article, I’ll be talking about <code class="language-plaintext highlighter-rouge">Test-driven Development</code> and how we can apply it to build a <code class="language-plaintext highlighter-rouge">Calculator</code> class from the ground up.</p>
 
 <p>Stay tuned.</p>
 

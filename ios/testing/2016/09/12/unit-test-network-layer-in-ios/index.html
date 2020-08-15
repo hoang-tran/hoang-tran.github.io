@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -309,7 +309,7 @@ GET https://api.github.com/users/chriseidhof</code></pre></figure>
 
 <h3 id="afnetworking">AFNetworking:</h3>
 
-<p>Remember to add <code class="highlighter-rouge">pod 'AFNetworking'</code> to your Podfile.</p>
+<p>Remember to add <code class="language-plaintext highlighter-rouge">pod 'AFNetworking'</code> to your Podfile.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">AFNetworking</span>
 <span class="kd">import</span> <span class="kt">SwiftyJSON</span>
@@ -339,7 +339,7 @@ GET https://api.github.com/users/chriseidhof</code></pre></figure>
 
 <h3 id="alamofire">Alamofire:</h3>
 
-<p>Remember to add <code class="highlighter-rouge">pod 'Alamofire'</code> to your Podfile.</p>
+<p>Remember to add <code class="language-plaintext highlighter-rouge">pod 'Alamofire'</code> to your Podfile.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Alamofire</span>
 <span class="kd">import</span> <span class="kt">SwiftyJSON</span>
@@ -517,7 +517,7 @@ do not send it over to network.</p>
 
 <p>Type this command into your Terminal to install all 3 pods.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod install</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod <span class="nb">install</span></code></pre></figure>
 
 <p>Open the generated <em>.xcworkspace</em> file.</p>
 
@@ -617,7 +617,7 @@ do not send it over to network.</p>
 
 <p>Create a new directory called <strong>Fixtures</strong> and then go to it:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">mkdir Fixtures
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">mkdir </span>Fixtures
 
 <span class="nb">cd </span>Fixtures</code></pre></figure>
 
@@ -625,7 +625,7 @@ do not send it over to network.</p>
 
 <p>Create a new json file called <strong>GetUserSuccess.json</strong>, then open it for edit:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">touch GetUserSuccess.json
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">touch </span>GetUserSuccess.json
 
 open GetUserSuccess.json</code></pre></figure>
 
@@ -634,36 +634,36 @@ open GetUserSuccess.json</code></pre></figure>
 <p>Paste the json content to the <strong>GetUserSuccess.json</strong> file:</p>
 
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoang-tran"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6714157</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/6714157?v=3"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/hoang-tran"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/followers"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/following{/other_user}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/gists{/gist_id}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/subscriptions"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/orgs"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/repos"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/events{/privacy}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/received_events"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hoang Tran"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"East Agile Vietnam"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"blog"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hoangtran.me/"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ho Chi Minh city, VietNam"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoangtx.master@gmail.com"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"hireable"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hi, I'm Hoang. I'm a Swift lover. I blog weekly about iOS development/testing/deployment at http://hoangtran.me/</span><span class="se">\r\n</span><span class="s2">And I happen to love GitHub so much 😜 "</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"public_repos"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"public_gists"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"followers"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"following"</span><span class="p">:</span><span class="w"> </span><span class="mi">93</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-02-18T09:42:07Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-30T03:04:04Z"</span><span class="w">
+  </span><span class="nl">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoang-tran"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6714157</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/6714157?v=3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/hoang-tran"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/followers"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/following{/other_user}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/subscriptions"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/orgs"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/repos"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/events{/privacy}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/received_events"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hoang Tran"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"East Agile Vietnam"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"blog"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hoangtran.me/"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ho Chi Minh city, VietNam"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoangtx.master@gmail.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hireable"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hi, I'm Hoang. I'm a Swift lover. I blog weekly about iOS development/testing/deployment at http://hoangtran.me/</span><span class="se">\r\n</span><span class="s2">And I happen to love GitHub so much 😜 "</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"public_repos"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"public_gists"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"followers"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"following"</span><span class="p">:</span><span class="w"> </span><span class="mi">93</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-02-18T09:42:07Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-30T03:04:04Z"</span><span class="w">
 </span><span class="p">}</span></code></pre></figure>
 
 <p>Open the current directory in Finder:</p>

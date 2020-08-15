@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?202008151413" type="text/css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
@@ -132,21 +132,21 @@
 <article class="post-content">
   <h2 id="what-is-unit-test">What is unit test?</h2>
 
-<p>Unit test is basically just a test at the <code class="highlighter-rouge">unit</code> level.</p>
+<p>Unit test is basically just a test at the <code class="language-plaintext highlighter-rouge">unit</code> level.</p>
 
-<p>Your project will have multiple <code class="highlighter-rouge">classes</code>. Each <code class="highlighter-rouge">class</code> will have multiple <code class="highlighter-rouge">methods</code>. Each <code class="highlighter-rouge">method</code> will have multiple <code class="highlighter-rouge">cases</code>. And it’s in those <code class="highlighter-rouge">cases</code> that we are at the <code class="highlighter-rouge">unit</code> level.</p>
+<p>Your project will have multiple <code class="language-plaintext highlighter-rouge">classes</code>. Each <code class="language-plaintext highlighter-rouge">class</code> will have multiple <code class="language-plaintext highlighter-rouge">methods</code>. Each <code class="language-plaintext highlighter-rouge">method</code> will have multiple <code class="language-plaintext highlighter-rouge">cases</code>. And it’s in those <code class="language-plaintext highlighter-rouge">cases</code> that we are at the <code class="language-plaintext highlighter-rouge">unit</code> level.</p>
 
-<p>A unit test will test for a specific <code class="highlighter-rouge">case</code> in a <code class="highlighter-rouge">method</code>. It usually has 4 steps:</p>
+<p>A unit test will test for a specific <code class="language-plaintext highlighter-rouge">case</code> in a <code class="language-plaintext highlighter-rouge">method</code>. It usually has 4 steps:</p>
 
 <ol>
   <li><strong>Setup</strong>:
     <ul>
-      <li>This is where you initialize the <code class="highlighter-rouge">class</code> you want to test</li>
+      <li>This is where you initialize the <code class="language-plaintext highlighter-rouge">class</code> you want to test</li>
     </ul>
   </li>
   <li><strong>Execution</strong>:
     <ul>
-      <li>Call method on the <code class="highlighter-rouge">class</code> or <code class="highlighter-rouge">instance of the class</code></li>
+      <li>Call method on the <code class="language-plaintext highlighter-rouge">class</code> or <code class="language-plaintext highlighter-rouge">instance of the class</code></li>
     </ul>
   </li>
   <li><strong>Expectation</strong>:
@@ -163,7 +163,7 @@
 
 <p>Let’s look at some example unit tests here (in pseudo code):</p>
 
-<p>Test the <code class="highlighter-rouge">shoot</code> method on <code class="highlighter-rouge">Gun</code> class:</p>
+<p>Test the <code class="language-plaintext highlighter-rouge">shoot</code> method on <code class="language-plaintext highlighter-rouge">Gun</code> class:</p>
 
 <ul>
   <li>Case 1: if it has bullet(s), the gun CAN shoot</li>
@@ -181,27 +181,27 @@
 2. Execution: shoot
 3. Expectation: expect gun not to shoot anything</code></pre></figure>
 
-<p>Test the <code class="highlighter-rouge">reload</code> method on <code class="highlighter-rouge">Gun</code> class:</p>
+<p>Test the <code class="language-plaintext highlighter-rouge">reload</code> method on <code class="language-plaintext highlighter-rouge">Gun</code> class:</p>
 
 <figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Setup: create a gun with no bullet
 2. Execution: reload the gun
 3. Expectation: expect the gun to be full of bullets</code></pre></figure>
 
-<p>After we finish writing unit tests for all <code class="highlighter-rouge">cases</code> in all <code class="highlighter-rouge">methods</code> of the <code class="highlighter-rouge">Gun</code> class, we can say that the <code class="highlighter-rouge">Gun</code> class is fully tested. All the edge cases are covered and we would have the confidence that this <code class="highlighter-rouge">Gun</code> class should work as expected.</p>
+<p>After we finish writing unit tests for all <code class="language-plaintext highlighter-rouge">cases</code> in all <code class="language-plaintext highlighter-rouge">methods</code> of the <code class="language-plaintext highlighter-rouge">Gun</code> class, we can say that the <code class="language-plaintext highlighter-rouge">Gun</code> class is fully tested. All the edge cases are covered and we would have the confidence that this <code class="language-plaintext highlighter-rouge">Gun</code> class should work as expected.</p>
 
 <h2 id="but-thats-just-a-bunch-of-pseudo-code-how-does-we-translate-it-into-ios">But that’s just a bunch of pseudo code. How does we translate it into iOS?</h2>
 
-<p>Xcode does provide a way to write unit tests natively through the <code class="highlighter-rouge">XCTestCase</code> class. It provides a variety of assertion methods to help us describe our <code class="highlighter-rouge">expectation</code> for the test. Let’s dive in and see what it looks like.</p>
+<p>Xcode does provide a way to write unit tests natively through the <code class="language-plaintext highlighter-rouge">XCTestCase</code> class. It provides a variety of assertion methods to help us describe our <code class="language-plaintext highlighter-rouge">expectation</code> for the test. Let’s dive in and see what it looks like.</p>
 
-<p>First, add a new file to your test target. (if your project name is <code class="highlighter-rouge">MyAwesomeProject</code>, then your test target’s name would be <code class="highlighter-rouge">MyAwesomeProjectTests</code>)</p>
+<p>First, add a new file to your test target. (if your project name is <code class="language-plaintext highlighter-rouge">MyAwesomeProject</code>, then your test target’s name would be <code class="language-plaintext highlighter-rouge">MyAwesomeProjectTests</code>)</p>
 
 <p><img src="/images/how-to-write-unit-tests-in-ios/add-new-file.png" alt="" /></p>
 
-<p>Choose the <code class="highlighter-rouge">Unit Test Case Class</code> template &gt; <code class="highlighter-rouge">Next</code></p>
+<p>Choose the <code class="language-plaintext highlighter-rouge">Unit Test Case Class</code> template &gt; <code class="language-plaintext highlighter-rouge">Next</code></p>
 
 <p><img src="/images/how-to-write-unit-tests-in-ios/choose-unit-test.png" alt="" /></p>
 
-<p>Make sure you subclass from <code class="highlighter-rouge">XCTestCase</code>.</p>
+<p>Make sure you subclass from <code class="language-plaintext highlighter-rouge">XCTestCase</code>.</p>
 
 <p><img src="/images/how-to-write-unit-tests-in-ios/name-unit-test.png" alt="" /></p>
 
@@ -235,7 +235,7 @@
 
 <span class="p">}</span></code></pre></figure>
 
-<p>For simplicity, we’ll remove everything and just put our single test there. Notice that your test method <strong>MUST</strong> begin with the prefix <code class="highlighter-rouge">test</code>. (Ex: <code class="highlighter-rouge">testSomething</code>, <code class="highlighter-rouge">testFirst</code>, <code class="highlighter-rouge">testTheWorld</code>)</p>
+<p>For simplicity, we’ll remove everything and just put our single test there. Notice that your test method <strong>MUST</strong> begin with the prefix <code class="language-plaintext highlighter-rouge">test</code>. (Ex: <code class="language-plaintext highlighter-rouge">testSomething</code>, <code class="language-plaintext highlighter-rouge">testFirst</code>, <code class="language-plaintext highlighter-rouge">testTheWorld</code>)</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">XCTest</span>
 
@@ -247,13 +247,13 @@
 
 <span class="p">}</span></code></pre></figure>
 
-<p>Let’s write our first <code class="highlighter-rouge">expectation</code>.</p>
+<p>Let’s write our first <code class="language-plaintext highlighter-rouge">expectation</code>.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
   <span class="kt">XCTAssert</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>This reads as <code class="highlighter-rouge">expect the boolean expression (1 + 1 == 2) to be true</code> or <code class="highlighter-rouge">expect 1 + 1 to equal to 2</code>. When you run this test (<code class="highlighter-rouge">⌘ + U</code>), it should pass.</p>
+<p>This reads as <code class="language-plaintext highlighter-rouge">expect the boolean expression (1 + 1 == 2) to be true</code> or <code class="language-plaintext highlighter-rouge">expect 1 + 1 to equal to 2</code>. When you run this test (<code class="language-plaintext highlighter-rouge">⌘ + U</code>), it should pass.</p>
 
 <p>But when you change it to:</p>
 
@@ -265,7 +265,7 @@
 
 <p><img src="/images/how-to-write-unit-tests-in-ios/test-fail.png" alt="" /></p>
 
-<p>When the test fails, we know exactly which line it is located but we don’t know why it failed, we only see a general statement <code class="highlighter-rouge">XCTAssertTrue failed</code>, which is not very useful. Let’s fix that by adding another argument for error message.</p>
+<p>When the test fails, we know exactly which line it is located but we don’t know why it failed, we only see a general statement <code class="language-plaintext highlighter-rouge">XCTAssertTrue failed</code>, which is not very useful. Let’s fix that by adding another argument for error message.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
   <span class="kt">XCTAssert</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"1 + 1 should equal to 2"</span><span class="p">)</span>
@@ -275,23 +275,23 @@
 
 <p><img src="/images/how-to-write-unit-tests-in-ios/test-fail-reason.png" alt="" /></p>
 
-<p>Besides <code class="highlighter-rouge">XCTAssert</code>, there are some other methods you can use for assertion, such as:</p>
+<p>Besides <code class="language-plaintext highlighter-rouge">XCTAssert</code>, there are some other methods you can use for assertion, such as:</p>
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">XCTAssertTrue(booleanExpression, errorMessage)</code>: <strong>pass</strong> when booleanExpression is true, otherwise <strong>fail</strong> with errorMessage. This one is equipvalent to <code class="highlighter-rouge">XCTAssert</code>.</p>
+    <p><code class="language-plaintext highlighter-rouge">XCTAssertTrue(booleanExpression, errorMessage)</code>: <strong>pass</strong> when booleanExpression is true, otherwise <strong>fail</strong> with errorMessage. This one is equipvalent to <code class="language-plaintext highlighter-rouge">XCTAssert</code>.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">XCTAssertFalse(booleanExpression, errorMessage)</code>: <strong>pass</strong> when booleanExpression is false, otherwise <strong>fail</strong> with errorMessage.</p>
+    <p><code class="language-plaintext highlighter-rouge">XCTAssertFalse(booleanExpression, errorMessage)</code>: <strong>pass</strong> when booleanExpression is false, otherwise <strong>fail</strong> with errorMessage.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">XCTAssertNil(object, errorMessage)</code>: <strong>pass</strong> when object is nil, otherwise <strong>fail</strong> with errorMessage.</p>
+    <p><code class="language-plaintext highlighter-rouge">XCTAssertNil(object, errorMessage)</code>: <strong>pass</strong> when object is nil, otherwise <strong>fail</strong> with errorMessage.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">XCTAssertEqual(object1, object2, errorMessage)</code>: <strong>pass</strong> when object1 is equal to object2, otherwise <strong>fail</strong> with errorMessage.</p>
+    <p><code class="language-plaintext highlighter-rouge">XCTAssertEqual(object1, object2, errorMessage)</code>: <strong>pass</strong> when object1 is equal to object2, otherwise <strong>fail</strong> with errorMessage.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">XCTAssertThrowsError(expression, errorMessage, errorHandler)</code>: <strong>pass</strong> when expression throws exception while evaluated, otherwise <strong>fail</strong> with errorMessage. We can also use the errorHandler to assert for the exception thrown.
+    <p><code class="language-plaintext highlighter-rouge">XCTAssertThrowsError(expression, errorMessage, errorHandler)</code>: <strong>pass</strong> when expression throws exception while evaluated, otherwise <strong>fail</strong> with errorMessage. We can also use the errorHandler to assert for the exception thrown.
 For example:</p>
   </li>
 </ul>
@@ -311,9 +311,9 @@ For example:</p>
 
 <p>This is just some methods that I use often. For the full list, please refer to Apple documenation.</p>
 
-<p>Let’s write real unit tests for the <code class="highlighter-rouge">Gun</code> example we talked about earlier.</p>
+<p>Let’s write real unit tests for the <code class="language-plaintext highlighter-rouge">Gun</code> example we talked about earlier.</p>
 
-<p>Test the <code class="highlighter-rouge">shoot</code> method on <code class="highlighter-rouge">Gun</code> class:</p>
+<p>Test the <code class="language-plaintext highlighter-rouge">shoot</code> method on <code class="language-plaintext highlighter-rouge">Gun</code> class:</p>
 
 <ul>
   <li>Case 1: Gun CAN shoot if it has bullet(s).</li>
@@ -341,9 +341,9 @@ For example:</p>
   <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">gun</span><span class="o">.</span><span class="n">bullets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"expect the number of bullets to remain the same"</span><span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Both of these 2 tests will fail because we haven’t implemented the <code class="highlighter-rouge">Gun</code> class yet. Let’s go ahead and do it.</p>
+<p>Both of these 2 tests will fail because we haven’t implemented the <code class="language-plaintext highlighter-rouge">Gun</code> class yet. Let’s go ahead and do it.</p>
 
-<p>Add a new file called <code class="highlighter-rouge">Gun.swift</code> inside your main target (not inside the test target). We will do a very simple implementation here:</p>
+<p>Add a new file called <code class="language-plaintext highlighter-rouge">Gun.swift</code> inside your main target (not inside the test target). We will do a very simple implementation here:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Foundation</span>
 
@@ -363,14 +363,14 @@ For example:</p>
 
 <span class="p">}</span></code></pre></figure>
 
-<p>Go to the test class (<code class="highlighter-rouge">MyNativeTests.swift</code>) and import your main target. Without this step, all of your classes in the main target won’t be visible to the tests.</p>
+<p>Go to the test class (<code class="language-plaintext highlighter-rouge">MyNativeTests.swift</code>) and import your main target. Without this step, all of your classes in the main target won’t be visible to the tests.</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">// add this line to the top of the file</span>
 <span class="kd">@testable</span> <span class="kd">import</span> <span class="kt">MyAwesomeProject</span></code></pre></figure>
 
-<p>The <code class="highlighter-rouge">@testable</code> means that you don’t need to declare your classes and methods as <code class="highlighter-rouge">public</code> anymore. All of them will be visible in the test target eventually.</p>
+<p>The <code class="language-plaintext highlighter-rouge">@testable</code> means that you don’t need to declare your classes and methods as <code class="language-plaintext highlighter-rouge">public</code> anymore. All of them will be visible in the test target eventually.</p>
 
-<p>Now when you run the tests (<code class="highlighter-rouge">⌘ + U</code>), they should all pass. Here is the test class at this point:</p>
+<p>Now when you run the tests (<code class="language-plaintext highlighter-rouge">⌘ + U</code>), they should all pass. Here is the test class at this point:</p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">XCTest</span>
 <span class="kd">@testable</span> <span class="kd">import</span> <span class="kt">MyAwesomeProject</span>
@@ -397,13 +397,13 @@ For example:</p>
 
 <span class="p">}</span></code></pre></figure>
 
-<p>There is still the <code class="highlighter-rouge">reload</code> method to test but I guess you can easily do it on your own since it’s quite similar to what we just did.</p>
+<p>There is still the <code class="language-plaintext highlighter-rouge">reload</code> method to test but I guess you can easily do it on your own since it’s quite similar to what we just did.</p>
 
 <h3 id="wrap-up">Wrap up</h3>
 
-<p>Today we learnt what a unit test is and how to write it properly in iOS using <code class="highlighter-rouge">XCTestCase</code>. We also learnt how to test an object at the <code class="highlighter-rouge">unit</code> level (test each <code class="highlighter-rouge">case</code> in each <code class="highlighter-rouge">method</code>, test all <code class="highlighter-rouge">methods</code> in the <code class="highlighter-rouge">class</code>).</p>
+<p>Today we learnt what a unit test is and how to write it properly in iOS using <code class="language-plaintext highlighter-rouge">XCTestCase</code>. We also learnt how to test an object at the <code class="language-plaintext highlighter-rouge">unit</code> level (test each <code class="language-plaintext highlighter-rouge">case</code> in each <code class="language-plaintext highlighter-rouge">method</code>, test all <code class="language-plaintext highlighter-rouge">methods</code> in the <code class="language-plaintext highlighter-rouge">class</code>).</p>
 
-<p>Although <code class="highlighter-rouge">XCTestCase</code> is simple and quite straightforward to use, it might get really tedious as your test becomes more complicated. On the next post, we’ll discover some of <code class="highlighter-rouge">XCTestCase</code>’s problems and how we can solve it using <code class="highlighter-rouge">Behaviour Driven Development</code>.</p>
+<p>Although <code class="language-plaintext highlighter-rouge">XCTestCase</code> is simple and quite straightforward to use, it might get really tedious as your test becomes more complicated. On the next post, we’ll discover some of <code class="language-plaintext highlighter-rouge">XCTestCase</code>’s problems and how we can solve it using <code class="language-plaintext highlighter-rouge">Behaviour Driven Development</code>.</p>
 
 
 </article>
