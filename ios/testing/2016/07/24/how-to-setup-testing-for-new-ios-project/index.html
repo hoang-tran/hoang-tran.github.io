@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to setup testing for new iOS project &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Learn how to setup a testing environment on iOS, for both ObjC and Swift
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="ios, testing">
+    <link rel="canonical" href="http://hoangtran.me/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to setup testing for new iOS project">
+    <meta property="og:description" content="
+	Learn how to setup a testing environment on iOS, for both ObjC and Swift
+">
+    <meta property="og:url" content="http://hoangtran.me/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="How to setup testing for new iOS project" />
+    <meta name="twitter:description" content="
+	Learn how to setup a testing environment on iOS, for both ObjC and Swift
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>How to setup testing for new iOS project</h1>
+  <span class="post-meta">
+24 July 2016
+  
+</div>
+
+<article class="post-content">
+  <p>App (or any product in general), before getting released to users, needs to be tested carefully.</p>
+
+<p>When talking about testings, you might think of someone who sits for hours playing around with the app, trying to hit all the buttons, swiping in all directions or even shaking the phone like crazy in hope of finding something unusual to report back to the developers.</p>
+
+<p>For big app, it would take days for the tester team to go through all the functionalities. Even after that, some developers might come in and make changes to the code and that would restart the whole testing process all over again.</p>
+
+<p>That’s the reason why more and more companies are starting to write automation tests for their projects. The benefits are huge. To name a few, tests will:</p>
+
+<p><strong>Provide instant feedback on where the code fails</strong>:</p>
+
+<ul>
+  <li>It only take a few seconds to several minutes (one hour at max) to run all of your automation tests.</li>
+  <li>When tests fail, we will quickly know what’s wrong just by looking at the tests log instead of having a raging customers/boss to yell at our face.</li>
+  <li>Although we still need to do manually testing sometimes, automation tests still save you a lot of development time by providing extremely fast feedback loop.</li>
+</ul>
+
+<p><strong>Give you confidence when making changes to the code</strong>:</p>
+
+<ul>
+  <li>Tests are especially useful when you’re working on a large codebase along with several other developers. You don’t need to worry about breaking someone else’s code (or your own). It’s easy to make changes as long as the tests still pass.</li>
+</ul>
+
+<p><strong>Give you confidence when showing the project to your boss, or your clients</strong>:</p>
+
+<ul>
+  <li>Project with high test coverage (&gt;90%) tends to have better quality. It will make your boss/clients happy and certainly earn you more money.</li>
+</ul>
+
+<p><strong>Help to document your code</strong>:</p>
+
+<ul>
+  <li>Have a look at this piece of test:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testCreateNewNote</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nf">visitNotesScreen</span><span class="p">()</span>
+  <span class="nf">clickOn</span><span class="p">(</span><span class="s">"Create new note"</span><span class="p">)</span>
+  <span class="nf">fillInNewNoteForm</span><span class="p">()</span>
+  <span class="nf">clickOn</span><span class="p">(</span><span class="s">"Create"</span><span class="p">)</span>
+  <span class="nf">expectToSeeNewNoteCreatedSuccessfully</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Can you guess what story it tells? I bet you will. Tests when written cleanly would read just like English, you won’t need any additional documents other than the test suite itself.</li>
+</ul>
+
+<p>Alright! If that get you excited about writing your first automation tests on iOS, here’s a few simple steps that would get you up and running pretty quick:</p>
+
+<h2 id="step-1-create-new-ios-project">Step 1: Create new iOS project</h2>
+<p>Create new project:</p>
+
+<ul>
+  <li>Open Xcode.</li>
+  <li>Choose <code class="highlighter-rouge">Create a new Xcode project</code>.</li>
+  <li>Choose template <code class="highlighter-rouge">iOS</code> &gt; <code class="highlighter-rouge">Application</code> &gt; <code class="highlighter-rouge">Single View Application</code> &gt; <code class="highlighter-rouge">Next</code>.</li>
+  <li>Fill in your project information. Make sure the <code class="highlighter-rouge">Include Unit Tests</code> option is ticked.</li>
+  <li>Choose a path for the project.</li>
+  <li>Xcode will open the project automatically for you.</li>
+</ul>
+
+<p>Try to <strong>Run</strong> the project (<code class="highlighter-rouge">⌘ + R</code>). It should compile and run smoothly in the simulator.</p>
+
+<p>For the rest of this tutorial, let’s just assume that your project name is <code class="highlighter-rouge">MyAwesomeProject</code> and it is located at <code class="highlighter-rouge">~/Documents/MyAwesomeProject</code>.</p>
+
+<h2 id="step-2-setup-cocoapods">Step 2: Setup cocoapods</h2>
+<p>In case you haven’t installed <a href="https://cocoapods.org/">cocoapods</a>, you should do it now.</p>
+
+<p>Open <code class="highlighter-rouge">Terminal</code> or <code class="highlighter-rouge">iTerm</code> and type in this command.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gem install cocoapods</code></pre></figure>
+
+<p>Go to the project you just created.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> ~/Documents/MyAwesomeProject</code></pre></figure>
+
+<p>Initialize <code class="highlighter-rouge">cocoapods</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># this will generate a file called `Podfile` in your project directory</span>
+pod init
+
+<span class="c"># open it in your default text editor</span>
+open Podfile</code></pre></figure>
+
+<p>If everything goes well, you should see content like this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Uncomment this line to define a global platform for your project</span>
+<span class="c1"># platform :ios, '9.0'</span>
+
+<span class="n">target</span> <span class="s1">'SetupTestingForiOSProject'</span> <span class="k">do</span>
+  <span class="c1"># Comment this line if you're not using Swift and don't want to use dynamic frameworks</span>
+  <span class="n">use_frameworks!</span>
+
+  <span class="c1"># Pods for SetupTestingForiOSProject</span>
+
+  <span class="n">target</span> <span class="s1">'SetupTestingForiOSProjectTests'</span> <span class="k">do</span>
+    <span class="n">inherit!</span> <span class="ss">:search_paths</span>
+    <span class="c1"># Pods for testing</span>
+  <span class="k">end</span>
+
+<span class="k">end</span></code></pre></figure>
+
+<h2 id="step-3-setup-unit-tests">Step 3: Setup unit tests</h2>
+
+<p>Declare necessary pods for unit tests in your <code class="highlighter-rouge">Podfile</code>:</p>
+
+<p>For <code class="highlighter-rouge">Swift</code>: we’ll use:</p>
+
+<ul>
+  <li><a href="https://github.com/Quick/Quick">Quick</a>: a behavior-driven development framework for Swift.</li>
+  <li><a href="https://github.com/Quick/Nimble">Nimble</a>: to express the expected outcomes of Swift expressions.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'9.0'</span>
+
+<span class="n">target</span> <span class="s1">'MyAwesomeProject'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+
+  <span class="n">target</span> <span class="s1">'MyAwesomeProjectTests'</span> <span class="k">do</span>
+    <span class="n">inherit!</span> <span class="ss">:search_paths</span>
+    <span class="n">pod</span> <span class="s1">'Quick'</span>
+    <span class="n">pod</span> <span class="s1">'Nimble'</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>For <code class="highlighter-rouge">ObjC</code>: since we don’t want to use dynamic framework, we’ll remove the <code class="highlighter-rouge">use_frameworks!</code> line. And the pods we need are:</p>
+
+<ul>
+  <li><a href="https://github.com/specta/specta">Specta</a>: A light-weight TDD / BDD framework for Objective-C &amp; Cocoa.</li>
+  <li><a href="https://github.com/specta/expecta/">Expecta</a>: A Matcher Framework for Objective-C/Cocoa.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'9.0'</span>
+
+<span class="n">target</span> <span class="s1">'MyAwesomeProject'</span> <span class="k">do</span>
+  <span class="n">target</span> <span class="s1">'MyAwesomeProjectTests'</span> <span class="k">do</span>
+    <span class="n">inherit!</span> <span class="ss">:search_paths</span>
+    <span class="n">pod</span> <span class="s1">'Specta'</span>
+    <span class="n">pod</span> <span class="s1">'Expecta'</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Install all the pods we just declared (type this into your terminal).</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">pod install</code></pre></figure>
+
+<p>Open the generated <code class="highlighter-rouge">.xcworkspace</code> file.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">open MyAwesomeProject.xcworkspace</code></pre></figure>
+
+<p>Now we’re going to write our first unit test.</p>
+
+<p>For <code class="highlighter-rouge">Swift</code>:</p>
+
+<ul>
+  <li>Create a new file in the test target and name it to something like <code class="highlighter-rouge">MyFirstSpec.swift</code>.</li>
+  <li>Put this content into it.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Quick</span>
+<span class="kd">import</span> <span class="kt">Nimble</span>
+
+<span class="kd">class</span> <span class="kt">MyFirstSpec</span> <span class="p">:</span> <span class="kt">QuickSpec</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
+
+    <span class="nf">describe</span><span class="p">(</span><span class="s">"first test"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">it</span><span class="p">(</span><span class="s">"should pass"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">to</span><span class="p">(</span><span class="nf">equal</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nf">describe</span><span class="p">(</span><span class="s">"second test"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">it</span><span class="p">(</span><span class="s">"should fail"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">to</span><span class="p">(</span><span class="nf">equal</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>For <code class="highlighter-rouge">ObjC</code>:</p>
+
+<ul>
+  <li>Create a new file in the test target and name it to something like <code class="highlighter-rouge">MyFirstSpec.m</code>.</li>
+  <li>Put this content into it.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#import &lt;Specta/Specta.h&gt;
+#import &lt;Expecta/Expecta.h&gt;
+</span>
+<span class="n">SpecBegin</span><span class="p">(</span><span class="n">MyFirstSpec</span><span class="p">)</span>
+
+<span class="n">describe</span><span class="p">(</span><span class="s">@"first test"</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+  <span class="n">it</span><span class="p">(</span><span class="s">@"should pass"</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+    <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">to</span><span class="p">.</span><span class="n">equal</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="n">describe</span><span class="p">(</span><span class="s">@"second test"</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+  <span class="n">it</span><span class="p">(</span><span class="s">@"should fail"</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+    <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">to</span><span class="p">.</span><span class="n">equal</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="n">SpecEnd</span></code></pre></figure>
+
+<p>Run your tests by pressing <code class="highlighter-rouge">⌘ + U</code>.
+It should fail at the appropriate line.</p>
+
+<p><img src="/images/how-to-setup-testing-for-new-ios-project/MyFirstSpec-fail.png" alt="" /></p>
+
+<p>At this point, although it’s quite easy to extend and write more unit tests. I would recommend to check out the pods’s <code class="highlighter-rouge">README</code> to get more understanding and learn how to use them effectively.</p>
+
+<h2 id="step-4-setup-ui-tests">Step 4: Setup UI tests</h2>
+<p>For UI tests, we’ll use the same pod for both <code class="highlighter-rouge">ObjC</code> and <code class="highlighter-rouge">Swift</code>. It is called <a href="https://github.com/kif-framework/KIF">KIF</a>: An iOS Functional Testing Framework.</p>
+
+<p>Add pod <code class="highlighter-rouge">KIF</code> to your <code class="highlighter-rouge">Podfile</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#...</span>
+<span class="n">target</span> <span class="s1">'MyAwesomeProjectTests'</span> <span class="k">do</span>
+  <span class="c1">#...</span>
+  <span class="n">pod</span> <span class="s1">'KIF'</span>
+<span class="k">end</span>
+<span class="c1">#...</span></code></pre></figure>
+
+<p>Install pod by typing this command into the terminal.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">pod install</code></pre></figure>
+
+<p>Now we’re going to write our first UI test.</p>
+
+<p>For <code class="highlighter-rouge">Swift</code>:</p>
+
+<ul>
+  <li>Create a new temporary <code class="highlighter-rouge">Objective-C File</code> to tell Xcode that we want to use <code class="highlighter-rouge">ObjC</code> along with <code class="highlighter-rouge">Swift</code>. We can name this file to anything and save it to anywhere as long as it is still in the test target folder. (for example: <code class="highlighter-rouge">something.m</code>)</li>
+</ul>
+
+<p><img src="/images/how-to-setup-testing-for-new-ios-project/create-objc-file.png" alt="" /></p>
+
+<ul>
+  <li>Xcode will then ask if we want to also add a bridging header. Proceed with <code class="highlighter-rouge">Create Bridging Header</code>.</li>
+</ul>
+
+<p><img src="/images/how-to-setup-testing-for-new-ios-project/add-bridging-header.png" alt="" /></p>
+
+<ul>
+  <li>Now that we have the bridging header added and correctly configured, we can safely remove the temporary <code class="highlighter-rouge">something.m</code> file. (Right click to file in <code class="highlighter-rouge">Xcode</code> &gt; <code class="highlighter-rouge">Delete</code> &gt; <code class="highlighter-rouge">Move to Trash</code>)</li>
+  <li>Import <code class="highlighter-rouge">KIF</code> from within the bridging header (<code class="highlighter-rouge">MyAwesomeProjectTests-Bridging-Header.h</code>).</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#import &lt;KIF/KIF.h&gt;</span></code></pre></figure>
+
+<ul>
+  <li>Create a <code class="highlighter-rouge">KIF+Extensions.swift</code> file in your test target. This step is to expose the <code class="highlighter-rouge">tester</code> method required for accessing the <code class="highlighter-rouge">KIF</code> API in Swift.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">KIF</span>
+
+<span class="kd">extension</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">tester</span><span class="p">(</span><span class="nv">file</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span> <span class="n">_</span> <span class="nv">line</span> <span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kd">#line</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">KIFUITestActor</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">KIFUITestActor</span><span class="p">(</span><span class="nv">inFile</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="nv">atLine</span><span class="p">:</span> <span class="n">line</span><span class="p">,</span> <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">system</span><span class="p">(</span><span class="nv">file</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span> <span class="n">_</span> <span class="nv">line</span> <span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kd">#line</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">KIFSystemTestActor</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">KIFSystemTestActor</span><span class="p">(</span><span class="nv">inFile</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="nv">atLine</span><span class="p">:</span> <span class="n">line</span><span class="p">,</span> <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">KIFTestActor</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">tester</span><span class="p">(</span><span class="nv">file</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span> <span class="n">_</span> <span class="nv">line</span> <span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kd">#line</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">KIFUITestActor</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">KIFUITestActor</span><span class="p">(</span><span class="nv">inFile</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="nv">atLine</span><span class="p">:</span> <span class="n">line</span><span class="p">,</span> <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">system</span><span class="p">(</span><span class="nv">file</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span> <span class="n">_</span> <span class="nv">line</span> <span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kd">#line</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">KIFSystemTestActor</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">KIFSystemTestActor</span><span class="p">(</span><span class="nv">inFile</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="nv">atLine</span><span class="p">:</span> <span class="n">line</span><span class="p">,</span> <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Create our first UI test file (again, in the test target) and name it to something like <code class="highlighter-rouge">HomeTests.swift</code>.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">KIF</span>
+
+<span class="kd">class</span> <span class="kt">HomeTests</span> <span class="p">:</span> <span class="kt">KIFTestCase</span> <span class="p">{</span>
+
+  <span class="c1">// test method name MUST have the prefix `test`</span>
+  <span class="c1">// for example: testA, testB, testLogin, ect...</span>
+  <span class="kd">func</span> <span class="nf">testHomeScreen</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">visitHomeScreen</span><span class="p">()</span>
+    <span class="nf">tapOn</span><span class="p">(</span><span class="s">"button"</span><span class="p">)</span>
+    <span class="nf">expectToSee</span><span class="p">(</span><span class="s">"Some random label"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="c1">// steps definition</span>
+<span class="kd">extension</span> <span class="kt">HomeTests</span> <span class="p">{</span>
+
+  <span class="kd">func</span> <span class="nf">visitHomeScreen</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// since we already at the home screen by default, we don't need to do anything specifically here</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">tapOn</span><span class="p">(</span><span class="nv">button</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">tester</span><span class="p">()</span><span class="o">.</span><span class="nf">tapViewWithAccessibilityLabel</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">expectToSee</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">tester</span><span class="p">()</span><span class="o">.</span><span class="nf">waitForViewWithAccessibilityLabel</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>For <code class="highlighter-rouge">ObjC</code>:</p>
+
+<ul>
+  <li>Create 2 new files in the test target and name them to something like <code class="highlighter-rouge">HomeTests.h</code> and <code class="highlighter-rouge">HomeTests.m</code> respectively.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#import &lt;KIF/KIF.h&gt;
+</span>
+<span class="k">@interface</span> <span class="nc">HomeTests</span> <span class="p">:</span> <span class="nc">KIFTestCase</span>
+<span class="k">@end</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#import "HomeTests.h"
+</span>
+<span class="k">@implementation</span> <span class="nc">HomeTests</span>
+
+<span class="cp">#pragma mark - tests
+</span>
+<span class="c1">// test method name MUST have the prefix `test`
+// for example: testA, testB, testLogin, ect...
+</span><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testHomeScreen</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">self</span> <span class="nf">visitHomeScreen</span><span class="p">];</span>
+  <span class="p">[</span><span class="n">self</span> <span class="nf">tapOn</span><span class="p">:</span><span class="s">@"Button"</span><span class="p">];</span>
+  <span class="p">[</span><span class="n">self</span> <span class="nf">expectToSee</span><span class="p">:</span><span class="s">@"Some random label"</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - steps definition
+</span>
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">visitHomeScreen</span> <span class="p">{</span>
+  <span class="c1">// since we already at the home screen by default, we don't need to do anything specifically here
+</span><span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">tapOn</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">button</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">tester</span> <span class="nf">tapViewWithAccessibilityLabel</span><span class="p">:</span><span class="n">button</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">expectToSee</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">something</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">tester</span> <span class="nf">waitForViewWithAccessibilityLabel</span><span class="p">:</span><span class="n">something</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">@end</span></code></pre></figure>
+
+<p>Press <code class="highlighter-rouge">⌘ + U</code> to run all tests (including unit tests and UI tests). It should fail because we haven’t implemented anything yet. (there’s nothing on the screen)</p>
+
+<h2 id="wrap-up">Wrap up</h2>
+
+<p>In this post, you learnt how to setup a testing environment for iOS, including all the necessary pods for both <code class="highlighter-rouge">ObjC</code> and <code class="highlighter-rouge">Swift</code>. You’re also provided some basic test samples to use as a starting point. Once again, I highly recommend you to read more about those testing frameworks (<a href="https://github.com/Quick/Quick">Quick</a>, <a href="https://github.com/specta/specta">Specta</a>, <a href="https://github.com/kif-framework/KIF">KIF</a>). It would help a lot on your testing journey.</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/09/12/unit-test-network-layer-in-ios/" class="post-link">
+          <h4 class="post-title">How to unit test your Network Layer in iOS</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 1: XCTestCase</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to unit test your Network Layer in iOS &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="ios, testing">
+    <link rel="canonical" href="http://hoangtran.me/ios/testing/2016/09/12/unit-test-network-layer-in-ios/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to unit test your Network Layer in iOS">
+    <meta property="og:description" content="
+	Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
+">
+    <meta property="og:url" content="http://hoangtran.me/ios/testing/2016/09/12/unit-test-network-layer-in-ios/
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="
+	http://hoangtran.me/images/unit-test-network-layer-in-ios/mockingjay.jpg
+">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="How to unit test your Network Layer in iOS" />
+    <meta name="twitter:description" content="
+	Learn how to design, code and unit test your RESTful network layer in iOS using Mockingjay.
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/ios/testing/2016/09/12/unit-test-network-layer-in-ios/
+" />
+    <meta name="twitter:image" content="
+	http://hoangtran.me/images/unit-test-network-layer-in-ios/mockingjay.jpg
+" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>How to unit test your Network Layer in iOS</h1>
+  <span class="post-meta">
+12 September 2016
+  
+</div>
+
+<article class="post-content">
+  <p>Network communication is a crucial part in every iOS apps.</p>
+
+<p>Whenever the users interact with a UI element in the app, there usually is one (or multiple) network request sent to an API server to get fresh data and present back to the users.</p>
+
+<p>Let’s look at an example network usage of a typical News Reader app:</p>
+
+<ul>
+  <li>Request to authenticate users.</li>
+  <li>Request to get list of news sources: Engadget, Mashable, Medium,…</li>
+  <li>Request to get list of latest articles when users click on a news source.</li>
+  <li>Request for more details when users click on an article.</li>
+  <li>Request to mark all articles as read when users click on the corresponding button.</li>
+</ul>
+
+<p><strong>Network requests are everywhere</strong>. We should make sure that not only do we understand networking clearly but also can implement it very well.</p>
+
+<p>Today we’re gonna learn how to build a simple network layer to fetch data from a RESTful API server. The process includes <strong>designing</strong>, <strong>coding</strong> and <strong>unit testing</strong> altogether.</p>
+
+<p>Here’s the table of contents:</p>
+
+<ul>
+  <li><a href="#design-the-protocol">1. Design the protocol</a></li>
+  <li><a href="#implement-the-protocol">2. Implement the protocol</a>
+    <ul>
+      <li><a href="#nsurlsession">NSURLSession</a></li>
+      <li><a href="#afnetworking">AFNetworking</a></li>
+      <li><a href="#alamofire">Alamofire</a></li>
+    </ul>
+  </li>
+  <li><a href="#use-the-protocol">3. Use the protocol</a></li>
+  <li><a href="#write-unit-test-for-the-protocol">4. Write unit test for the protocol</a>
+    <ul>
+      <li><a href="#what-to-test">What to test?</a></li>
+      <li><a href="#how-to-test">How to test?</a></li>
+      <li><a href="#prepare-to-test">Prepare to test</a></li>
+      <li><a href="#start-writing-test">Start writing test</a>
+        <ul>
+          <li><a href="#step-1-setup-project-for-unit-testing">Step 1: Setup project for unit testing</a></li>
+          <li><a href="#step-2-create-a-new-spec-file">Step 2: Create a new spec file</a></li>
+          <li><a href="#step-3-write-a-test-that-makes-real-network-request">Step 3: Write a test that makes real network request</a></li>
+          <li><a href="#step-4-create-stubbed-response-file">Step 4: Create stubbed response file</a></li>
+          <li><a href="#step-5-stub-the-network-request">Step 5: Stub the network request</a></li>
+          <li><a href="#step-6-expect-the-protocol-to-parse-json-correctly">Step 6: Expect the protocol to parse json correctly</a></li>
+          <li><a href="#step-7-test-the-error-case">Step 7: Test the error case</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="what-restful-api-should-we-work-on">What RESTful API should we work on?</h2>
+
+<p>Let’s just pick an easy one.</p>
+
+<blockquote>
+  <p>Implement GitHub API to get a user’s information</p>
+</blockquote>
+
+<p>The syntax:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">GET https://api.github.com/users/:username</code></pre></figure>
+
+<p>Examples:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">GET https://api.github.com/users/hoang-tran
+
+GET https://api.github.com/users/orta
+
+GET https://api.github.com/users/chriseidhof</code></pre></figure>
+
+<p>If you click on the link <a href="https://api.github.com/users/hoang-tran">https://api.github.com/users/hoang-tran</a> in your browser. It will return a response in json format:</p>
+
+<p><img src="/images/unit-test-network-layer-in-ios/browser-json-response.jpg" alt="browser json response" /></p>
+
+<p>Simple and sweet, right? Let’s head over to the implementation in our iOS app.</p>
+
+<h1 id="1-design-the-protocol">1. Design the protocol:</h1>
+
+<p>Create a new file called <strong>GitHubApiClient.swift</strong> in your main target.</p>
+
+<p>Add a protocol named <strong>GitHubApiClient</strong>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>As you can see, the API requires us to pass in <strong>username</strong> as an argument. We will reflect that in our protocol:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now we need a way to handle callbacks when the request finishes. If it succeeds, we want to receive the user data in a nice format.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                   <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">(</span><span class="kt">GitHubUserData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre></figure>
+
+<p>The <strong>GitHubUserData</strong> is just a struct we created to store the data obtained from the json response.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">struct</span> <span class="kt">GitHubUserData</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+  <span class="k">var</span> <span class="nv">bio</span><span class="p">:</span> <span class="kt">String</span>
+  <span class="k">var</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span>
+  <span class="k">var</span> <span class="nv">numberOfFollowers</span><span class="p">:</span> <span class="kt">Int</span>
+  <span class="k">var</span> <span class="nv">numberOfFollowing</span><span class="p">:</span> <span class="kt">Int</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>When the request fails, we want to get the error.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                   <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">(</span><span class="kt">GitHubUserData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+                                     <span class="nv">onError</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre></figure>
+
+<p>Let’s alias the 2 callbacks to something more readable:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">typealias</span> <span class="kt">GitHubGetUserCallback</span> <span class="o">=</span> <span class="p">(</span><span class="kt">GitHubUserData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+
+<span class="kd">typealias</span> <span class="kt">ErrorCallback</span> <span class="o">=</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre></figure>
+
+<p>Now, our protocol will look like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">typealias</span> <span class="kt">GitHubGetUserCallback</span> <span class="o">=</span> <span class="p">(</span><span class="kt">GitHubUserData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="kd">typealias</span> <span class="kt">ErrorCallback</span> <span class="o">=</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+
+<span class="kd">protocol</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                     <span class="nv">onSuccess</span><span class="p">:</span> <span class="kt">GitHubGetUserCallback</span><span class="p">,</span>
+                                       <span class="nv">onError</span><span class="p">:</span> <span class="kt">ErrorCallback</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>There’s time when we don’t want to specify any callbacks at all. Let’s change both of them to <strong>optionals</strong>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                     <span class="nv">onSuccess</span><span class="p">:</span> <span class="kt">GitHubGetUserCallback</span><span class="p">?,</span>
+                                       <span class="nv">onError</span><span class="p">:</span> <span class="kt">ErrorCallback</span><span class="p">?)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now we are done with the protocol design. Let’s move on to the coding part.</p>
+
+<h1 id="2-implement-the-protocol">2. Implement the protocol:</h1>
+
+<p>There are many ways to implement network requests in iOS. The 3 most popular ones are: <strong>NSURLSession</strong>, <strong>AFNetworking</strong> and <strong>Alamofire</strong>.</p>
+
+<h3 id="nsurlsession">NSURLSession:</h3>
+
+<p>This is supported natively in iOS 7.0 and above.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Foundation</span>
+<span class="kd">import</span> <span class="kt">SwiftyJSON</span>
+
+<span class="kd">class</span> <span class="kt">NativeApiClient</span><span class="p">:</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                     <span class="nv">onSuccess</span><span class="p">:</span> <span class="kt">GitHubGetUserCallback</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                       <span class="nv">onError</span><span class="p">:</span> <span class="kt">ErrorCallback</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">urlString</span> <span class="o">=</span> <span class="s">"https://api.github.com/users/</span><span class="se">\(</span><span class="n">username</span><span class="se">)</span><span class="s">"</span>
+    <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">NSURL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="n">urlString</span><span class="p">)</span><span class="o">!</span>
+
+    <span class="k">let</span> <span class="nv">defaultSession</span> <span class="o">=</span> <span class="kt">NSURLSession</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">NSURLSessionConfiguration</span><span class="o">.</span><span class="nf">defaultSessionConfiguration</span><span class="p">())</span>
+    <span class="k">let</span> <span class="nv">dataTask</span> <span class="o">=</span> <span class="n">defaultSession</span><span class="o">.</span><span class="nf">dataTaskWithURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="p">{</span> <span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+      <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+        <span class="nf">onError</span><span class="p">?(</span><span class="n">error</span><span class="p">)</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="n">data</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+        <span class="nf">onSuccess</span><span class="p">?(</span><span class="kt">GitHubUserData</span><span class="p">(</span><span class="nv">json</span><span class="p">:</span> <span class="n">json</span><span class="p">))</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">dataTask</span><span class="o">.</span><span class="nf">resume</span><span class="p">()</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="afnetworking">AFNetworking:</h3>
+
+<p>Remember to add <code class="highlighter-rouge">pod 'AFNetworking'</code> to your Podfile.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">AFNetworking</span>
+<span class="kd">import</span> <span class="kt">SwiftyJSON</span>
+
+<span class="kd">class</span> <span class="kt">AFNetworkingApiClient</span><span class="p">:</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                     <span class="nv">onSuccess</span><span class="p">:</span> <span class="kt">GitHubGetUserCallback</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                       <span class="nv">onError</span><span class="p">:</span> <span class="kt">ErrorCallback</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">urlString</span> <span class="o">=</span> <span class="s">"https://api.github.com/users/</span><span class="se">\(</span><span class="n">username</span><span class="se">)</span><span class="s">"</span>
+    <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">NSURL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="n">urlString</span><span class="p">)</span><span class="o">!</span>
+
+    <span class="k">let</span> <span class="nv">manager</span> <span class="o">=</span> <span class="kt">AFURLSessionManager</span><span class="p">(</span><span class="nv">sessionConfiguration</span><span class="p">:</span> <span class="kt">NSURLSessionConfiguration</span><span class="o">.</span><span class="nf">defaultSessionConfiguration</span><span class="p">())</span>
+    <span class="k">let</span> <span class="nv">request</span> <span class="o">=</span> <span class="kt">NSURLRequest</span><span class="p">(</span><span class="kt">URL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">dataTask</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="nf">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="p">{</span> <span class="n">response</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+      <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+        <span class="nf">onError</span><span class="p">?(</span><span class="n">error</span><span class="p">)</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="n">data</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="nf">onSuccess</span><span class="p">?(</span><span class="kt">GitHubUserData</span><span class="p">(</span><span class="nv">json</span><span class="p">:</span> <span class="n">json</span><span class="p">))</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">dataTask</span><span class="o">.</span><span class="nf">resume</span><span class="p">()</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="alamofire">Alamofire:</h3>
+
+<p>Remember to add <code class="highlighter-rouge">pod 'Alamofire'</code> to your Podfile.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Alamofire</span>
+<span class="kd">import</span> <span class="kt">SwiftyJSON</span>
+
+<span class="kd">class</span> <span class="kt">AlamofireApiClient</span><span class="p">:</span> <span class="kt">GitHubApiClient</span> <span class="p">{</span>
+
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                     <span class="nv">onSuccess</span><span class="p">:</span> <span class="kt">GitHubGetUserCallback</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                       <span class="nv">onError</span><span class="p">:</span> <span class="kt">ErrorCallback</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">urlString</span> <span class="o">=</span> <span class="s">"https://api.github.com/users/</span><span class="se">\(</span><span class="n">username</span><span class="se">)</span><span class="s">"</span>
+
+    <span class="kt">Alamofire</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="o">.</span><span class="kt">GET</span><span class="p">,</span> <span class="n">urlString</span><span class="p">)</span>
+      <span class="o">.</span><span class="nf">validate</span><span class="p">()</span>
+      <span class="o">.</span><span class="n">responseJSON</span> <span class="p">{</span> <span class="n">response</span> <span class="k">in</span>
+        <span class="k">switch</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="kt">Success</span><span class="p">:</span>
+          <span class="k">if</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="p">{</span>
+            <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="nf">onSuccess</span><span class="p">?(</span><span class="kt">GitHubUserData</span><span class="p">(</span><span class="nv">json</span><span class="p">:</span> <span class="n">json</span><span class="p">))</span>
+          <span class="p">}</span>
+        <span class="k">case</span> <span class="o">.</span><span class="kt">Failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+          <span class="nf">onError</span><span class="p">?(</span><span class="n">error</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h1 id="3-use-the-protocol">3. Use the protocol:</h1>
+
+<p>This is fairly straightforward. Just put in:</p>
+
+<ul>
+  <li>parameter for <strong>username</strong>.</li>
+  <li>closure for <strong>onSuccess</strong> callback.</li>
+  <li>closure for <strong>onError</strong> callback.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">userData</span> <span class="k">in</span>
+
+  <span class="nf">print</span><span class="p">(</span><span class="n">userData</span><span class="p">)</span>
+
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+
+  <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+
+<span class="p">})</span></code></pre></figure>
+
+<p>Or we can remove the callback we don’t care about.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">userData</span> <span class="k">in</span>
+
+  <span class="nf">print</span><span class="p">(</span><span class="n">userData</span><span class="p">)</span>
+
+<span class="p">})</span></code></pre></figure>
+
+<p>Or</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+
+  <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+
+<span class="p">})</span></code></pre></figure>
+
+<p>Or remove everything.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithUsername</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">)</span></code></pre></figure>
+
+<h1 id="4-write-unit-test-for-the-protocol">4. Write unit test for the protocol:</h1>
+
+<h2 id="what-to-test">What to test?</h2>
+
+<p>When talking about network request, there’s a couple of things we need to consider:</p>
+
+<ul>
+  <li>Does the request go to the correct url?</li>
+  <li>When the request succeeds, does it parse json properly and return the correct model?</li>
+  <li>When the request fails, does it return the corresponding error?</li>
+</ul>
+
+<h2 id="how-to-test">How to test?</h2>
+
+<p>We will use a HTTP stubbing framework called <a href="https://github.com/kylef/Mockingjay">Mockingjay</a>.</p>
+
+<p>It allows you to say this:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">Stub request with url A and return json file B.</code></pre></figure>
+
+<p>Or:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">Stub request with url A and return error.</code></pre></figure>
+
+<h3 id="what-does-stub-mean-anyway">What does Stub mean anyway?</h3>
+
+<p>This is the syntax of a stub:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">Stub event A and do custom action B</code></pre></figure>
+
+<p>What it means:</p>
+
+<blockquote>
+  <p>When event <strong>A</strong> happens, don’t do it the old way. Do custom action <strong>B</strong> instead.</p>
+</blockquote>
+
+<p>So the line:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">Stub request with url A and return json file B.</code></pre></figure>
+
+<p>Will translate to as:</p>
+
+<blockquote>
+  <p>Whenever there’s a request that goes to url <strong>A</strong>, do not send it over to network.</p>
+
+  <p>Instead, use the file <strong>B</strong> in our project’s local directory as the response.</p>
+</blockquote>
+
+<p>For example:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">Stub request with url https://api.github.com/users/hoang-tran
+and return the file GetUserSuccess.json</code></pre></figure>
+
+<p>This reads as:</p>
+
+<blockquote>
+  <p>If there’s a request that goes to url <strong>https://api.github.com/users/hoang-tran</strong>,
+do not send it over to network.</p>
+
+  <p>Instead, use the file <strong>GetUserSuccess.json</strong> as the response</p>
+</blockquote>
+
+<p>So to write unit test for a network request, we will need to do things in the following order:</p>
+
+<ol>
+  <li>Stub the request and return with our custom json file.</li>
+  <li>Actually make the network request using the protocol.</li>
+  <li>Describe our expectations for the returned values in both cases: <strong>onSuccess</strong> and <strong>onError</strong>.</li>
+</ol>
+
+<h2 id="prepare-to-test">Prepare to test:</h2>
+
+<p>Before we start, make sure you’re familiar with:</p>
+
+<ul>
+  <li><a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase">How to write unit tests in iOS Part 1: XCTestCase</a>.</li>
+  <li><a href="/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd">How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)</a>.</li>
+  <li><a href="/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble">Write better unit test assertions with Nimble</a>.</li>
+</ul>
+
+<h2 id="start-writing-test">Start writing test:</h2>
+
+<h3 id="step-1-setup-project-for-unit-testing">Step 1: Setup project for unit testing</h3>
+
+<p>Open Podfile and add the following pods to your test target:</p>
+
+<ul>
+  <li><strong>Quick</strong>: a behavior-driven development (BDD) framework for Swift.</li>
+  <li><strong>Nimble</strong>: write test assertion that reads just like English.</li>
+  <li><strong>Mockingjay</strong>: stub network request in Swift.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'9.0'</span>
+
+<span class="n">target</span> <span class="s1">'TestNetworkLayer'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+
+  <span class="c1">#...</span>
+
+  <span class="n">target</span> <span class="s1">'TestNetworkLayerTests'</span> <span class="k">do</span>
+    <span class="n">inherit!</span> <span class="ss">:search_paths</span>
+    <span class="n">pod</span> <span class="s1">'Quick'</span>
+    <span class="n">pod</span> <span class="s1">'Nimble'</span>
+    <span class="n">pod</span> <span class="s1">'Mockingjay'</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Type this command into your Terminal to install all 3 pods.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod install</code></pre></figure>
+
+<p>Open the generated <em>.xcworkspace</em> file.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">open TestNetworkLayer.xcworkspace</code></pre></figure>
+
+<h3 id="step-2-create-a-new-spec-file">Step 2: Create a new spec file</h3>
+
+<p>Create a new file called <strong>NativeApiClientSpec.swift</strong> in your test target.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Quick</span>
+<span class="kd">import</span> <span class="kt">Nimble</span>
+
+<span class="kd">class</span> <span class="kt">NativeApiClientSpec</span> <span class="p">:</span> <span class="kt">QuickSpec</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
+
+    <span class="nf">describe</span><span class="p">(</span><span class="s">"first test"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">it</span><span class="p">(</span><span class="s">"should pass"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">to</span><span class="p">(</span><span class="nf">equal</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Press <strong>Cmd + U</strong> in Xcode and make sure the test pass.</p>
+
+<h3 id="step-3-write-a-test-that-makes-real-network-request">Step 3: Write a test that makes real network request</h3>
+
+<p>We will write the success case first:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="s">"requestUserWithName"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">context</span><span class="p">(</span><span class="s">"success"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">it</span><span class="p">(</span><span class="s">"returns GitHubUserData"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Make a real network request in the <strong>it</strong> closure:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">it</span><span class="p">(</span><span class="s">"returns GitHubUserData"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithName</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">userData</span> <span class="k">in</span>
+
+  <span class="p">})</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We need to store the <strong>userData</strong> when the request succeeds:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">it</span><span class="p">(</span><span class="s">"returns GitHubUserData"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">returnedUserData</span><span class="p">:</span> <span class="kt">GitHubUserData</span><span class="p">?</span>
+
+  <span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithName</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">userData</span> <span class="k">in</span>
+
+    <span class="n">returnedUserData</span> <span class="o">=</span> <span class="n">userData</span>
+
+  <span class="p">})</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Then we expect the <strong>returnedUserData</strong> to have value:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">it</span><span class="p">(</span><span class="s">"returns GitHubUserData"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">returnedUserData</span><span class="p">:</span> <span class="kt">GitHubUserData</span><span class="p">?</span>
+
+  <span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithName</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">userData</span> <span class="k">in</span>
+
+    <span class="n">returnedUserData</span> <span class="o">=</span> <span class="n">userData</span>
+
+  <span class="p">})</span>
+
+  <span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">)</span><span class="o">.</span><span class="nf">toEventuallyNot</span><span class="p">(</span><span class="nf">beNil</span><span class="p">())</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The <strong>toEventuallyNot</strong> means that it will continuously check the <strong>returnedUserData</strong> to see if it has value (not nil).</p>
+
+<p>After a couple of seconds, if the <strong>returnedUserData</strong> has value , the test passes, otherwise it fails.</p>
+
+<p>However, when you run the test (<strong>Cmd + U</strong>), it will fail.</p>
+
+<p>Because currently we’re making real network request and it might take time to finish. The <strong>toEventually</strong> does not wait long enough for the request to set value for the <strong>returnedUserData</strong> and thus causes the failure.</p>
+
+<p>The default wait time is 1 second. If we change it to a larger number, the test shall pass.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">//...</span>
+
+<span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">)</span><span class="o">.</span><span class="nf">toEventuallyNot</span><span class="p">(</span><span class="nf">beNil</span><span class="p">(),</span> <span class="nv">timeout</span><span class="p">:</span> <span class="mi">20</span><span class="p">)</span></code></pre></figure>
+
+<p>But we don’t wanna do that. Our goal is to <strong>NOT</strong> make real network request at all.</p>
+
+<h3 id="step-4-create-stubbed-response-file">Step 4: Create stubbed response file</h3>
+
+<p>Open Terminal and go to the <strong>TestNetworkLayerTests</strong> directory (assuming your project name is <strong>TestNetworkLayer</strong>)</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">cd </span>TestNetworkLayerTests</code></pre></figure>
+
+<p>Create a new directory called <strong>Fixtures</strong> and then go to it:</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">mkdir Fixtures
+
+<span class="nb">cd </span>Fixtures</code></pre></figure>
+
+<p>Note that <strong>Fixtures</strong> is just a common name to refer to those stubbed response files. You can name the directory to anything.</p>
+
+<p>Create a new json file called <strong>GetUserSuccess.json</strong>, then open it for edit:</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">touch GetUserSuccess.json
+
+open GetUserSuccess.json</code></pre></figure>
+
+<p>Open this link <a href="https://api.github.com/users/hoang-tran">https://api.github.com/users/hoang-tran</a> in your browser.</p>
+
+<p>Paste the json content to the <strong>GetUserSuccess.json</strong> file:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoang-tran"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6714157</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/6714157?v=3"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/hoang-tran"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/followers"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/following{/other_user}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/subscriptions"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/orgs"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/repos"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/events{/privacy}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/hoang-tran/received_events"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hoang Tran"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"East Agile Vietnam"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blog"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hoangtran.me/"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ho Chi Minh city, VietNam"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoangtx.master@gmail.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"hireable"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hi, I'm Hoang. I'm a Swift lover. I blog weekly about iOS development/testing/deployment at http://hoangtran.me/</span><span class="se">\r\n</span><span class="s2">And I happen to love GitHub so much 😜 "</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"public_repos"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"public_gists"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"followers"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"following"</span><span class="p">:</span><span class="w"> </span><span class="mi">93</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-02-18T09:42:07Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-30T03:04:04Z"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Open the current directory in Finder:</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">open .</code></pre></figure>
+
+<p>Drag the <strong>Fixtures</strong> directory into your test target:</p>
+
+<p><img src="/images/unit-test-network-layer-in-ios/drag-folder-to-xcode.jpg" alt="Test Fixtures" /></p>
+
+<p>Xcode will ask you for confirmation. Make sure you added the directory to the test target instead of your main target.</p>
+
+<p>Hit <strong>Finish</strong>:</p>
+
+<p><img src="/images/unit-test-network-layer-in-ios/add-folder-confirmation.jpg" alt="xcode add directory confirmation" /></p>
+
+<h3 id="step-5-stub-the-network-request">Step 5: Stub the network request</h3>
+
+<p>Back to <strong>NativeApiClientSpec.swift</strong>, we’re gonna stub the request so that it will use our <strong>GetUserSuccess.json</strong> file as the response instead of making real network request.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">it</span><span class="p">(</span><span class="s">"returns GitHubUserData"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">returnedUserData</span><span class="p">:</span> <span class="kt">GitHubUserData</span><span class="p">?</span>
+
+  <span class="c1">// 1.</span>
+  <span class="k">let</span> <span class="nv">path</span> <span class="o">=</span> <span class="kt">NSBundle</span><span class="p">(</span><span class="nv">forClass</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="k">dynamicType</span><span class="p">)</span><span class="o">.</span><span class="nf">pathForResource</span><span class="p">(</span><span class="s">"GetUserSuccess"</span><span class="p">,</span> <span class="nv">ofType</span><span class="p">:</span> <span class="s">"json"</span><span class="p">)</span><span class="o">!</span>
+
+  <span class="c1">// 2.</span>
+  <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">NSData</span><span class="p">(</span><span class="nv">contentsOfFile</span><span class="p">:</span> <span class="n">path</span><span class="p">)</span><span class="o">!</span>
+
+  <span class="c1">// 3.</span>
+  <span class="k">self</span><span class="o">.</span><span class="nf">stub</span><span class="p">(</span><span class="nf">uri</span><span class="p">(</span><span class="s">"https://api.github.com/users/hoang-tran"</span><span class="p">),</span> <span class="nv">builder</span><span class="p">:</span> <span class="nf">jsonData</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+  <span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithName</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">userData</span> <span class="k">in</span>
+    <span class="n">returnedUserData</span> <span class="o">=</span> <span class="n">userData</span>
+  <span class="p">})</span>
+  <span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">)</span><span class="o">.</span><span class="nf">toEventuallyNot</span><span class="p">(</span><span class="nf">beNil</span><span class="p">())</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We did a couple of steps here:</p>
+
+<ol>
+  <li>Get the path of the <strong>GetUserSuccess.json</strong> file.</li>
+  <li>Read its content into a NSData object.</li>
+  <li>Stub the url so that everytime a request goes to <a href="https://api.github.com/users/hoang-tran">https://api.github.com/users/hoang-tran</a>, it will return the fake json data without having to reach for network.</li>
+</ol>
+
+<p>With everything stubbed, hit <strong>Cmd + U</strong> again.</p>
+
+<p>This time, it should pass.</p>
+
+<p>To make sure that it does not make any real network request, turn off your internet connection and run your tests again. It should still pass.</p>
+
+<h3 id="step-6-expect-the-protocol-to-parse-json-correctly">Step 6: Expect the protocol to parse json correctly</h3>
+
+<p>We should also write some expectations for the <strong>returnedUserData</strong> to make sure that the json response is parsed properly into the <strong>GitHubUserData</strong> struct.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">//...</span>
+
+<span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">)</span><span class="o">.</span><span class="nf">toEventuallyNot</span><span class="p">(</span><span class="nf">beNil</span><span class="p">())</span>
+<span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"Hoang Tran"</span>
+<span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">?</span><span class="o">.</span><span class="n">email</span><span class="p">)</span> <span class="o">==</span> <span class="s">"hoangtx.master@gmail.com"</span>
+<span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">?</span><span class="o">.</span><span class="n">numberOfFollowers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">120</span>
+<span class="nf">expect</span><span class="p">(</span><span class="n">returnedUserData</span><span class="p">?</span><span class="o">.</span><span class="n">numberOfFollowing</span><span class="p">)</span> <span class="o">==</span> <span class="mi">133</span></code></pre></figure>
+
+<h3 id="step-7-test-the-error-case">Step 7: Test the error case</h3>
+
+<p>First declare the error context.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
+
+  <span class="nf">describe</span><span class="p">(</span><span class="s">"requestUserWithName"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">context</span><span class="p">(</span><span class="s">"success"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">it</span><span class="p">(</span><span class="s">"returns GitHubUserData"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//...</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nf">context</span><span class="p">(</span><span class="s">"error"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">it</span><span class="p">(</span><span class="s">"returns error"</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Stub the request to return your custom error:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="kt">NSError</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="s">"Describe your error here"</span><span class="p">,</span> <span class="nv">code</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="nf">stub</span><span class="p">(</span><span class="nf">uri</span><span class="p">(</span><span class="s">"https://api.github.com/users/hoang-tran"</span><span class="p">),</span> <span class="nv">builder</span><span class="p">:</span> <span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></code></pre></figure>
+
+<p>The whole test case:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">it</span><span class="p">(</span><span class="s">"returns error"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">returnedError</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?</span>
+
+  <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="kt">NSError</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="s">"Describe your error here"</span><span class="p">,</span> <span class="nv">code</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+  <span class="k">self</span><span class="o">.</span><span class="nf">stub</span><span class="p">(</span><span class="nf">uri</span><span class="p">(</span><span class="s">"https://api.github.com/users/hoang-tran"</span><span class="p">),</span> <span class="nv">builder</span><span class="p">:</span> <span class="nf">failure</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+
+  <span class="kt">NativeApiClient</span><span class="o">.</span><span class="nf">requestUserWithName</span><span class="p">(</span><span class="s">"hoang-tran"</span><span class="p">,</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="n">returnedError</span> <span class="o">=</span> <span class="n">error</span>
+  <span class="p">})</span>
+
+  <span class="nf">expect</span><span class="p">(</span><span class="n">returnedError</span><span class="p">)</span><span class="o">.</span><span class="nf">toEventuallyNot</span><span class="p">(</span><span class="nf">beNil</span><span class="p">())</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Run the test again and make sure it’s green.</p>
+
+<h2 id="wrap-up">Wrap up</h2>
+
+<p>Wow! I didn’t expect this to turn into such a looooong post. Let’s end it here.</p>
+
+<p>You can find the full code sample at <a href="https://github.com/hoang-tran/TestNetworkLayer">https://github.com/hoang-tran/TestNetworkLayer</a>.</p>
+
+<p>I’m very happy to see your comments. Please let me know:</p>
+
+<ul>
+  <li>How do you design your network layer?</li>
+  <li>What networking framework do you use? And why?</li>
+  <li>Have you ever written unit tests for your network layer? If yes, how do you do that?</li>
+</ul>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/ios/testing/2016/09/12/unit-test-network-layer-in-ios/
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/ios/testing/2016/09/12/unit-test-network-layer-in-ios/
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble/" class="post-link">
+          <h4 class="post-title">Write better unit test assertions with Nimble</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 1: XCTestCase</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

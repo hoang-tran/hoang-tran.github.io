@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Con đường sự nghiệp của một kỹ sư phần mềm (phần 8) &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Công ty mình làm ở Singapore là một startup chuyên cung cấp dịch vụ đặt xe hơi/taxi/xe ôm thông qua ứng dụng di động cho hơn 8 nước trong khu vực Đông Nam Á, trong đó có Việt Nam. Công ty cũng khá nổi tiếng nên mình chỉ cần nhắc tên thôi là hầu như ai cũng biết.
+Mặc dù vậy, khi mới vào làm ở công ty, mình đã luôn chuẩn bị tâm thế sẽ đi bất cứ lúc nào.
+Từng ngày từng ngày, mình chờ mong kết quả phỏng vấn Facebook. Tâm trí mình lúc đó chỉ có nước Mỹ.
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Con đường sự nghiệp của một kỹ sư phần mềm (phần 8)">
+    <meta property="og:description" content="
+	Công ty mình làm ở Singapore là một startup chuyên cung cấp dịch vụ đặt xe hơi/taxi/xe ôm thông qua ứng dụng di động cho hơn 8 nước trong khu vực Đông Nam Á, trong đó có Việt Nam. Công ty cũng khá nổi tiếng nên mình chỉ cần nhắc tên thôi là hầu như ai cũng biết.
+Mặc dù vậy, khi mới vào làm ở công ty, mình đã luôn chuẩn bị tâm thế sẽ đi bất cứ lúc nào.
+Từng ngày từng ngày, mình chờ mong kết quả phỏng vấn Facebook. Tâm trí mình lúc đó chỉ có nước Mỹ.
+">
+    <meta property="og:url" content="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="Con đường sự nghiệp của một kỹ sư phần mềm (phần 8)" />
+    <meta name="twitter:description" content="
+	Công ty mình làm ở Singapore là một startup chuyên cung cấp dịch vụ đặt xe hơi/taxi/xe ôm thông qua ứng dụng di động cho hơn 8 nước trong khu vực Đông Nam Á, trong đó có Việt Nam. Công ty cũng khá nổi tiếng nên mình chỉ cần nhắc tên thôi là hầu như ai cũng biết.
+Mặc dù vậy, khi mới vào làm ở công ty, mình đã luôn chuẩn bị tâm thế sẽ đi bất cứ lúc nào.
+Từng ngày từng ngày, mình chờ mong kết quả phỏng vấn Facebook. Tâm trí mình lúc đó chỉ có nước Mỹ.
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>Con đường sự nghiệp của một kỹ sư phần mềm (phần 8)</h1>
+  <span class="post-meta">
+06 December 2018
+  
+</div>
+
+<article class="post-content">
+  <p>[tiếp theo của <a href="con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7">phần 7</a>]</p>
+
+<p>Công ty mình làm ở Singapore là một startup chuyên cung cấp dịch vụ đặt xe hơi/taxi/xe ôm thông qua ứng dụng di động cho hơn 8 nước trong khu vực Đông Nam Á, trong đó có Việt Nam. Công ty cũng khá nổi tiếng nên mình chỉ cần nhắc tên thôi là hầu như ai cũng biết.</p>
+
+<p>Mặc dù vậy, khi mới vào làm ở công ty, mình đã luôn chuẩn bị tâm thế sẽ đi bất cứ lúc nào.</p>
+
+<p>Từng ngày từng ngày, mình chờ mong kết quả phỏng vấn Facebook. Tâm trí mình lúc đó chỉ có nước Mỹ.</p>
+
+<p>Do đó, mình đã lơ là rất nhiều thứ.</p>
+
+<p>Team mình chỉ có 4-5 người nhưng không có teamwork gì cả, mạnh ai nấy làm, không có quy trình gì cụ thể. Mình cũng kệ, do đường nào mình cũng không ở lâu.</p>
+
+<p>Chất lượng code dự án khá tệ, viết như là sinh viên mới ra trường, lỗi tùm lum không biết đường nào mà lần. Mình cũng kệ.</p>
+
+<p>Vào công ty mình có tiếp xúc với nhiều bạn/anh/chị Việt Nam khác, mình phát hiện ra là lương mình đang bị thấp hơn so với thị trường. Mình cũng kệ.</p>
+
+<p>Công ty hay có những buổi cho các giám đốc xuống chia sẻ tình hình kinh doanh và đường lối phát triển trong tương lai, đồng thời cũng trả lời bất cứ câu hỏi nào cuả nhân viên. Mọi người ai cũng hào hứng, chỉ có mình là không quan tâm.</p>
+
+<p>Nói chung, mình chỉ làm ở mức trung mình, chỉ cần bắt kịp với tiến độ của dự án, chỉ như vậy là đủ. Mọi thứ cứ tà tà trôi qua như thế.</p>
+
+<p>Cho đến khi mình biết tin “rớt Facebook”…</p>
+
+<p>Mình vẫn chưa tin nổi vào kết quả đó. Mình đã kỳ vọng biết bao nhiêu!!!</p>
+
+<p>Nhưng cứ nghĩ như vậy cũng chẳng giúp ích được gì, mình phải chấp nhận sự thật thôi.</p>
+
+<p>Giấc mơ Mỹ đã không còn. Kế hoạch B cũng không còn.</p>
+
+<p>Mọi thứ mà mình nghĩ là “tạm thời” bỗng trở nên quan trọng.</p>
+
+<p>Công việc hiện tại bỗng trở nên là ưu tiên hàng đầu.</p>
+
+<p>Mình như chợt tỉnh giấc khỏi cơn mơ. Mấy tháng nay, mình đã không còn là mình nữa. Mấy tháng nay, mình không làm gì ra hồn hết.</p>
+
+<p>Thế là mình bắt đầu thay đổi, tập trung hết tâm trí vào công việc.</p>
+
+<p>Mình bắt đầu đưa ra nhiều giải pháp để cải thiện chất lượng code của team.</p>
+
+<p>Mình nắm vững quy trình làm việc (Scrum) và luôn đưa ra đề xuất để cải thiện. Mình cũng dành thời gian góp ý và giúp đỡ đồng nghiệp khi họ làm chưa đúng quy trình.</p>
+
+<p>Mình để ý đến lộ trình release của ứng dụng, các vấn đề trên Appstore, các lỗi hệ thống. Mỗi khi có trục trặc, mình luôn xung phong giải quyết và giao tiếp với các bên (QA, PM, designer, …).</p>
+
+<p>Mình dành thời gian review code cho tất cả mọi người trong team. Hễ có code đưa lên là mình review.</p>
+
+<p>Mình bắt đầu viết test cho dự án. Từng bước từng bước, mình viết test cho tất cả các trường hợp chính của ứng dụng. Nhờ đó, mọi người yên tâm hơn khi sửa code vì biết rằng chỉ cần test không fail là okay.</p>
+
+<p>Vì việc viết test là ý tưởng mình đề xuất và nó không nằm trong kế hoạch của cấp trên, cho nên ở công ty, mình không có nhiều thời gian cho nó lắm. Do đó, mình tự nguyện làm thêm các buổi tối và cuối tuần để cố hoàn thành càng nhiều test càng tốt. Có như vậy thì mọi người mới thấy được lợi ích của việc viết test.</p>
+
+<p>Mình tổ chức các buổi thuyết trình để chia sẻ kiến thức trong team.</p>
+
+<p>Mình tham gia các buổi họp toàn công ty để hiểu hơn về tầm ảnh hưởng của công việc đến người dùng. Mình bắt đầu thấy tự hào khi ứng dụng giúp ích được nhiều cho cuộc sống của người dân: tài xế có việc làm kiếm thêm thu nhập, hành khách thì chỉ cần bấm bấm điện thoại là vài phút sau có xe tới đón, đi ngoài đường đâu đâu cũng thấy màu áo của công ty.</p>
+
+<p>Sau vài tháng, mình được tin tưởng hơn ở cả trong và ngoài team. Mỗi khi có vấn đề thì mọi người thường sẽ tìm tới mình đầu tiên.</p>
+
+<p>Lúc này, có một sự kiện đặc biệt xảy ra, đó là: manager của team mình nghỉ việc. Bạn đó nghỉ việc để qua làm cho Facebook ở Luân-đôn. Thế là công ty phải lo tìm một manager khác để lấp vào vị trí đó.</p>
+
+<p>Trong thời gian tìm kiếm, mình được giao gánh vác việc release của ứng dụng và là người giao tiếp chính trong các buổi họp với các team khác. Thực ra mình cũng đã hy vọng được chọn lên làm manager vì mình cũng muốn học cái mới, học cái gì đó ít kỹ thuật một chút, biết đâu lại thú vị.</p>
+
+<p>Và rồi mình vẫn cứ làm việc chăm chỉ, team vẫn release đều đều, mọi thứ vẫn ổn.</p>
+
+<p>Một hôm, sếp lớn gọi cả team vào và thông báo chính thức:</p>
+
+<p><strong>“Mình được trở thành manager”</strong>.</p>
+
+<p>[<a href="con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-9">còn tiếp</a>]</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-9" class="post-link">
+          <h4 class="post-title">Con đường sự nghiệp của một kỹ sư phần mềm (phần 9)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7" class="post-link">
+          <h4 class="post-title">Con đường sự nghiệp của một kỹ sư phần mềm (phần 7)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/chuyen-phong-van-voi-mot-cong-ty-o-my" class="post-link">
+          <h4 class="post-title">Chuyện phỏng vấn với một công ty ở Mỹ</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

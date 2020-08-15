@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to write unit tests in iOS Part 1: XCTestCase &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Learn how to write unit tests in iOS using XCTestCase
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="ios, testing">
+    <link rel="canonical" href="http://hoangtran.me/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to write unit tests in iOS Part 1: XCTestCase">
+    <meta property="og:description" content="
+	Learn how to write unit tests in iOS using XCTestCase
+">
+    <meta property="og:url" content="http://hoangtran.me/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="How to write unit tests in iOS Part 1: XCTestCase" />
+    <meta name="twitter:description" content="
+	Learn how to write unit tests in iOS using XCTestCase
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>How to write unit tests in iOS Part 1: XCTestCase</h1>
+  <span class="post-meta">
+31 July 2016
+  
+</div>
+
+<article class="post-content">
+  <h2 id="what-is-unit-test">What is unit test?</h2>
+
+<p>Unit test is basically just a test at the <code class="highlighter-rouge">unit</code> level.</p>
+
+<p>Your project will have multiple <code class="highlighter-rouge">classes</code>. Each <code class="highlighter-rouge">class</code> will have multiple <code class="highlighter-rouge">methods</code>. Each <code class="highlighter-rouge">method</code> will have multiple <code class="highlighter-rouge">cases</code>. And it’s in those <code class="highlighter-rouge">cases</code> that we are at the <code class="highlighter-rouge">unit</code> level.</p>
+
+<p>A unit test will test for a specific <code class="highlighter-rouge">case</code> in a <code class="highlighter-rouge">method</code>. It usually has 4 steps:</p>
+
+<ol>
+  <li><strong>Setup</strong>:
+    <ul>
+      <li>This is where you initialize the <code class="highlighter-rouge">class</code> you want to test</li>
+    </ul>
+  </li>
+  <li><strong>Execution</strong>:
+    <ul>
+      <li>Call method on the <code class="highlighter-rouge">class</code> or <code class="highlighter-rouge">instance of the class</code></li>
+    </ul>
+  </li>
+  <li><strong>Expectation</strong>:
+    <ul>
+      <li>Set some expectations for the outcome</li>
+    </ul>
+  </li>
+  <li><strong>Cleanup</strong>: (optional)
+    <ul>
+      <li>Clean up anything that may affect other subsequent tests</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Let’s look at some example unit tests here (in pseudo code):</p>
+
+<p>Test the <code class="highlighter-rouge">shoot</code> method on <code class="highlighter-rouge">Gun</code> class:</p>
+
+<ul>
+  <li>Case 1: if it has bullet(s), the gun CAN shoot</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Setup: create a gun with 1 bullet
+2. Execution: shoot
+3. Expectation: expect gun to be out of bullet</code></pre></figure>
+
+<ul>
+  <li>Case 2: if it has no bullet, the gun CANNOT shoot</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Setup: create a gun with no bullet
+2. Execution: shoot
+3. Expectation: expect gun not to shoot anything</code></pre></figure>
+
+<p>Test the <code class="highlighter-rouge">reload</code> method on <code class="highlighter-rouge">Gun</code> class:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Setup: create a gun with no bullet
+2. Execution: reload the gun
+3. Expectation: expect the gun to be full of bullets</code></pre></figure>
+
+<p>After we finish writing unit tests for all <code class="highlighter-rouge">cases</code> in all <code class="highlighter-rouge">methods</code> of the <code class="highlighter-rouge">Gun</code> class, we can say that the <code class="highlighter-rouge">Gun</code> class is fully tested. All the edge cases are covered and we would have the confidence that this <code class="highlighter-rouge">Gun</code> class should work as expected.</p>
+
+<h2 id="but-thats-just-a-bunch-of-pseudo-code-how-does-we-translate-it-into-ios">But that’s just a bunch of pseudo code. How does we translate it into iOS?</h2>
+
+<p>Xcode does provide a way to write unit tests natively through the <code class="highlighter-rouge">XCTestCase</code> class. It provides a variety of assertion methods to help us describe our <code class="highlighter-rouge">expectation</code> for the test. Let’s dive in and see what it looks like.</p>
+
+<p>First, add a new file to your test target. (if your project name is <code class="highlighter-rouge">MyAwesomeProject</code>, then your test target’s name would be <code class="highlighter-rouge">MyAwesomeProjectTests</code>)</p>
+
+<p><img src="/images/how-to-write-unit-tests-in-ios/add-new-file.png" alt="" /></p>
+
+<p>Choose the <code class="highlighter-rouge">Unit Test Case Class</code> template &gt; <code class="highlighter-rouge">Next</code></p>
+
+<p><img src="/images/how-to-write-unit-tests-in-ios/choose-unit-test.png" alt="" /></p>
+
+<p>Make sure you subclass from <code class="highlighter-rouge">XCTestCase</code>.</p>
+
+<p><img src="/images/how-to-write-unit-tests-in-ios/name-unit-test.png" alt="" /></p>
+
+<p>Originally, your class will look like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">XCTest</span>
+
+<span class="kd">class</span> <span class="kt">MyNativeTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">setUp</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">super</span><span class="o">.</span><span class="nf">setUp</span><span class="p">()</span>
+      <span class="c1">// Put setup code here. This method is called before the invocation of each test method in the class.</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">tearDown</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Put teardown code here. This method is called after the invocation of each test method in the class.</span>
+      <span class="k">super</span><span class="o">.</span><span class="nf">tearDown</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">testExample</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// This is an example of a functional test case.</span>
+      <span class="c1">// Use XCTAssert and related functions to verify your tests produce the correct results.</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">testPerformanceExample</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// This is an example of a performance test case.</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">measureBlock</span> <span class="p">{</span>
+          <span class="c1">// Put the code you want to measure the time of here.</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>For simplicity, we’ll remove everything and just put our single test there. Notice that your test method <strong>MUST</strong> begin with the prefix <code class="highlighter-rouge">test</code>. (Ex: <code class="highlighter-rouge">testSomething</code>, <code class="highlighter-rouge">testFirst</code>, <code class="highlighter-rouge">testTheWorld</code>)</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">XCTest</span>
+
+<span class="kd">class</span> <span class="kt">MyNativeTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
+
+  <span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>Let’s write our first <code class="highlighter-rouge">expectation</code>.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">XCTAssert</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This reads as <code class="highlighter-rouge">expect the boolean expression (1 + 1 == 2) to be true</code> or <code class="highlighter-rouge">expect 1 + 1 to equal to 2</code>. When you run this test (<code class="highlighter-rouge">⌘ + U</code>), it should pass.</p>
+
+<p>But when you change it to:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">XCTAssert</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This will fail.</p>
+
+<p><img src="/images/how-to-write-unit-tests-in-ios/test-fail.png" alt="" /></p>
+
+<p>When the test fails, we know exactly which line it is located but we don’t know why it failed, we only see a general statement <code class="highlighter-rouge">XCTAssertTrue failed</code>, which is not very useful. Let’s fix that by adding another argument for error message.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">XCTAssert</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"1 + 1 should equal to 2"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now it looks better when it fails.</p>
+
+<p><img src="/images/how-to-write-unit-tests-in-ios/test-fail-reason.png" alt="" /></p>
+
+<p>Besides <code class="highlighter-rouge">XCTAssert</code>, there are some other methods you can use for assertion, such as:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">XCTAssertTrue(booleanExpression, errorMessage)</code>: <strong>pass</strong> when booleanExpression is true, otherwise <strong>fail</strong> with errorMessage. This one is equipvalent to <code class="highlighter-rouge">XCTAssert</code>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">XCTAssertFalse(booleanExpression, errorMessage)</code>: <strong>pass</strong> when booleanExpression is false, otherwise <strong>fail</strong> with errorMessage.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">XCTAssertNil(object, errorMessage)</code>: <strong>pass</strong> when object is nil, otherwise <strong>fail</strong> with errorMessage.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">XCTAssertEqual(object1, object2, errorMessage)</code>: <strong>pass</strong> when object1 is equal to object2, otherwise <strong>fail</strong> with errorMessage.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">XCTAssertThrowsError(expression, errorMessage, errorHandler)</code>: <strong>pass</strong> when expression throws exception while evaluated, otherwise <strong>fail</strong> with errorMessage. We can also use the errorHandler to assert for the exception thrown.
+For example:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">Error</span><span class="p">:</span> <span class="kt">ErrorType</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="kt">SomeExpectedError</span>
+  <span class="k">case</span> <span class="kt">SomeUnexpectedError</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">functionThatThrows</span><span class="p">()</span> <span class="k">throws</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="kt">Error</span><span class="o">.</span><span class="kt">SomeExpectedError</span>
+<span class="p">}</span>
+
+<span class="kt">XCTAssertThrowsError</span><span class="p">(</span><span class="k">try</span> <span class="nf">functionThatThrows</span><span class="p">(),</span> <span class="s">"some message"</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+  <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">error</span> <span class="k">as?</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Error</span><span class="o">.</span><span class="kt">SomeExpectedError</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This is just some methods that I use often. For the full list, please refer to Apple documenation.</p>
+
+<p>Let’s write real unit tests for the <code class="highlighter-rouge">Gun</code> example we talked about earlier.</p>
+
+<p>Test the <code class="highlighter-rouge">shoot</code> method on <code class="highlighter-rouge">Gun</code> class:</p>
+
+<ul>
+  <li>Case 1: Gun CAN shoot if it has bullet(s).</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testGunCanShootIfItHasBullets</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 1. Setup: create a gun with 1 bullet</span>
+  <span class="k">let</span> <span class="nv">gun</span> <span class="o">=</span> <span class="kt">Gun</span><span class="p">(</span><span class="nv">bullets</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="c1">// 2. Execution: shoot</span>
+  <span class="n">gun</span><span class="o">.</span><span class="nf">shoot</span><span class="p">()</span>
+  <span class="c1">// 3. Expectation: expect Gun to be out of bullet</span>
+  <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">gun</span><span class="o">.</span><span class="n">bullets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"expect Gun to be out of bullet"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Case 2: Gun CANNOT shoot if it has no bullet.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testGunCannotShootIfItHasNoBullet</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 1. Setup: create a gun with no bullet</span>
+  <span class="k">let</span> <span class="nv">gun</span> <span class="o">=</span> <span class="kt">Gun</span><span class="p">(</span><span class="nv">bullets</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="c1">// 2. Execution: shoot</span>
+  <span class="n">gun</span><span class="o">.</span><span class="nf">shoot</span><span class="p">()</span>
+  <span class="c1">// 3. Expectation: expect Gun to not shoot anything</span>
+  <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">gun</span><span class="o">.</span><span class="n">bullets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"expect the number of bullets to remain the same"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Both of these 2 tests will fail because we haven’t implemented the <code class="highlighter-rouge">Gun</code> class yet. Let’s go ahead and do it.</p>
+
+<p>Add a new file called <code class="highlighter-rouge">Gun.swift</code> inside your main target (not inside the test target). We will do a very simple implementation here:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">Foundation</span>
+
+<span class="kd">class</span> <span class="kt">Gun</span> <span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+
+  <span class="k">var</span> <span class="nv">bullets</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="nv">bullets</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">bullets</span> <span class="o">=</span> <span class="n">bullets</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">shoot</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">self</span><span class="o">.</span><span class="n">bullets</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">bullets</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>Go to the test class (<code class="highlighter-rouge">MyNativeTests.swift</code>) and import your main target. Without this step, all of your classes in the main target won’t be visible to the tests.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">// add this line to the top of the file</span>
+<span class="kd">@testable</span> <span class="kd">import</span> <span class="kt">MyAwesomeProject</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">@testable</code> means that you don’t need to declare your classes and methods as <code class="highlighter-rouge">public</code> anymore. All of them will be visible in the test target eventually.</p>
+
+<p>Now when you run the tests (<code class="highlighter-rouge">⌘ + U</code>), they should all pass. Here is the test class at this point:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">XCTest</span>
+<span class="kd">@testable</span> <span class="kd">import</span> <span class="kt">MyAwesomeProject</span>
+
+<span class="kd">class</span> <span class="kt">MyNativeTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
+
+  <span class="kd">func</span> <span class="nf">testGunCanShootIfItHasBullets</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 1. Setup: create a gun with 1 bullet</span>
+    <span class="k">let</span> <span class="nv">gun</span> <span class="o">=</span> <span class="kt">Gun</span><span class="p">(</span><span class="nv">bullets</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1">// 2. Execution: shoot</span>
+    <span class="n">gun</span><span class="o">.</span><span class="nf">shoot</span><span class="p">()</span>
+    <span class="c1">// 3. Expectation: expect Gun to be out of bullet</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">gun</span><span class="o">.</span><span class="n">bullets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"expect Gun to be out of bullet"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">testGunCannotShootIfItHasNoBullet</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 1. Setup: create a gun with no bullet</span>
+    <span class="k">let</span> <span class="nv">gun</span> <span class="o">=</span> <span class="kt">Gun</span><span class="p">(</span><span class="nv">bullets</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1">// 2. Execution: shoot</span>
+    <span class="n">gun</span><span class="o">.</span><span class="nf">shoot</span><span class="p">()</span>
+    <span class="c1">// 3. Expectation: expect Gun to not shoot anything</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">gun</span><span class="o">.</span><span class="n">bullets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"expect the number of bullets to remain the same"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>There is still the <code class="highlighter-rouge">reload</code> method to test but I guess you can easily do it on your own since it’s quite similar to what we just did.</p>
+
+<h3 id="wrap-up">Wrap up</h3>
+
+<p>Today we learnt what a unit test is and how to write it properly in iOS using <code class="highlighter-rouge">XCTestCase</code>. We also learnt how to test an object at the <code class="highlighter-rouge">unit</code> level (test each <code class="highlighter-rouge">case</code> in each <code class="highlighter-rouge">method</code>, test all <code class="highlighter-rouge">methods</code> in the <code class="highlighter-rouge">class</code>).</p>
+
+<p>Although <code class="highlighter-rouge">XCTestCase</code> is simple and quite straightforward to use, it might get really tedious as your test becomes more complicated. On the next post, we’ll discover some of <code class="highlighter-rouge">XCTestCase</code>’s problems and how we can solve it using <code class="highlighter-rouge">Behaviour Driven Development</code>.</p>
+
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble/" class="post-link">
+          <h4 class="post-title">Write better unit test assertions with Nimble</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/" class="post-link">
+          <h4 class="post-title">How to setup testing for new iOS project</h4>
+        </a>
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

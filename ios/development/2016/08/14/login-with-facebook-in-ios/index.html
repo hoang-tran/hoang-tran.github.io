@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to integrate login with Facebook in iOS &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Learn how to add a login with Facebook funtionality to your app
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="ios, development">
+    <link rel="canonical" href="http://hoangtran.me/ios/development/2016/08/14/login-with-facebook-in-ios/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to integrate login with Facebook in iOS">
+    <meta property="og:description" content="
+	Learn how to add a login with Facebook funtionality to your app
+">
+    <meta property="og:url" content="http://hoangtran.me/ios/development/2016/08/14/login-with-facebook-in-ios/
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="
+	http://hoangtran.me/images/login-with-facebook-in-ios/login-facebook-cover.png
+">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="How to integrate login with Facebook in iOS" />
+    <meta name="twitter:description" content="
+	Learn how to add a login with Facebook funtionality to your app
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/ios/development/2016/08/14/login-with-facebook-in-ios/
+" />
+    <meta name="twitter:image" content="
+	http://hoangtran.me/images/login-with-facebook-in-ios/login-facebook-cover.png
+" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>How to integrate login with Facebook in iOS</h1>
+  <span class="post-meta">
+14 August 2016
+  
+</div>
+
+<article class="post-content">
+  <p>Nowadays, there are very few apps that do not authenticate their users. We all wanna know who our users are, how they interact with other users and what makes them engaged the most.</p>
+
+<p>Therefore it’s very common that when a user opens the app, the first thing they’re gonna see is the Login screen. Usually, there are 2 options we can provide:</p>
+
+<ul>
+  <li>login via email.</li>
+  <li>login via social networks: Facebook, Twitter, Google+.</li>
+</ul>
+
+<p>In this post, we’re gonna discuss about the Facebook login option.</p>
+
+<h2 id="we-will-build-a-simple-app-that">We will build a simple app that:</h2>
+
+<ul>
+  <li>Has 2 screens: Login screen and Home screen.</li>
+  <li>There is a <code class="highlighter-rouge">Login with Facebook</code> button on the Login screen. When users tap on that button, they will be taken to Safari or Facebook iOS app (if installed) to do the authentication.</li>
+  <li>After successfully authenticated, they will move to the Home screen, which only has a welcome label and a Logout button. When they tap on the Logout button, they will be right back at the Login screen again.</li>
+</ul>
+
+<p>Sounds simple and easy, right?</p>
+
+<p>Here a gif that sums up the whole process:</p>
+
+<p><img src="/images/login-with-facebook-in-ios/login-facebook.gif" alt="" /></p>
+
+<h2 id="understand-the-facebook-authentication-process">Understand the Facebook authentication process.</h2>
+
+<p>Imagine Facebook as a market.</p>
+
+<p>You go to the market and register for a booth to sell things.</p>
+
+<p>When users come to your booth and they like what they see, you may ask them to provide some of their personal information. You may also ask them about their friends, their interests, their recent activities… as long as they are happy to tell you.</p>
+
+<p>With those information, you are able to do a lot of things such as:</p>
+
+<ul>
+  <li>Make a list of users for a lucky draw at the end of the show.</li>
+  <li>Send user a congratulation email on their birthday.</li>
+  <li>Send new offer and sale.</li>
+  <li>Make analytics about which users are interested in which items in your booth.</li>
+  <li>ect…</li>
+</ul>
+
+<p>The act of <code class="highlighter-rouge">asking users for permissions to use their information</code> and <code class="highlighter-rouge">having them to accept</code> is called <code class="highlighter-rouge">authentication</code>. They trust you enough to give those information and even let you do something on their behalf. (post to their Timeline, invite their friends…)</p>
+
+<h2 id="so-what-do-we-need-to-prepare-for-facebook-authentication">So what do we need to prepare for Facebook authentication?</h2>
+
+<p>Actually, there are only 2 things that we need:</p>
+
+<ol>
+  <li>A booth:
+    <ul>
+      <li>this refers to as a <code class="highlighter-rouge">Facebook app</code>.</li>
+      <li>I’m <strong>not</strong> talking about the <code class="highlighter-rouge">Facebook iOS app</code> on your phone. I’m talking about the <code class="highlighter-rouge">Facebook app</code> you registered on Facebook Developers website.</li>
+      <li>A <code class="highlighter-rouge">Facebook app</code> is like an identity of your business on Facebook. All authentications will happen through that.</li>
+    </ul>
+  </li>
+  <li>A way for user to come to our booth:
+    <ul>
+      <li>this refers to as <code class="highlighter-rouge">platform</code>.</li>
+      <li>It can be a website, a game, an app… In our case, it’ll be an iOS app.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="heres-a-summary-of-what-were-gonna-do">Here’s a summary of what we’re gonna do:</h2>
+
+<ol>
+  <li><a href="#setup-your-booth-facebook-app">Setup your booth (Facebook App)</a>
+    <ul>
+      <li><a href="#step-1-create-a-new-facebook-app">Step 1: Create a new Facebook app.</a></li>
+      <li><a href="#step-2-add-ios-platform-to-your-facebook-app">Step 2: Add iOS platform to your Facebook app.</a></li>
+    </ul>
+  </li>
+  <li><a href="#lets-integrate-it-into-to-your-ios-project">Integrate to iOS project.</a>
+    <ul>
+      <li><a href="#step-1-import-facebook-sdk">Step 1: Import Facebook SDK.</a></li>
+      <li><a href="#step-2-configure-the-infoplist-file">Step 2: Configure the Info.plist file.</a></li>
+      <li><a href="#step-3-wire-it-up-in-appdelegate">Step 3: Wire it up in AppDelegate.</a></li>
+      <li><a href="#step-4-call-login-action-in-viewcontroller">Step 4: Call login action in ViewController.</a></li>
+      <li><a href="#step-5-handle-autologin">Step 5: Handle autologin.</a></li>
+      <li><a href="#step-6-provide-a-way-for-user-to-logout">Step 6: Provide a way for user to logout</a></li>
+    </ul>
+  </li>
+</ol>
+
+<p>Alright, without further ado, let’s jump right in and make it happen.</p>
+
+<h2 id="setup-your-booth-facebook-app">Setup your booth (Facebook App)</h2>
+
+<h3 id="step-1-create-a-new-facebook-app">Step 1: Create a new Facebook app.</h3>
+
+<p>Visit <a href="https://developers.facebook.com/apps">Facebook Developers website</a> and click on <code class="highlighter-rouge">Add a New App</code>.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/facebook-developers-apps.jpg" alt="" /></p>
+
+<p>Fill in your app information:</p>
+
+<p><img src="/images/login-with-facebook-in-ios/create-new-app-id.png" alt="" /></p>
+
+<ul>
+  <li>Display Name: this is what the user will see when the authentication happens. You can put any text here, including spaces and special characters. Ex: <code class="highlighter-rouge">My Awesome App</code>, <code class="highlighter-rouge">Super News Reader</code>, etc…</li>
+  <li>Is this a test version of another app? <strong>No</strong>.</li>
+  <li>Contact Email: put your email address here.</li>
+  <li>Categories: Choose the category that best describe your app. Ex: if you’re building a news reader app, choose <code class="highlighter-rouge">News</code>.</li>
+</ul>
+
+<p>Then hit <code class="highlighter-rouge">Create App ID</code>.</p>
+
+<p>Facebook will challenge you with a simple quiz to detect whether you’re a real human. Ex: select all the photos which show a flower.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/security-check.jpg" alt="" /></p>
+
+<p>Select all the correct photos and hit <code class="highlighter-rouge">Submit</code> (scroll down if you don’t see the button). You will then be redirected to the app dashboard.</p>
+
+<h3 id="step-2-add-ios-platform-to-your-facebook-app">Step 2: Add iOS platform to your Facebook app.</h3>
+
+<p>Click on <code class="highlighter-rouge">Settings</code>.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/app-dashboard-product.jpg" alt="" /></p>
+
+<p>Click on <code class="highlighter-rouge">Add Platform</code>.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/add-platform.jpg" alt="" /></p>
+
+<p>Tap on the Apple logo.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/choose-platform.jpg" alt="" /></p>
+
+<p>This will generate a form for iOS platform.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/ios-platform.png" alt="" /></p>
+
+<p>Now we need the bundle ID to fill in this form. Let’s open your iOS project and follow these 3 steps:</p>
+
+<ol>
+  <li>Tap on the project icon on the left sidebar.</li>
+  <li>Choose <code class="highlighter-rouge">General</code> tab.</li>
+  <li>Copy the <code class="highlighter-rouge">Bundle Identifier</code> field.</li>
+</ol>
+
+<p><img src="/images/login-with-facebook-in-ios/bundle-id.jpg" alt="" /></p>
+
+<p>Go back to the iOS form on the web and paste in the bundle ID you just copied.</p>
+
+<p>Turn on <code class="highlighter-rouge">Single Sign On</code>.</p>
+
+<p>Then click <code class="highlighter-rouge">Save Changes</code>.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/ios-platform-filled.jpg" alt="" /></p>
+
+<p>Now your Facebook app is fully configured.</p>
+
+<h2 id="lets-integrate-it-into-to-your-ios-project">Let’s integrate it into to your iOS project</h2>
+
+<h3 id="step-1-import-facebook-sdk">Step 1: Import Facebook SDK.</h3>
+
+<p>The easiest way is to use <code class="highlighter-rouge">cocoapods</code>. If you haven’t installed <code class="highlighter-rouge">cocoapods</code> yet, please read <a href="/ios/testing/2016/07/24/how-to-setup-testing-for-new-ios-project/#step-2-setup-cocoapods">this guide at step 2</a>.</p>
+
+<p>Add <code class="highlighter-rouge">FBSDKCoreKit</code> and <code class="highlighter-rouge">FBSDKLoginKit</code> pods to your Podfile:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># replace 'TestFacebookLogin' with your own target name</span>
+<span class="n">target</span> <span class="s1">'TestFacebookLogin'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+
+  <span class="n">pod</span> <span class="s1">'FBSDKCoreKit'</span>
+  <span class="n">pod</span> <span class="s1">'FBSDKLoginKit'</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Open <code class="highlighter-rouge">Terminal</code> and run this command:</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">pod install</code></pre></figure>
+
+<h3 id="step-2-configure-the-infoplist-file">Step 2: Configure the Info.plist file.</h3>
+
+<p>Open the generated <code class="highlighter-rouge">.xcworkspace</code>.</p>
+
+<p>Right-click on the <code class="highlighter-rouge">Info.plist</code>.</p>
+
+<p>Choose to open as <code class="highlighter-rouge">Source Code</code>.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/info-plist-open.png" alt="" /></p>
+
+<p>You will see the content of <code class="highlighter-rouge">Info.plist</code> in XML format:</p>
+
+<p><img src="/images/login-with-facebook-in-ios/info-plist-before.jpg" alt="" /></p>
+
+<p>Go back to your Facebook app settings on the web.</p>
+
+<p>Click on <code class="highlighter-rouge">Quick Start</code></p>
+
+<p><img src="/images/login-with-facebook-in-ios/ios-platform-quick-start.jpg" alt="" /></p>
+
+<p>Scroll down to the <code class="highlighter-rouge">Configure your info.plist</code> part.</p>
+
+<p>Facebook already generated 2 blocks of XML code for us with all the necessary information prefilled.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/configure-plist.jpg" alt="" /></p>
+
+<p>Copy the first block to your <code class="highlighter-rouge">Info.plist</code> (under the <code class="highlighter-rouge">&lt;dict&gt;</code> tag).</p>
+
+<p>Then copy the second block just below the first one.</p>
+
+<p>If you do it correctly, your <code class="highlighter-rouge">Info.plist</code> will look like this:</p>
+
+<p><img src="/images/login-with-facebook-in-ios/info-plist-after.jpg" alt="" /></p>
+
+<h3 id="step-3-wire-it-up-in-appdelegate">Step 3: Wire it up in AppDelegate.</h3>
+
+<p>Open <code class="highlighter-rouge">AppDelegate.swift</code>.</p>
+
+<p>Import Facebook SDK module at the top of the file.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">FBSDKCoreKit</span></code></pre></figure>
+
+<p>Add the following lines:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="n">didFinishLaunchingWithOptions</span> <span class="nv">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSObject</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+
+  <span class="c1">//1.</span>
+  <span class="kt">FBSDKApplicationDelegate</span><span class="o">.</span><span class="nf">sharedInstance</span><span class="p">()</span><span class="o">.</span><span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="nv">didFinishLaunchingWithOptions</span><span class="p">:</span><span class="n">launchOptions</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="n">openURL</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">,</span> <span class="nv">sourceApplication</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">annotation</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+
+  <span class="c1">//2.</span>
+  <span class="k">let</span> <span class="nv">handled</span> <span class="o">=</span> <span class="kt">FBSDKApplicationDelegate</span><span class="o">.</span><span class="nf">sharedInstance</span><span class="p">()</span><span class="o">.</span><span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="nv">openURL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">sourceApplication</span><span class="p">:</span> <span class="n">sourceApplication</span><span class="p">,</span> <span class="nv">annotation</span><span class="p">:</span> <span class="n">annotation</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">handled</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>What do these 2 lines do?</p>
+
+<ol>
+  <li>This is when the app first launch, we want to call the <code class="highlighter-rouge">FBSDKApplicationDelegate</code> to initialize the Facebook SDK.</li>
+  <li>This is after the app switch to Safari (or the Facebook iOS app), finish the authentication and then switch back to our app, it will store the <code class="highlighter-rouge">accessToken</code> that Facebook passes back to us as a proof of successful authentication.</li>
+</ol>
+
+<h3 id="step-4-call-login-action-in-viewcontroller">Step 4: Call login action in ViewController.</h3>
+
+<p>In your <code class="highlighter-rouge">LoginViewController</code>, when user tap on the <code class="highlighter-rouge">Login With Facebook</code> button, you will make the call to Facebook:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">onTapLoginWithFacebook</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//1.</span>
+  <span class="k">let</span> <span class="nv">loginManager</span> <span class="o">=</span> <span class="kt">FBSDKLoginManager</span><span class="p">()</span>
+
+  <span class="c1">//2.</span>
+  <span class="k">let</span> <span class="nv">permissions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"public_profile"</span><span class="p">]</span>
+
+  <span class="c1">//3.</span>
+  <span class="k">let</span> <span class="nv">handler</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">result</span><span class="p">:</span> <span class="kt">FBSDKLoginManagerLoginResult</span><span class="o">!</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+      <span class="c1">//3.1</span>
+      <span class="nf">print</span><span class="p">(</span><span class="s">"error = </span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">isCancelled</span> <span class="p">{</span>
+      <span class="c1">//3.2</span>
+      <span class="nf">print</span><span class="p">(</span><span class="s">"user tapped on Cancel button"</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">//3.3</span>
+      <span class="nf">print</span><span class="p">(</span><span class="s">"authenticate successfully"</span><span class="p">)</span>
+      <span class="k">self</span><span class="o">.</span><span class="nf">goToHomeViewController</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">//4.</span>
+  <span class="n">loginManager</span><span class="o">.</span><span class="nf">logInWithReadPermissions</span><span class="p">(</span><span class="n">permissions</span><span class="p">,</span> <span class="nv">fromViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">handler</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This is what the code above does:</p>
+
+<ol>
+  <li>Instantiate a <code class="highlighter-rouge">loginManager</code>. This object is used to make the call to authenticate with Facebook.</li>
+  <li>Define a list of permissions to request. For simplicity, we only ask for the public profile of our users.</li>
+  <li>Define a closure to handle callback when the Facebook authentication finished. There are 3 cases to handle here:
+    <ul>
+      <li>3.1: There is an error occured while authenticating. You can look into the <code class="highlighter-rouge">error</code> variable to see what went wrong.</li>
+      <li>3.2: User tap <code class="highlighter-rouge">Cancel</code> while authenticating. Usually you don’t want to do anything here.</li>
+      <li>3.3: The authentication succeeded. We should redirect them to the <code class="highlighter-rouge">Home View Controller</code>.</li>
+    </ul>
+  </li>
+  <li>Actually make the call to authenticate user via the <code class="highlighter-rouge">loginManager</code> object. We also pass all variables defined above into this method call.</li>
+</ol>
+
+<p>After this step, the users will be brought to Safari (or Facebook iOS app) to review the permissions. If they’re happy with it, they would grant our app access to those information.</p>
+
+<p><img src="/images/login-with-facebook-in-ios/permission-review.png" alt="" /></p>
+
+<p>Then the user will be switched back to our app and into the callback <code class="highlighter-rouge">application:openURL:sourceApplication:annotation</code> in the <code class="highlighter-rouge">AppDelegate</code> we just defined above.</p>
+
+<h3 id="step-5-handle-autologin">Step 5: Handle autologin.</h3>
+
+<p>After you have been successfully authenticated, you are provided an <code class="highlighter-rouge">accessToken</code>. The next time users open the app, you want to log them in automatically.</p>
+
+<p>Facebook SDK does provide the <code class="highlighter-rouge">FBSDKAccessToken.currentAccessToken()</code> method which returns the <code class="highlighter-rouge">accessToken</code> obtained from previous authentication. If it is not nil, we know that we don’t need to login anymore.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">LoginViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+  <span class="c1">//...</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="kt">FBSDKAccessToken</span><span class="o">.</span><span class="nf">currentAccessToken</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="c1">//we have been authenticated before</span>
+      <span class="c1">//let's bypass the Login screen for now</span>
+      <span class="nf">goToHomeViewController</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">//...</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="step-6-provide-a-way-for-user-to-logout">Step 6: Provide a way for user to logout.</h3>
+
+<p>This can be done very easily:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">HomeViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+  <span class="c1">//...</span>
+
+  <span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">onTapLogoutButton</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//log user out</span>
+    <span class="k">let</span> <span class="nv">loginManager</span> <span class="o">=</span> <span class="kt">FBSDKLoginManager</span><span class="p">()</span>
+    <span class="n">loginManager</span><span class="o">.</span><span class="nf">logOut</span><span class="p">()</span>
+
+    <span class="c1">//go back to the Login screen</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">navigationController</span><span class="p">?</span><span class="o">.</span><span class="nf">popViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">//...</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="wrap-up">Wrap up</h2>
+
+<p>The full source code of this demo app can be found at <a href="https://github.com/hoang-tran/TestFacebookLogin">https://github.com/hoang-tran/TestFacebookLogin</a>.</p>
+
+<p>Today we went over the process of authenticating our app with Facebook users. We went from creating a <code class="highlighter-rouge">Facebook app</code> on Facebook developers website to integrate the whole flow into our iOS app. The process is simple in theory yet requires a lot of steps.</p>
+
+<p>On the next post, we will learn how to take advantage of the Facebook <code class="highlighter-rouge">accessToken</code> once we have it. We’re gonna explore how to retrieve the user information and what we can do with it.</p>
+
+<p>Stay tune, guys 😎</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/ios/development/2016/08/14/login-with-facebook-in-ios/
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/ios/development/2016/08/14/login-with-facebook-in-ios/
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/development/2016/08/20/use-graph-api-to-retrieve-facebook-user-information-in-ios/" class="post-link">
+          <h4 class="post-title">How to use Graph API to retrieve Facebook user information in iOS</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cách cài đặt Anki để học từ vựng &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Ở phần trước, mình đã trình bày tại sao cách học từ vựng truyền thống không hiệu quả và mình cũng có giới thiệu sơ qua về Anki như là một phương pháp tối ưu hơn.
+
+
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Cách cài đặt Anki để học từ vựng">
+    <meta property="og:description" content="
+	Ở phần trước, mình đã trình bày tại sao cách học từ vựng truyền thống không hiệu quả và mình cũng có giới thiệu sơ qua về Anki như là một phương pháp tối ưu hơn.
+
+
+">
+    <meta property="og:url" content="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="Cách cài đặt Anki để học từ vựng" />
+    <meta name="twitter:description" content="
+	Ở phần trước, mình đã trình bày tại sao cách học từ vựng truyền thống không hiệu quả và mình cũng có giới thiệu sơ qua về Anki như là một phương pháp tối ưu hơn.
+
+
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>Cách cài đặt Anki để học từ vựng</h1>
+  <span class="post-meta">
+07 November 2018
+  
+</div>
+
+<article class="post-content">
+  <p>Ở <a href="cach-hoc-tu-vung-hieu-qua-bang-anki">phần trước</a>, mình đã trình bày tại sao cách học từ vựng truyền thống không hiệu quả và mình cũng có giới thiệu sơ qua về Anki như là một phương pháp tối ưu hơn.</p>
+
+<p>Hôm nay mình sẽ hướng dẫn chi tiết về cách cài đặt Anki từ đầu đến cuối để bạn có thể bắt đầu hành trình học từ vựng của mình.</p>
+
+<h3 id="1-tải-và-cài-đặt-anki">1. Tải và cài đặt Anki</h3>
+<p><strong>Bước 1</strong>: Vào link sau <a href="https://apps.ankiweb.net/#download/">https://apps.ankiweb.net/#download/</a>.</p>
+
+<p><strong>Bước 2</strong>: Nếu máy tính của bạn đang sử dụng hệ điều hành Windows thì hãy bấm vào nút “Windows”, sau đó chọn “Download Anki for Windows 7/8/10 (2.1.5)”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/download_window.png" alt="download windows" /></p>
+
+<p>Còn nếu bạn dùng hệ điều hành Mac OS thì hãy chọn nút “Mac” rồi bấm “Download Anki for Mac OS X 10.10+ (2.1.5)”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/download_mac.png" alt="download mac" /></p>
+
+<p><strong>Bước 3</strong>: Sau khi tải xong, bạn hãy cài đặt phần mềm như bình thường. Bước này cũng quá phổ biến nên mình không đề cập chi tết ở đây.</p>
+
+<h3 id="2-Đăng-ký-một-tài-khoản-trên-anki">2. Đăng ký một tài khoản trên Anki</h3>
+<p><strong>Bước 1</strong>: Vào link <a href="https://ankiweb.net/account/register">https://ankiweb.net/account/register</a>.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/signup_empty.png" alt="signup" /></p>
+
+<p><strong>Bước 2</strong>: Điền địa chỉ email của bạn vào trường “Your Email”. Điền email lại lần nữa vào “Email again”. Chọn một mật khẩu và điền vào “Password”. Bấm “Sign up”.</p>
+
+<p><strong>Bước 3</strong>: Bạn sẽ thấy màn hình Điều khoản sử dụng.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/terms_top.png" alt="terms top" /></p>
+
+<p>Cuộn tới cuối trang và tick vào cái ô “I have read the Terms &amp; Conditions …”. Sau đó bấm “Continue”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/term_bottom.png" alt="terms bottom" /></p>
+
+<p>Giờ thì bạn sẽ thấy màn hình “Email Sent”. Ý là nó đã gửi cho bạn một email để chờ kích hoạt, hãy kiểm tra hòm thư trong ít phút nữa.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/email_sent.png" alt="email sent" /></p>
+
+<p><strong>Bước 4</strong>: Mở hòm thử của bạn ra (có thể là Gmail hoặc bất cứ phần mềm quản lý mail nào). Mở cái mail gửi từ “noreply@ankiweb.net”. Chọn “Verify Email”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/verify_email.png" alt="verify email" /></p>
+
+<p>Bạn sễ được đưa đến màn hình hoàn tất đăng ký của Anki. Giờ thì bạn đã có một tài khoản để bắt đầu sử dụng Anki rồi.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/email_verified.png" alt="email verified" /></p>
+
+<h3 id="3-cài-đặt-phần-mềm-anki">3. Cài đặt phần mềm Anki</h3>
+<p>Hiện mình đang sử dụng hệ điều hành Mac cho nên những hình chụp dưới đây đều là giao diện của Mac. Tuy nhiên, những bạn xài Windows vẫn có thể theo dõi được bởi vì các bước cũng không khác gì nhau lắm.</p>
+
+<p><strong>Bước 1</strong>: Mở Anki trên máy tính. Chọn “English” làm ngôn ngữ mặc định. Chọn “OK”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/choose_language.png" alt="choose language" /></p>
+
+<p>Ứng dụng sẽ hỏi bạn có thực sự muốn dùng ngôn ngữ hiển thị là tiếng Anh hay không. Chọn “Yes”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/choose_language_confirm.png" alt="choose language confirm" /></p>
+
+<p>Sau đó bạn sẽ thấy giao diện chính của Anki.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/anki_default_ui.png" alt="anki default ui" /></p>
+
+<p><strong>Bước 2</strong>: Chọn nút “Sync” ở bên trên.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/anki_default_ui_click_sync.png" alt="anki default ui click sync" /></p>
+
+<p>Ứng dụng sẽ bắt bạn điền thông tin đăng nhập. Hãy điền email của bạn vào trường “AnkiWeb ID”. Rồi điền mật khẩu vào “Password”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/login.png" alt="anki default ui click sync" /></p>
+
+<p>Rồi ứng dụng sẽ hỏi bạn có muốn tải một số bộ từ vựng có sẵn trên AnkiWeb hay không. Cứ chọn “Cancel” trước đã. Bạn chưa cần chúng trong lúc này.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/ask_download_from_ankiweb.png" alt="anki default ui click sync" /></p>
+
+<h3 id="4-tạo-một-bộ-từ-vựng-mới-trong-anki">4. Tạo một bộ từ vựng mới trong Anki</h3>
+<p><strong>Bước 1</strong>: Từ giao diện chính, bạn sẽ thấy có một bộ từ vựng có tên là “Default”. Bộ này cũng có thể dùng được ngay nhưng tính năng sẽ hơi bị hạn chế. Do đó hãy tạo một bộ mới. Bấm vào nút “Create Deck” ở dưới.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/create_deck_click.png" alt="anki default ui click sync" /></p>
+
+<p><strong>Bước 2</strong>: Hãy chọn một tên cho bộ bài của bạn (mình sẽ gọi “bộ từ vựng” là “bộ bài” cho gọn). Tên nào cũng được. Ở đây mình sẽ lấy tên là “Hoang Vocabs”. Sau đó bấm “OK”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/create_deck_fill_name.png" alt="anki default ui click sync" /></p>
+
+<p>Bạn sẽ thấy bộ “Default” giờ đã chuyển thành “Hoang Vocabs”. Bấm vào bộ bài mới của bạn.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/create_deck_complete.png" alt="anki default ui click sync" /></p>
+
+<p>Bạn sẽ thấy một màn hình chúc mừng như thế này:</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/empty_deck.png" alt="anki default ui click sync" /></p>
+
+<h3 id="5-nhập-những-từ-vựng-đầu-tiên-vào-anki">5. Nhập những từ vựng đầu tiên vào Anki</h3>
+<p><strong>Bước 1</strong>: Từ bộ bài của bạn, bấm vào nút “Add” ở phía trên.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/deck_add.png" alt="anki default ui click sync" /></p>
+
+<p>Bạn sẽ thấy một cái form để điền từ vựng.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/add_vocab_empty.png" alt="anki default ui click sync" /></p>
+
+<p>Bạn phải điền vào thông tin của “Front” (mặt trước) và “Back” (mặt sau).</p>
+<ul>
+  <li>“Front” nghĩa là bạn chỉ điền vào từ vựng mà không ghi giải nghĩa hay ví dụ của nó, việc này là để sau đó bạn có thể tập đoán mặt sau của lá bài (“Back”).</li>
+  <li>“Back” sẽ chứa toàn bộ thông tin về từ vựng như cách phát âm, giải nghĩa và ví dụ.</li>
+</ul>
+
+<p><strong>Bước 2</strong>: Điền từ vựng mới vào. Ví dụ, mình điền từ “contemplate” như sau:</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/add_vocab_first.png" alt="anki default ui click sync" /></p>
+
+<p>Ở ví dụ trên thì mình nhập giải nghĩa từ bằng tiếng Anh, bạn có thể nhập gì tuỳ thích, nhập tiếng Việt cũng được. Nói chung là tuỳ cách nhập của mỗi người.</p>
+
+<p>Sau đó bấm nút “Add” ở dưới. Ứng dụng sẽ hiển thị form nhập từ lần nữa. Điều này có nghĩa là bạn đã nhập được một từ, giờ bạn có thể nhập từ tiếp theo. Nhưng hãy tạm đóng cái form này lại bằng cách bấm vào nút “Cancel”.</p>
+
+<p>Giờ bạn sẽ thấy ứng dụng hiển thị chữ “New: 1”, nghĩa là bạn đã nhập được 1 từ vào bộ bài.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/add_vocab_complete.png" alt="anki default ui click sync" /></p>
+
+<h3 id="6-học-từ-vựng-trên-anki">6. Học từ vựng trên Anki</h3>
+<p>Vừa nãy thì bạn mới nhập có một từ đầu tiên. Hãy nhập thêm vài từ để chút nữa học sẽ hấp dẫn hơn. Ví dụ ở đây mình nhập 3 từ vào bộ bài, đó là: “contemplate”, “horrific” và “crime”.</p>
+
+<p><strong>Bước 1</strong>: Từ bộ bài, bấm nút “Study now”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/study_home.png" alt="anki default ui click sync" /></p>
+
+<p><strong>Bước 2</strong>: Anki sẽ hiển thị từ đầu tiên (“contemplate”), nhưng bạn chỉ thấy từ thôi chứ không được thấy giải nghĩa hay ví dụ. Bạn phải đoán những thông tin này.
+Sau khi bạn đã đoán trong đầu, chọn “Show Answer”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/study_front.png" alt="anki default ui click sync" /></p>
+
+<p><strong>Bước 3</strong>: Giờ bạn sẽ được nhìn cả mặt trước và mặt sau của lá bài, bao gồm từ vựng, phát âm, giải nghĩa và ví dụ. Lúc này, bạn có thể kiểm tra được là suy đoán của bạn đúng hay sai.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/study_back.png" alt="anki default ui click sync" /></p>
+
+<p>Bạn có 3 lựa chọn: “Again”, “Good”, và “Easy”. Mình đã trình bày chi tiết về 3 lựa chọn này ở <a href="http://hoangtran.me/vi/cach-hoc-tu-vung-hieu-qua-bang-anki">phần trước</a>.</p>
+
+<p>Đại loại là:</p>
+<ul>
+  <li>“&lt;1m” là viết tắt của “&lt; 1 minute”, nghĩa là “nhắc lại sau 1 phút”.</li>
+  <li>“&lt;10m” là viết tắt của “&lt; 10 minutes”, nghĩa là “nhắc lại sau 10 phút”.</li>
+  <li>“4d” là viết tắt của “4 days”, nghĩa là “nhắc lại sau 4 ngày”.
+Ví dụ như bạn đoán sai đi, bạn nên chọn “Again”.</li>
+</ul>
+
+<p><strong>Bước 4</strong>: Ứng dụng sẽ hiển thị từ tiếp theo (“horrific”). Bạn hãy lặp lại bước 2 &amp; 3.</p>
+
+<p><strong>Bước 5</strong>: Sau khi bạn đã nhìn thấy hết cả 3 từ, ứng dụng sẽ hiển thị lại từ “contemplate” một lần nữa. Giờ thì bạn đã nhớ nó hơn một chút, hãy chọn “Good” (nhắc sau 10 phút).</p>
+
+<p><strong>Bước 6</strong>: Sau đó ứng dụng sẽ tiếp tục hiển thị từ “contemplate” một lần nữa. Giờ khi bạn chọn “Good”, nó sẽ nhắc lại sau một ngày. Khi bạn chọn một lựa chọn mà có thời gian nhắc một hoặc hai ngày trở lên, ứng dụng sẽ thôi không hiển thị từ đó trong ngày hôm nay nữa.</p>
+
+<p><strong>Bước 7</strong>: Học hết 3 từ cho đến khi ứng dụng không còn nhắc nữa.</p>
+
+<p><strong>Bước 8</strong>: Sau khi học hết 3 từ thì bạn sẽ thấy màn hình chúc mừng.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs/empty_deck.png" alt="anki default ui click sync" /></p>
+
+<p><strong>Bước 9</strong>: Hôm nay học đến đây là xong rồi. Bạn hãy mở ứng dụng vào ngày mai để kiểm tra xem có từ vựng cần phải học hay không. Và hãy nhập thêm nhiều từ vựng mới nữa. Cứ thế tiếp tục.</p>
+
+<h3 id="tóm-lại">Tóm lại</h3>
+<p>Chúng ta vừa đi qua những bước cơ bản để cài đặt và sử dụng Anki. Giờ thì bạn có thể nhập từ và học mỗi ngày với Anki rồi.</p>
+
+<p>Ở <a href="cach-cai-dat-anki-de-hoc-tu-vung-phan-2">bài sau</a>, mình sẽ trình bày cách tuỳ chỉnh Anki để cho mỗi khi bạn nhập một từ mới, ứng dụng sẽ tự sinh ra 3 phiên bản khác nhau:</p>
+<ul>
+  <li>Nhìn từ đoán nghĩa.</li>
+  <li>Nhìn nghĩa đoán từ.</li>
+  <li>Nhìn ví dụ đoán từ và nghĩa.</li>
+</ul>
+
+<p>và một số tuỳ biến thú vị khác nữa. Hẹn gặp lại các bạn ngày mai.</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/cach-cai-dat-anki-de-hoc-tu-vung-phan-2" class="post-link">
+          <h4 class="post-title">Cách cài đặt Anki để học từ vựng (phần 2)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/hoc-tu-vung-moi-luc-moi-noi" class="post-link">
+          <h4 class="post-title">Học từ vựng mọi lúc mọi nơi</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/cach-hoc-tu-vung-hieu-qua-bang-anki" class="post-link">
+          <h4 class="post-title">Cách học từ vựng hiệu quả bằng Anki</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

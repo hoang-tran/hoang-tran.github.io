@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Con đường sự nghiệp của một kỹ sư phần mềm (phần 7) &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Mình từ chối công ty A vì mình nghe nói công ty đa số là người Trung Quốc, không nói tiếng Anh nhiều, nên mình không thích lắm.
+Với công ty B, họ gửi cho mình một số bài tập giải thuật (algorithms) online trên trang Codility, yêu cầu mình giải trong thời gian quy định, hình như là giải 3 bài trong vòng 1 tiếng rưỡi. Mình làm kịp giờ nhưng bị sai đáp án, chỉ được có 45/100 điểm. Thế là rớt ngay vòng gửi xe.
+Với công ty C, vòng đầu mình được nói chuyện với một chị nhân sự người Anh. Chị trình bày về quy trình phỏng vấn như sau:
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Con đường sự nghiệp của một kỹ sư phần mềm (phần 7)">
+    <meta property="og:description" content="
+	Mình từ chối công ty A vì mình nghe nói công ty đa số là người Trung Quốc, không nói tiếng Anh nhiều, nên mình không thích lắm.
+Với công ty B, họ gửi cho mình một số bài tập giải thuật (algorithms) online trên trang Codility, yêu cầu mình giải trong thời gian quy định, hình như là giải 3 bài trong vòng 1 tiếng rưỡi. Mình làm kịp giờ nhưng bị sai đáp án, chỉ được có 45/100 điểm. Thế là rớt ngay vòng gửi xe.
+Với công ty C, vòng đầu mình được nói chuyện với một chị nhân sự người Anh. Chị trình bày về quy trình phỏng vấn như sau:
+">
+    <meta property="og:url" content="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="Con đường sự nghiệp của một kỹ sư phần mềm (phần 7)" />
+    <meta name="twitter:description" content="
+	Mình từ chối công ty A vì mình nghe nói công ty đa số là người Trung Quốc, không nói tiếng Anh nhiều, nên mình không thích lắm.
+Với công ty B, họ gửi cho mình một số bài tập giải thuật (algorithms) online trên trang Codility, yêu cầu mình giải trong thời gian quy định, hình như là giải 3 bài trong vòng 1 tiếng rưỡi. Mình làm kịp giờ nhưng bị sai đáp án, chỉ được có 45/100 điểm. Thế là rớt ngay vòng gửi xe.
+Với công ty C, vòng đầu mình được nói chuyện với một chị nhân sự người Anh. Chị trình bày về quy trình phỏng vấn như sau:
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>Con đường sự nghiệp của một kỹ sư phần mềm (phần 7)</h1>
+  <span class="post-meta">
+05 December 2018
+  
+</div>
+
+<article class="post-content">
+  <p>[tiếp theo của <a href="con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-6">phần 6</a>]</p>
+
+<p>Trong số những lời mời thì có 3 công ty của Singapore:</p>
+<ul>
+  <li>Công ty A: cung cấp nền tảng kết nối game thủ chơi online, làm phần mềm quản lý phòng net, và có kinh doanh thương mại điện tử.</li>
+  <li>Công ty B: là trang web tìm nhà trọ nổi tiếng ở Singapore.</li>
+  <li>Công ty C: là dịch vụ đặt xe hơi/taxi nổi tiếng ở khu vực Đông Nam Á.</li>
+</ul>
+
+<p>Mình từ chối công ty A vì mình nghe nói công ty đa số là người Trung Quốc, không nói tiếng Anh nhiều, nên mình không thích lắm.</p>
+
+<p>Với công ty B, họ gửi cho mình một số bài tập giải thuật (algorithms) online trên trang Codility, yêu cầu mình giải trong thời gian quy định, hình như là giải 3 bài trong vòng 1 tiếng rưỡi. Mình làm kịp giờ nhưng bị sai đáp án, chỉ được có 45/100 điểm. Thế là rớt ngay vòng gửi xe.</p>
+
+<p>Với công ty C, vòng đầu mình được nói chuyện với một chị nhân sự người Anh. Chị trình bày về quy trình phỏng vấn như sau:</p>
+<ul>
+  <li>Vòng 1: làm quen và trắc nghiệm kiến thức iOS.</li>
+  <li>Vòng 2: code giải thuật online thông qua Codility.</li>
+  <li>Vòng 3: phỏng vấn giải thuật với một kỹ sư, thông qua Skype.</li>
+  <li>Vòng 4: phỏng vấn iOS với một kỹ sư, thông qua Skype.</li>
+  <li>Vòng 5: phỏng vấn về văn hoá &amp; ứng xử với một manager, thông qua Skype.</li>
+</ul>
+
+<p>Mình nhanh chóng vượt qua vòng 1 vì các câu hỏi tương đối đơn giản. Sau đó, chị nhân sự gửi cho mình một link Codility. Mình rút kinh nghiệm, ôn thêm một tuần trước khi mở link ra (mở ra thì đồng hồ sẽ bắt đầu đếm ngược). Lần này bài dễ hơn bên công ty B nên mình làm được hết, đạt điểm tuyệt đối.</p>
+
+<p>Đến vòng 3, mình được một kỹ sư người Việt Nam phỏng vấn online, có điều hai đứa nói tiếng Anh với nhau. 20 phút đầu bạn đó hỏi về kiến thức iOS, sau đó thì yêu cầu mình code một bài giải thuật. Mình bị khựng lại đôi chỗ nhưng rồi cũng vượt qua được.</p>
+
+<p>Sang vòng 4, lại một người Việt Nam nữa phỏng vấn. Lần này, anh đó cho mình giải 5-6 bài tập nhỏ tập trung về kiến thức iOS cơ bản và nâng cao. Mình giải được đa số mà không gặp khó khăn gì lắm. Thẳng tiến tới vòng cuối.</p>
+
+<p>Ở vòng này, mình được nói chuyện với một anh người châu Âu hiện đang là trưởng phòng mobile của công ty (Head of Mobile). Ảnh chủ yếu hỏi về kinh nghiệm làm việc trước đây của mình, rồi định hướng nghề nghiệp, lý do chọn phỏng vấn vào công ty là gì, và một số câu hỏi về công nghệ mobile nói chung. Mình có cảm giác giống một buổi nói chuyện giữa hai người bạn hơn là một buổi phỏng vấn, rất nhẹ nhàng và gần gũi.</p>
+
+<p>Ảnh cũng chia sẻ những thử thách mà công ty đang gặp phải, các kế hoạch mở rộng trong tương lai và mình sẽ nằm ở đâu trong bức tranh đó. Được nói chuyện với ảnh, mình như chuyển từ chế độ “để phỏng vấn xem thử công ty này như nào” sang “mình thực sự muốn làm việc ở đây”, giống như buổi này là để ảnh thuyết phục mình chứ không phải chiều ngược lại. Rồi ảnh xác nhận là mình đã đậu vào công ty.</p>
+
+<p>Toàn bộ quy trình từ lúc nhận được lời mời phỏng vấn cho tới lúc ký hợp đồng mất tầm 2 tuần. Chỉ trong vỏn vẹn 2 tuần đó mà bỗng nhiên mình có một cơ hội đi làm ở nước ngoài, bỗng nhiên mình có cơ hội được sống và làm việc ở Singapore. Đây là điều mà trước đây mình chưa bao giờ mơ tới.</p>
+
+<p>Tuy nhiên, mình không dừng lại ở đó, mình bắt đầu nhìn ra ngoài thế giới để xem có cơ hội nào tốt hơn đang chờ đón mình hay không. Mình nộp đơn vào hàng loạt công ty lớn của Mỹ, nộp trên Linkedin, nộp trên website, nộp cả ở Anh, Úc, Thuỵ Sỹ, Thuỵ Điển nữa. Ngày nào mình cũng lên tìm kiếm rồi nộp thêm vài công ty mới.</p>
+
+<p>Tính ra mình nộp cũng hơn 100 công ty trên gần 10 quốc gia. Nhưng không ai hồi âm cả.</p>
+
+<p>Sau một tháng nộp hồ sơ trong vô vọng, mình may mắn nhận được lời mời phỏng vấn đầu tiên, đó là từ công ty Facebook của Mỹ. Chuyện phỏng vấn với Facebook thì mình đã ghi hết ở <a href="chuyen-phong-van-voi-mot-cong-ty-o-my">đây</a>.</p>
+
+<p>Ở thời điểm đó, mình đã đậu công ty C bên Sing rồi, nên khi hẹn phỏng vấn onsite với Facebook ở Sing, mình thấy mọi thứ thật thuận tiện. Mình qua Sing phỏng vấn với Facebook trước, sau đó chơi vài ngày rồi mới bắt đầu ngày làm việc đầu tiên bên công ty C.</p>
+
+<p>Mình đã sắp xếp, chuẩn bị mọi thứ cho việc đậu Facebook: mình thương lượng hợp đồng thuê nhà chỉ tới cuối tháng 10 (để vừa nhận được visa H1B là có thể trả nhà và lên đường qua Mỹ), mình cố gắng học thêm tiếng Anh, học thêm kinh nghiệm làm việc ở một công ty đa quốc gia, mình cố gắng trở thành kỹ sư có tầm ảnh hưởng nhất trong team.</p>
+
+<p>Nhưng rồi, mình “rớt” Facebook.</p>
+
+<p>Mọi sự chuẩn bị, mọi hy vọng, mọi ước mơ như tan thành mây khói. Mình đã bùn bã và thất vọng trong một thời gian dài.</p>
+
+<p>Mình không có lựa chọn nào khác ngoài việc phải tiếp tục làm việc ở Singapore.</p>
+
+<p>Tuy nhiên, sau khi làm việc ở công ty C một thời gian, mình nhận ra rằng việc “rớt Facebook” là điều tuyệt vời nhất từng xảy ra với mình.</p>
+
+<p>[<a href="con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8">còn tiếp</a>]</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-7
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-8" class="post-link">
+          <h4 class="post-title">Con đường sự nghiệp của một kỹ sư phần mềm (phần 8)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-6" class="post-link">
+          <h4 class="post-title">Con đường sự nghiệp của một kỹ sư phần mềm (phần 6)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/chuyen-phong-van-voi-mot-cong-ty-o-my" class="post-link">
+          <h4 class="post-title">Chuyện phỏng vấn với một công ty ở Mỹ</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

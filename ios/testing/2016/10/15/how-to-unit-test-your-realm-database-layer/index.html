@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to unit test your Realm database layer &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Learn how to write unit tests to cover most of Realm features and make sure that your database layer works flawlessly.
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="ios, testing">
+    <link rel="canonical" href="http://hoangtran.me/ios/testing/2016/10/15/how-to-unit-test-your-realm-database-layer/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to unit test your Realm database layer">
+    <meta property="og:description" content="
+	Learn how to write unit tests to cover most of Realm features and make sure that your database layer works flawlessly.
+">
+    <meta property="og:url" content="http://hoangtran.me/ios/testing/2016/10/15/how-to-unit-test-your-realm-database-layer/
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="
+	http://hoangtran.me/images/how-to-unit-test-your-realm-database-layer/realm-logo.jpg
+">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="How to unit test your Realm database layer" />
+    <meta name="twitter:description" content="
+	Learn how to write unit tests to cover most of Realm features and make sure that your database layer works flawlessly.
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/ios/testing/2016/10/15/how-to-unit-test-your-realm-database-layer/
+" />
+    <meta name="twitter:image" content="
+	http://hoangtran.me/images/how-to-unit-test-your-realm-database-layer/realm-logo.jpg
+" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>How to unit test your Realm database layer</h1>
+  <span class="post-meta">
+15 October 2016
+  
+</div>
+
+<article class="post-content">
+  <p>Database is a crucial part of any softwares nowadays, especially mobile applications. We use database to store various things, such as:</p>
+
+<ul>
+  <li>app settings: to make it consistent between app launches.</li>
+  <li>app context: to perserve the last screen user visited. (in case the app was killed, either intentionally by the user or automatically by the system to reclaim memory)</li>
+  <li>data from a network reponse: to better support offline mode.</li>
+  <li>anything you want to save for later submission when network is available.</li>
+  <li>etc and etc…</li>
+</ul>
+
+<p>Those are the things that make an app fast and responsive and eventually useful.</p>
+
+<p>Therefore, we wanna make sure that our database works correctly. No mistakes or errors is tolerant here.</p>
+
+<p>But <strong>how do we achieve that?</strong></p>
+
+<p>Well, you know, we write unit tests for it.</p>
+
+<p>The database techonology I’m gonna use today is <strong>Realm</strong>. Although there are many other good alternatives out there that can do the job well, they’re just not as great as Realm. Here’s a couple of reasons why Realm is my database of choice:</p>
+
+<ul>
+  <li>It’s fast, like… extremely fast. Look at this chart: (Source: <a href="http://qiita.com/moriyaman/items/1a2916f4c2b79e934370">qiita</a>)</li>
+</ul>
+
+<p><img src="/images/how-to-unit-test-your-realm-database-layer/realm-chart.png" alt="Realm speed test" /></p>
+
+<ul>
+  <li>It’s easy to use. The interface is very simple and swift-friendly. You can do all kinds of database operations with minimal efforts.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">// Define a Dog model</span>
+<span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">}</span>
+
+<span class="c1">// Create a Dog instance</span>
+<span class="k">let</span> <span class="nv">myDog</span> <span class="o">=</span> <span class="kt">Dog</span><span class="p">()</span>
+<span class="n">myDog</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Rex"</span>
+<span class="n">myDog</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1">// Add the dog the database</span>
+<span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+<span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+  <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">myDog</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Retrieve dogs from database</span>
+<span class="k">let</span> <span class="nv">puppies</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Dog</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="s">"age &lt; 2"</span><span class="p">)</span>
+<span class="n">puppies</span><span class="o">.</span><span class="n">count</span> <span class="c1">// =&gt; 1</span></code></pre></figure>
+
+<ul>
+  <li>It’s open source, mostly.
+    <ul>
+      <li>If you encounter a bug, you can hop in and take a look at the underlying implementation. That would help you get an understanding of how things work and hopefully fix your bug.</li>
+      <li>If you find something that can be improved, you can work on it and open a Pull-Request to contribute back to Realm. That’s powerful.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Realm is late to the game but proves to be one of the best mobile databases in the market, if not the best, apparently.</p>
+
+<p>However, we’re <strong>not</strong> gonna learn how to use Realm today. Instead, we will try to write unit tests for it.</p>
+
+<p>We’re gonna write a lot and cover most of Realm features. It may take time so make sure you’re passionate about it.</p>
+
+<p>Alright, if that gets you excited, let’s jump in.</p>
+
+<h1 id="prerequisites">Prerequisites:</h1>
+
+<p>Before we start, make sure you know:</p>
+
+<ul>
+  <li><a href="https://realm.io/docs/swift/latest/">how to use Realm Swift</a>.</li>
+  <li>how to write basic unit tests:
+    <ul>
+      <li><a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase">How to write unit tests in iOS Part 1: XCTestCase</a>.</li>
+      <li><a href="/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd">How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)</a>.</li>
+      <li><a href="/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble">Write better unit test assertions with Nimble</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="setup-realm-for-testing">Setup Realm for testing:</h1>
+
+<p>When we’re testing, we may create/update or delete some records from the Realm database. We don’t want those changes to affect the production database. If we let that happens, it would become a disaster.</p>
+
+<p>What we’re gonna do is we direct all Realm operations into a test database instead of the real one. Realm provides a very convenient way to do exactly just that.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Realm</span><span class="o">.</span><span class="kt">Configuration</span><span class="o">.</span><span class="n">defaultConfiguration</span><span class="o">.</span><span class="n">inMemoryIdentifier</span> <span class="o">=</span> <span class="s">"database A"</span></code></pre></figure>
+
+<p>This will point Realm to an in-memory database (namely “database A”) where we can freely experiment and do whatever we want. Since it’s in memory, it won’t affect the production database at all.</p>
+
+<p>Now we need to call this Realm configuration line before any tests get executed. The ideal place is in the <strong>beforeSuite</strong> method:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">PersonSpec</span><span class="p">:</span> <span class="kt">QuickSpec</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
+
+    <span class="n">beforeSuite</span> <span class="p">{</span>
+      <span class="kt">Realm</span><span class="o">.</span><span class="kt">Configuration</span><span class="o">.</span><span class="n">defaultConfiguration</span><span class="o">.</span><span class="n">inMemoryIdentifier</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Note: you can set the <code class="highlighter-rouge">inMemoryIdentifier</code> to anything as long as it’s not nil. In this case, I’m setting it to the Spec’s name so every Spec will use different in-memory database.</p>
+
+<p>Additionally, we wanna clear out all records so that each test would start with a fresh empty database. Override the <strong>beforeEach</strong> and put in the code to delete everything within Realm:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">PersonSpec</span><span class="p">:</span> <span class="kt">QuickSpec</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">spec</span><span class="p">()</span>
+
+    <span class="n">beforeSuite</span> <span class="p">{</span>
+      <span class="kt">Realm</span><span class="o">.</span><span class="kt">Configuration</span><span class="o">.</span><span class="n">defaultConfiguration</span><span class="o">.</span><span class="n">inMemoryIdentifier</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="p">}</span>
+
+    <span class="n">beforeEach</span> <span class="p">{</span>
+      <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+      <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+        <span class="n">realm</span><span class="o">.</span><span class="nf">deleteAll</span><span class="p">()</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We now have a clean and isolated testing environment. Let’s move on and write some real tests.</p>
+
+<ul>
+  <li><a href="#testing-models">1. Testing models</a>
+    <ul>
+      <li><a href="#test-custom-initializer">1.1. Test custom initializer</a></li>
+      <li><a href="#test-relationships">1.2. Test relationships</a>
+        <ul>
+          <li><a href="#to-one-relationships">To-One Relationships</a></li>
+          <li><a href="#to-many-relationships">To-Many Relationships</a></li>
+          <li><a href="#inverse-relationships">Inverse Relationships</a></li>
+        </ul>
+      </li>
+      <li><a href="#test-ignored-properties">1.3. Test ignored properties</a></li>
+    </ul>
+  </li>
+  <li><a href="#testing-crud-operations">2. Testing <strong>CRUD</strong> operations</a>
+    <ul>
+      <li><a href="#create">2.1. <strong>C</strong>reate</a></li>
+      <li><a href="#read">2.2. <strong>R</strong>ead</a>
+        <ul>
+          <li><a href="#retrieving-all-objects">Retrieving all objects</a></li>
+          <li><a href="#filtering">Filtering</a></li>
+          <li><a href="#sorting">Sorting</a></li>
+        </ul>
+      </li>
+      <li><a href="#update">2.3. <strong>U</strong>pdate</a>
+        <ul>
+          <li><a href="#update-properties">Update properties</a></li>
+          <li><a href="#update-with-primary-key">Update with primary key</a></li>
+        </ul>
+      </li>
+      <li><a href="#delete">2.4. <strong>D</strong>elete</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-testing-models">1. Testing models:</h1>
+
+<h2 id="11-test-custom-initializer">1.1. Test custom initializer:</h2>
+
+<p>Let’s say we have a <strong>Person</strong> model with 2 properties: name and age.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We also have a custom initializer to quickly set those properites:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now how do we test this intializer method?</p>
+
+<p>Well, we do it in 2 steps:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person using the custom initializer.
+2. Expect all properties of that person are correctly assigned.</code></pre></figure>
+
+<p>Let’s go ahead and add the test to your Spec file: (<code class="highlighter-rouge">PersonSpec.swift</code> in this case)</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"initialize with name and age"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"initializes and assign properties correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body with 2 steps we mentioned above:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"initialize with name and age"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"initializes and assign properties correctly"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a person using the custom initializer</span>
+    <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"name A"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="mi">18</span><span class="p">)</span>
+
+    <span class="c1">// 2. Expect all properties of that person are correctly assigned.</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"name A"</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="mi">18</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Run the test (Cmd + U) and make sure that it passes.</p>
+
+<h2 id="12-test-relationships">1.2. Test relationships:</h2>
+
+<h3 id="to-one-relationships">To-One Relationships:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">owner</span><span class="p">:</span> <span class="kt">Person</span><span class="p">?</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person.
+2. Create a dog.
+3. Set the dog's owner to the person.
+4. Save the dog to database.
+5. Expect that the person is also saved to database as the dog's owner.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"to-one relationship"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves the object and its relationship to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"to-one relationship"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves the object and its relationship to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a person</span>
+    <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+    <span class="c1">// 2. Create a dog</span>
+    <span class="k">let</span> <span class="nv">dog</span> <span class="o">=</span> <span class="kt">Dog</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="n">dogName</span><span class="p">])</span>
+
+    <span class="c1">// 3. Set the dog's owner to the person</span>
+    <span class="n">dog</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">person</span>
+
+    <span class="c1">// 4. Save the dog to database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">dog</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 5. Expect that the person is also saved to database as the dog's owner</span>
+    <span class="k">let</span> <span class="nv">dogFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Dog</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">dogFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">dogName</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">dogFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">owner</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">personName</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">dogFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">owner</span><span class="p">?</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="n">personAge</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Note that <code class="highlighter-rouge">personName</code>, <code class="highlighter-rouge">personAge</code> and <code class="highlighter-rouge">dogName</code> are just some constants defined elsewhere to make the code less duplicated.</p>
+
+<h3 id="to-many-relationships">To-Many Relationships:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="k">let</span> <span class="nv">dogs</span> <span class="o">=</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Dog</span><span class="o">&gt;</span><span class="p">()</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person.
+2. Create 2 dogs.
+3. Add the 2 dogs as the person's dogs.
+4. Save the person to database.
+5. Expect that the dogs are also saved to database as the person's dogs.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"to-many relationship"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves the object and its relationship to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"to-many relationship"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves the object and its relationship to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a person</span>
+    <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+    <span class="c1">// 2. Create 2 dogs</span>
+    <span class="k">let</span> <span class="nv">dog0</span> <span class="o">=</span> <span class="kt">Dog</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"dog 0"</span><span class="p">])</span>
+    <span class="k">let</span> <span class="nv">dog1</span> <span class="o">=</span> <span class="kt">Dog</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="s">"dog 1"</span><span class="p">])</span>
+
+    <span class="c1">// 3. Add the 2 dogs as the person's dogs</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">dogs</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">dog0</span><span class="p">)</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">dogs</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">dog1</span><span class="p">)</span>
+
+    <span class="c1">// 4. Save the person to database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 5. Expect that the dogs are also saved to database as the person's dogs</span>
+    <span class="k">let</span> <span class="nv">personFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">dogs</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">dogs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"dog 0"</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">dogs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"dog 1"</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="inverse-relationships">Inverse Relationships:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="k">let</span> <span class="nv">owners</span> <span class="o">=</span> <span class="kt">LinkingObjects</span><span class="p">(</span><span class="nv">fromType</span><span class="p">:</span> <span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">property</span><span class="p">:</span> <span class="s">"dogs"</span><span class="p">)</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a dog.
+2. Create 2 persons.
+3. Add the dog to each person's dogs.
+4. Save the 2 persons to database.
+5. Expect that the dog is also saved and its owners are correctly assigned.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"inverse relationship"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves the object and its relationship to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"inverse relationship"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves the object and its relationship to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a dog</span>
+    <span class="k">let</span> <span class="nv">dog</span> <span class="o">=</span> <span class="kt">Dog</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="p">[</span><span class="s">"name"</span><span class="p">:</span> <span class="n">dogName</span><span class="p">])</span>
+
+    <span class="c1">// 2. Create 2 persons</span>
+    <span class="k">let</span> <span class="nv">person0</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"person 0"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">person1</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"person 1"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+    <span class="c1">// 3. Add the dog to each person's dogs</span>
+    <span class="n">person0</span><span class="o">.</span><span class="n">dogs</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">dog</span><span class="p">)</span>
+    <span class="n">person1</span><span class="o">.</span><span class="n">dogs</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">dog</span><span class="p">)</span>
+
+    <span class="c1">// 4. Save the 2 persons to database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">person0</span><span class="p">)</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">person1</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 5. Expect that the dog is also saved and its owners are correctly assigned</span>
+    <span class="k">let</span> <span class="nv">dogFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Dog</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">dogFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">owners</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">dogFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">owners</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">person0</span><span class="o">.</span><span class="n">name</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">dogFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">owners</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">person1</span><span class="o">.</span><span class="n">name</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="13-test-ignored-properties">1.3. Test ignored properties:</h2>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">address</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">height</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+  <span class="k">override</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">ignoredProperties</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s">"address"</span><span class="p">,</span> <span class="s">"height"</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person.
+2. Set the person's addess and height to something else.
+3. Save the person to database.
+4. Expect that the address and height properties are not saved to database.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"ignored properties"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"doesn't save those properties to database"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"ignored properties"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"doesn't save those properties to database"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a person</span>
+    <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+    <span class="c1">// 2. Set the person's address and height to something else</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">personAddress</span>
+    <span class="n">person</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">personHeight</span>
+
+    <span class="c1">// 3. Save the person to database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 4. Expect that the address and height properties are not saved to database</span>
+    <span class="k">let</span> <span class="nv">personFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">address</span><span class="p">)</span> <span class="o">!=</span> <span class="n">personAddress</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">!=</span> <span class="n">personHeight</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Again, the <code class="highlighter-rouge">personAddress</code> and <code class="highlighter-rouge">personHeight</code> are just some constants defined elsewhere.</p>
+
+<h1 id="2-testing-crud-operations">2. Testing CRUD operations:</h1>
+
+<h2 id="21-create">2.1. Create:</h2>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="kd">func</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person.
+2. Call the save method.
+3. Expect the person to be saved to database.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"save"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves object to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"save"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"saves object to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a person</span>
+    <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+    <span class="c1">// 2. Call the save method</span>
+    <span class="n">person</span><span class="o">.</span><span class="nf">save</span><span class="p">()</span>
+
+    <span class="c1">// 3. Expect the person to be saved to database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">personFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="22-read">2.2. Read:</h2>
+
+<p>To read from database, we must have some data in it first. Let’s create a helper method to provide dummy data:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">PersonSpec</span><span class="p">:</span> <span class="kt">BaseSpec</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">spec</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">...</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">createPersons</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..&lt;</span><span class="n">number</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"person </span><span class="se">\(</span><span class="n">i</span><span class="se">)</span><span class="s">"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="retrieving-all-objects">Retrieving all objects:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="kd">class</span> <span class="kd">func</span> <span class="nf">all</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">Person</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create 3 dummy persons in database.
+2. Call the "all" method.
+3. Expect the returned results to exactly match the 3 dummy persons.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"all"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"returns all persons"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"all"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"returns all persons"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create 3 dummy persons in database</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">createPersons</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1">// 2. Call the "all" method</span>
+    <span class="k">let</span> <span class="nv">persons</span> <span class="o">=</span> <span class="kt">Person</span><span class="o">.</span><span class="nf">all</span><span class="p">()</span>
+
+    <span class="c1">// 3. Expect the returned results to exactly match the 3 dummy persons</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"person 0"</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"person 1"</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="s">"person 2"</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="filtering">Filtering:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="kd">class</span> <span class="kd">func</span> <span class="nf">adults</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">Person</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="s">"age &gt;= 18"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create 3 dummy persons in database with age 17, 18 and 19 respectively.
+2. Call the "adults" method.
+3. Expect the returned results to only contain 2 persons with age 18 and 19.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"adults"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"returns persons who are 18+ only"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"adults"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"returns persons who are 18+ only"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create 3 dummy persons in database with age 17, 18 and 19 respectively</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">createPersons</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1">// 2. Call the "adults" method</span>
+    <span class="k">let</span> <span class="nv">adults</span> <span class="o">=</span> <span class="kt">Person</span><span class="o">.</span><span class="nf">adults</span><span class="p">()</span>
+
+    <span class="c1">// 3. Expect the returned results to only contain 2 persons with age 18 and 19</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">adults</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">adults</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="mi">18</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">adults</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="mi">19</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="sorting">Sorting:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="kd">class</span> <span class="kd">func</span> <span class="nf">oldestFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">Person</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="nf">sorted</span><span class="p">(</span><span class="s">"age"</span><span class="p">,</span> <span class="nv">ascending</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create 3 dummy persons in database with age 17, 18 and 19 respectively.
+2. Call the "oldestFirst" method.
+3. Expect the returned results to be in sorted order. (old -&gt; young)</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"oldestFirst"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"returns persons in sorted order, old to young"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"oldestFirst"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"returns persons in sorted order, old to young"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create 3 dummy persons in database with age 17, 18 and 19 respectively</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">createPersons</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1">// 2. Call the "oldestFirst" method</span>
+    <span class="k">let</span> <span class="nv">results</span> <span class="o">=</span> <span class="kt">Person</span><span class="o">.</span><span class="nf">oldestFirst</span><span class="p">()</span>
+
+    <span class="c1">// 3. Expect the returned results to be in sorted order (old -&gt; young)</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="mi">19</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="mi">18</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="mi">17</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="23-update">2.3. Update:</h2>
+
+<h3 id="update-properties">Update properties:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="o">...</span>
+
+  <span class="kd">func</span> <span class="nf">updateName</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create a person.
+2. Save the person to database.
+3. Call the "updateName:age" method
+4. Expect the updated properties are saved to database.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"updateName:age"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"updates properties to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"updateName:age"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"updates properties to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create a person</span>
+    <span class="k">let</span> <span class="nv">person</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+    <span class="c1">// 2. Save the person to database</span>
+    <span class="n">person</span><span class="o">.</span><span class="nf">save</span><span class="p">()</span>
+
+    <span class="c1">// 3. Call the "updateName:age" method</span>
+    <span class="n">person</span><span class="o">.</span><span class="nf">updateName</span><span class="p">(</span><span class="n">newName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">newAge</span><span class="p">)</span>
+
+    <span class="c1">// 4. Expect the updated properties are saved to database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">personFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">newName</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="n">newAge</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="update-with-primary-key">Update with primary key:</h3>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+  <span class="kd">dynamic</span> <span class="k">var</span> <span class="nv">id</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="k">override</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">primaryKey</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"id"</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">updateFrom</span><span class="p">(</span><span class="nv">person</span><span class="p">:</span> <span class="kt">Person</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">person</span><span class="o">.</span><span class="n">id</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="nv">update</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<p>Context 1: different primary key (id)</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create person A.
+2. Save person A to database.
+3. Create person B with different id than person A.
+4. Call "updateFrom" on person A, pass person B in as argument.
+5. Expect person A not to update anything.</code></pre></figure>
+
+<p>Context 2: same primary key (id)</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create person A.
+2. Save person A to database.
+3. Create person B with the same id as person A.
+4. Call "updateFrom" on person A, pass person B in as argument.
+5. Expect person A to have its properties updated from person B.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"update with id"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">context</span><span class="p">(</span><span class="s">"different id"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="s">"does not update anything"</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nf">context</span><span class="p">(</span><span class="s">"same id"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="s">"updates properties to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Fill in the test body:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"update with id"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">context</span><span class="p">(</span><span class="s">"different id"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="s">"does not update anything"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 1. Create a person A</span>
+      <span class="k">let</span> <span class="nv">personA</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+      <span class="c1">// 2. Save person A to database</span>
+      <span class="n">personA</span><span class="o">.</span><span class="nf">save</span><span class="p">()</span>
+
+      <span class="c1">// 3. Create person B with different id than person A</span>
+      <span class="k">let</span> <span class="nv">personB</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span><span class="n">newName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">newAge</span><span class="p">)</span>
+
+      <span class="c1">// 4. Call "updateFrom" on person A, pass person B in as argument</span>
+      <span class="n">personA</span><span class="o">.</span><span class="nf">updateFrom</span><span class="p">(</span><span class="n">personB</span><span class="p">)</span>
+
+      <span class="c1">// 5. Expect person A not to update anything</span>
+      <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+      <span class="k">let</span> <span class="nv">personFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">personName</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="n">personAge</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nf">context</span><span class="p">(</span><span class="s">"same id"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="s">"updates properties to database correctly"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 1. Create a person A</span>
+      <span class="k">let</span> <span class="nv">personA</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="n">personName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">personAge</span><span class="p">)</span>
+
+      <span class="c1">// 2. Save person A to database</span>
+      <span class="n">personA</span><span class="o">.</span><span class="nf">save</span><span class="p">()</span>
+
+      <span class="c1">// 3. Create person B with the same id as person A</span>
+      <span class="k">let</span> <span class="nv">personB</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span><span class="n">newName</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">newAge</span><span class="p">)</span>
+
+      <span class="c1">// 4. Call "updateFrom" on person A, pass person B in as argument</span>
+      <span class="n">personA</span><span class="o">.</span><span class="nf">updateFrom</span><span class="p">(</span><span class="n">personB</span><span class="p">)</span>
+
+      <span class="c1">// 5. Expect person A to have its properties updated from person B</span>
+      <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+      <span class="k">let</span> <span class="nv">personFromDatabase</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objects</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">newName</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="n">personFromDatabase</span><span class="p">?</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="o">==</span> <span class="n">newAge</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="24-delete">2.4. Delete:</h2>
+
+<p>What we have:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">Object</span> <span class="p">{</span>
+  <span class="o">...</span>
+
+  <span class="kd">func</span> <span class="nf">delete</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">try!</span> <span class="n">realm</span><span class="o">.</span><span class="n">write</span> <span class="p">{</span>
+      <span class="n">realm</span><span class="o">.</span><span class="nf">delete</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Steps to test:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">1. Create 3 dummy persons.
+2. Find the second person in database.
+3. Call "delete" method on that person.
+4. Expect 2 persons remain in the database: the first and third one.</code></pre></figure>
+
+<p>Create the test:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">describe</span><span class="p">(</span><span class="s">"delete"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="s">"deletes the object from database"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 1. Create 3 dummy persons</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">createPersons</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1">// 2. Find the second person in database</span>
+    <span class="k">let</span> <span class="nv">realm</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Realm</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">secondPerson</span> <span class="o">=</span> <span class="n">realm</span><span class="o">.</span><span class="nf">objectForPrimaryKey</span><span class="p">(</span><span class="kt">Person</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1">// 3. Call "delete" method on that person</span>
+    <span class="n">secondPerson</span><span class="p">?</span><span class="o">.</span><span class="nf">delete</span><span class="p">()</span>
+
+    <span class="c1">// 4. Expect 2 persons remain in the database: the first and third one</span>
+    <span class="k">let</span> <span class="nv">persons</span> <span class="o">=</span> <span class="kt">Person</span><span class="o">.</span><span class="nf">all</span><span class="p">()</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="n">persons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h1 id="wrap-up">Wrap up</h1>
+
+<p>These are just some simple use cases of Realm. They serve as the building blocks for writing more complex ones.</p>
+
+<p>In a real-world scenario, it might require a combination of multiple Realm operations at a time. However, the testing approach is basically the same. You can extend it very easily.</p>
+
+<p>Alright, that’s it for today. The sample project can be found at: <a href="https://github.com/hoang-tran/UnitTestRealm">https://github.com/hoang-tran/UnitTestRealm</a></p>
+
+<p>I wish to hear more from you guys too. Please drop me a comment down below.</p>
+
+<p><strong>Have you ever used Realm? Do you write unit tests for it? Do you have any tips you wanna share with everyone?</strong></p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/ios/testing/2016/10/15/how-to-unit-test-your-realm-database-layer/
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/ios/testing/2016/10/15/how-to-unit-test-your-realm-database-layer/
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/09/12/unit-test-network-layer-in-ios/" class="post-link">
+          <h4 class="post-title">How to unit test your Network Layer in iOS</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/09/write-better-unit-test-assertion-with-nimble/" class="post-link">
+          <h4 class="post-title">Write better unit test assertions with Nimble</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/08/07/how-to-write-unit-tests-in-ios-p2-behavior-driven-development-bdd/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 2: Behavior-driven Development (BDD)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/testing/2016/07/31/how-to-write-unit-tests-in-ios-p1-xctestcase/" class="post-link">
+          <h4 class="post-title">How to write unit tests in iOS Part 1: XCTestCase</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

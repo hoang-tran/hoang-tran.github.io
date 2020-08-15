@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cách cài đặt Anki để học từ vựng (phần 2) &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Ở phần trước, mình đã trình bày về cách cài đặt Anki vào máy và cách đăng ký một tài khoản trên AnkiWeb. Tới thời điểm này bạn nên thực hiện được những thao tác sau:
+
+  Nhập từ mới vào Anki.
+  Học từ mới mỗi ngày.
+  Đồng bộ dữ liệu lên mạng.
+
+
+
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung-phan-2">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Cách cài đặt Anki để học từ vựng (phần 2)">
+    <meta property="og:description" content="
+	Ở phần trước, mình đã trình bày về cách cài đặt Anki vào máy và cách đăng ký một tài khoản trên AnkiWeb. Tới thời điểm này bạn nên thực hiện được những thao tác sau:
+
+  Nhập từ mới vào Anki.
+  Học từ mới mỗi ngày.
+  Đồng bộ dữ liệu lên mạng.
+
+
+
+">
+    <meta property="og:url" content="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung-phan-2
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="Cách cài đặt Anki để học từ vựng (phần 2)" />
+    <meta name="twitter:description" content="
+	Ở phần trước, mình đã trình bày về cách cài đặt Anki vào máy và cách đăng ký một tài khoản trên AnkiWeb. Tới thời điểm này bạn nên thực hiện được những thao tác sau:
+
+  Nhập từ mới vào Anki.
+  Học từ mới mỗi ngày.
+  Đồng bộ dữ liệu lên mạng.
+
+
+
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung-phan-2
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>Cách cài đặt Anki để học từ vựng (phần 2)</h1>
+  <span class="post-meta">
+17 November 2018
+  
+</div>
+
+<article class="post-content">
+  <p>Ở <a href="cach-cai-dat-anki-de-hoc-tu-vung">phần trước</a>, mình đã trình bày về cách cài đặt Anki vào máy và cách đăng ký một tài khoản trên AnkiWeb. Tới thời điểm này bạn nên thực hiện được những thao tác sau:</p>
+<ul>
+  <li>Nhập từ mới vào Anki.</li>
+  <li>Học từ mới mỗi ngày.</li>
+  <li>Đồng bộ dữ liệu lên mạng.</li>
+</ul>
+
+<p>Hôm nay, mình sẽ chia sẻ một cách tuỳ chỉnh Anki để cho mỗi khi bạn nhập một từ mới, ứng dụng sẽ tự sinh ra 3 loại thẻ khác nhau:</p>
+<ul>
+  <li>Nhìn từ đoán nghĩa.</li>
+  <li>Nhìn nghĩa đoán từ.</li>
+  <li>Nhìn ví dụ đoán từ và nghĩa.</li>
+</ul>
+
+<p>Giả sử bạn đang nhập từ “contemplate” vào Anki. Nó có những trường sau:</p>
+<ul>
+  <li>Pronunciation (cách phát âm):
+    <ul>
+      <li>/ˈkɑːn.t̬əm.pleɪt/</li>
+    </ul>
+  </li>
+  <li>Meaning (nghĩa):
+    <ul>
+      <li>to consider one particular thing for a long time in a serious and quiet way. (Cân nhắc một điều gì đó trong một khoảng thời gian dài)</li>
+    </ul>
+  </li>
+  <li>Example (ví dụ):
+    <ul>
+      <li>I’m contemplating going abroad for a year. (Tôi đang cân nhắc muốn đi nước ngoài một năm)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Khi bạn học từ này trên Anki, bạn sẽ thấy một thẻ như sau:</p>
+
+<hr />
+
+<p><em>Mặt trước của thẻ:</em></p>
+
+<p>contemplate</p>
+
+<hr />
+
+<p><em>Mặt sau của thẻ:</em></p>
+
+<p>/ˈkɑːn.t̬əm.pleɪt/</p>
+
+<p>to consider one particular thing for a long time in a serious and quiet way.</p>
+
+<p>I’m contemplating going abroad for a year.</p>
+
+<hr />
+
+<p>Điều này có nghĩa là bạn sẽ nhìn thấy từ “contemplate” ở mặt trước, sau đó bạn đoán nghĩa của nó, rồi lật mặt sau thẻ để kiểm tra kết quả.</p>
+
+<p>Nhưng với tuỳ chỉnh mà mình đề cập ở trên, bạn còn có thể thấy thêm 2 loại thẻ nữa:</p>
+
+<p><strong>1. Nhìn nghĩa, đoán từ.</strong></p>
+
+<hr />
+
+<p><em>Mặt trước của thẻ:</em></p>
+
+<p>to consider one particular thing for a long time in a serious and quiet way.</p>
+
+<hr />
+
+<p><em>Mặt sau của thẻ:</em></p>
+
+<p>contemplate</p>
+
+<p>/ˈkɑːn.t̬əm.pleɪt/</p>
+
+<p>I’m contemplating going abroad for a year.</p>
+
+<hr />
+
+<p><strong>2. Nhìn ví dụ, đoán từ và nghĩa.</strong></p>
+
+<hr />
+
+<p><em>Mặt trước của thẻ:</em></p>
+
+<p>I’m contemplating going abroad for a year.</p>
+
+<hr />
+
+<p><em>Mặt sau của thẻ:</em></p>
+
+<p>contemplate</p>
+
+<p>/ˈkɑːn.t̬əm.pleɪt/</p>
+
+<p>to consider one particular thing for a long time in a serious and quiet way.</p>
+
+<hr />
+
+<h3 id="tại-sao-lại-cần-nhiều-loại-thẻ-như-vậy">Tại sao lại cần nhiều loại thẻ như vậy?</h3>
+<p>Để trả lời câu hỏi này, chúng ta hãy cùng phân tích tác dụng của từng loại thẻ:</p>
+<ol>
+  <li><strong>Nhìn từ, đoán nghĩa</strong>.
+    <ul>
+      <li>Giúp bạn đọc hiểu tốt hơn.
+        <ul>
+          <li>Do bạn đã nhìn thấy từ đó nhiều lần trên Anki, bạn ngay lập tức có thể đoán được nghĩa của nó ở mặt sau thẻ.</li>
+          <li>Bởi vậy khi bạn đọc sách hoặc blog mà nhìn thấy từ này, bạn sẽ hiểu nghĩa ngay mà không cần tra từ điển nữa.</li>
+        </ul>
+      </li>
+      <li>Ví dụ: khi bạn gặp câu: “Sharon is contemplating going to graduate school”.
+        <ul>
+          <li>Bạn nhận ra chữ “contemplating” vì nó là động từ thêm “ing” của “contemplate”, có nghĩa là “consider something for a long time”.</li>
+          <li>Do đó, bạn sẽ hiểu nhanh được nghĩa của cả câu, dịch tạm trong đầu là như này: “Sharon is considering going to graduate school for a long time”.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Nhìn nghĩa, đoán từ</strong>.
+    <ul>
+      <li>Giúp bạn chọn đúng những từ vựng phù hợp khi nói và viết.
+        <ul>
+          <li>Do bạn đã nhìn thấy nghĩa của từ đó nhiều lần trên Anki, khi bạn có một ý diễn đạt nào giống như vậy, bạn sẽ dễ dàng chuyển nó thành từ vựng hợp lý.</li>
+        </ul>
+      </li>
+      <li>Ví dụ: khi bạn muốn nói “I am considering moving to a new house. I’ve been thinking about it a lot.”.
+        <ul>
+          <li>Bạn nhận ra là mình thực sự muốn nói là “consider something for a long time”. Ý này thì bạn đã học đi học lại rất nhiều lần trên Anki cho nên bạn biết phải dùng từ  “contemplate”.</li>
+          <li>Giờ thì câu đó sẽ biến thành: “I am contemplating moving to a new house”. Rất ngắn gọn và xúc tích.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Nhìn ví dụ, đoán từ và nghĩa</strong>.
+    <ul>
+      <li>Giúp kiểm tra xem bạn có hiểu được nghĩa của cả câu không hay là chỉ biết từng chữ riêng lẻ.</li>
+      <li>Ngoài ra, bạn còn biết được cách dùng từ đó trong câu sao cho đúng ngữ pháp.
+        <ul>
+          <li>Ví dụ: Khi bạn thấy câu “I’m contemplating going abroad for a year” ở mặt trước thẻ Anki, bạn thấy được quy tắc dùng của chữ “contemplate”, đó là thêm một danh từ hoặc là động từ thêm “ing” vào phía sau.</li>
+          <li>Do đó sau này khi bạn muốn sử dụng từ “contemplate” trong lúc nói hoặc viết thì bạn sẽ biết phải dùng sao cho đúng.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="cách-cài-đặt-3-loại-thẻ">Cách cài đặt 3 loại thẻ</h3>
+<p>Mình xin nói trước là hướng dẫn cài đặt này rất dài dòng và gồm khá nhiều bước. Tuy nhiên, bạn chỉ cần làm một lần rồi xài mãi mãi. Cho nên hãy kiên nhẫn.</p>
+
+<h4 id="bước-1-tạo-một-loại-note-mới">Bước 1: Tạo một loại Note mới.</h4>
+<p>Mở Anki lên.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/1-home.png" alt="1-home" /></p>
+
+<p>Bấm vào bộ bài của bạn (“Hoang Vocabs”).</p>
+
+<p>Bấm nút “Add” ở phía trên.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/2-deck.png" alt="2-deck" /></p>
+
+<p>Bấm nút “Fields…”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/3-add-card.png" alt="3-add-card" /></p>
+
+<p>Chọn “Manage”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/4-choose-card-type.png" alt="4-choose-card-type" /></p>
+
+<p>Bấm “Add”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/5-manage-card-type.png" alt="5-manage-card-type" /></p>
+
+<p>Chọn “Add: Basic”. Rồi bấm “OK”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/6-add-card-type.png" alt="6-add-card-type" /></p>
+
+<p>Đặt tên cho Note mới của bạn. Ví dụ mình đặt là “Hoang-English”.</p>
+
+<p>Bấm “OK”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/7-name-new-card-type.png" alt="7-name-new-card-type" /></p>
+
+<p>Hãy kiểm tra xem Note mới của bạn đã nằm trong danh sách hay chưa.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/8-review-new-card-type.png" alt="8-review-new-card-type" /></p>
+
+<p>Đóng các cửa sổ để quay về màn hình “Nhập từ vựng”.</p>
+
+<p>Để ý rằng phần “Type” giờ đã chuyển thành “Hoang-English”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/9-choose-new-card-type.png" alt="9-choose-new-card-type" /></p>
+
+<h4 id="bước-2-thêm-4-trường-word-pronunciation-meaning-and-example-vào-note-mới-của-bạn">Bước 2: Thêm 4 trường “Word”, “Pronunciation”, “Meaning” and “Example” vào Note mới của bạn.</h4>
+
+<p>Bấm “Fields…”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/9-1-choose-new-card-type-choose-fields.png" alt="9-1-choose-new-card-type-choose-fields" /></p>
+
+<p>Chọn “Front”. Bấm “Rename”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/10-edit-fields-in-new-card-type.png" alt="10-edit-fields-in-new-card-type" /></p>
+
+<p>Đổi tên thành chữ “Word”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/11-edit-new-card-type-front.png" alt="11-edit-new-card-type-front" /></p>
+
+<p>Lặp lại bước đó với chữ “Back”. Đổi tên thành “Pronunciation”.</p>
+
+<p>Giờ thì bạn sẽ thấy có 2 trường trong danh sách: “Word” và “Pronunciation”.</p>
+
+<p>Sau đó, bấm “Add”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/12-edit-new-card-type-back.png" alt="12-edit-new-card-type-back" /></p>
+
+<p>Nhập chữ “Meaning” vào ô trống. Chọn “OK”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/13-add-new-field.png" alt="13-add-new-field" /></p>
+
+<p>Lặp lại bước đó để tạo thêm một trường nữa có tên là “Example”.</p>
+
+<p>Giờ bạn sẽ thấy có 4 trường trong danh sách: “Word”, “Pronunciation”, “Meaning” và “Example”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/14-finish-adding-all-fields.png" alt="14-finish-adding-all-fields" /></p>
+
+<p>Đóng cửa sổ đó lại. Bạn sẽ thấy màn hình “Nhập từ vựng” với 4 trường mới.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/15-review-all-fields.png" alt="15-review-all-fields" /></p>
+
+<h4 id="bước-3-tuỳ-chỉnh-cho-loại-thẻ-đầu-tiên-nhìn-từ-đoán-nghĩa">Bước 3: Tuỳ chỉnh cho loại thẻ đầu tiên (nhìn từ đoán nghĩa)</h4>
+
+<p>Bấm nút “Cards…”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/15-1-review-all-fields-click-cards.png" alt="15-1-review-all-fields-click-cards" /></p>
+
+<p>Ở màn hình tiếp theo, bạn sẽ nhìn thấy khá nhiều thông tin. Mình sẽ cố giải thích từng cái một.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/16-card-editor-overview.png" alt="16-card-editor-overview" /></p>
+
+<p>Có 4 phần quan trọng đáng chú ý ở đây (những chỗ mà mình đánh số).</p>
+<ol>
+  <li><strong>Front Template</strong>: đây là chỗ để mình viết nội dung của mặt trước thẻ.
+    <ul>
+      <li>Chữ “{{Word}}” nghĩa là: dùng cái trường “Word” để hiển thị ở đây.</li>
+      <li>Nếu bạn viết chữ “Word” thay vì “{{Word}}”, bạn sẽ luôn luôn thấy một chữ cố định là “Word” chứ không phải là cái từ vựng mà bạn muốn học. Bởi vậy, bạn phải đặt tên trường vào giữa “{{” và “}}”.</li>
+    </ul>
+  </li>
+  <li><strong>Front Preview</strong>: đây là chỗ để xem trước coi thử thẻ của bạn sẽ hiển thị như nào.
+    <ul>
+      <li>Bởi vì ở bên “Front Template”, mình ghi là “{{Word}}” mà không có chữ gì thêm, cho nên ở ô này mình chỉ thấy chữ “(Word)”.</li>
+      <li>Nếu mình ghi bên template là “{{Word}} abcd”, mình sẽ thấy chữ “(Word) abcd” bên ô xem trước này. Ví dụ, nếu từ mình muốn học là “contemplate” thì nó sẽ hiển thị lên mặt trước thẻ là “contemplate abcd”.</li>
+    </ul>
+  </li>
+  <li><strong>Back Template</strong>: Cũng tương tự như “Front Template”, nhưng là viết nội dung cho mặt sau của thẻ.
+    <ul>
+      <li>Có một từ khoá đặt biệt đó là “{{FrontSide}}”. Nó sẽ đại diện cho nội dung mà bạn đã ghi ở mặt trước thẻ. Bởi vì khi lật mặt sau (trong lúc học), chúng ta cũng sẽ muốn xem cả mặt trước nữa.</li>
+      <li>“&lt;hr id=answer&gt;” nghĩa là chèn vào một dòng kẻ phân cách.</li>
+      <li>”{{Pronunciation}}” nghĩa là hiển thị trường “Pronunciation” ở vị trí này.</li>
+    </ul>
+  </li>
+  <li><strong>Back Preview</strong>: xem trước coi nội dung sẽ được hiển thị như thế nào ở mặt sau thẻ.</li>
+</ol>
+
+<p>Giờ thì bạn đã hiểu cách hoạt động của template. Hãy cùng chỉnh sửa nó để đáp ứng nhu cầu học tập của bạn.</p>
+
+<p>Với loại thẻ này, mình muốn:</p>
+<ul>
+  <li>Hiển thị “Word” ở mặt trước.</li>
+  <li>Hiển thị “Pronunciation”, “Meaning”, và “Example” ở mặt sau.</li>
+</ul>
+
+<p>Copy và paste đoạn code này vào ô “Back Template”.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{{FrontSide}}
+
+<span class="nt">&lt;hr</span> <span class="na">id=</span><span class="s">answer</span><span class="nt">&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+/{{Pronunciation}}/
+<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+{{Meaning}}
+<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;hr</span> <span class="na">id=</span><span class="s">answer</span><span class="nt">&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+{{Example}}
+
+</code></pre></div></div>
+
+<p>Lưu ý: “&lt;br&gt;” nghĩa là cho xuống hàng.</p>
+
+<p>Bạn sẽ thấy màn hình giống như này:</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/17-word-first-update-template.png" alt="17-word-first-update-template" /></p>
+
+<p>Bấm nút “Options” ở góc phải phía trên. Chọn “Rename Card Type…” (đổi tên thẻ).</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/18-rename-card-type.png" alt="18-rename-card-type" /></p>
+
+<p>Với loại thẻ này, mình sẽ đặt tên là “Word first” vì muốn ám chỉ là bạn sẽ thấy từ vựng trước, rồi đoán nghĩa sau.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/19-rename-card-type-2.png" alt="19-rename-card-type-2" /></p>
+
+<h4 id="bước-4-tạo-thêm-2-loại-thẻ-meaning-first-và-example-first">Bước 4: Tạo thêm 2 loại thẻ “Meaning first” và “Example first”.</h4>
+
+<p>Bấm nút “Options”.</p>
+
+<p>Chọn “Add Card Type…” (Thêm loại thẻ mới).</p>
+
+<p>Đặt tên là “Meaning first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/19-rename-card-type-2.png" alt="19-rename-card-type-2" /></p>
+
+<p>Copy và paste đoạn code này vào ô Front Template:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{{Meaning}}
+
+</code></pre></div></div>
+
+<p>Rồi paste đoạn này vào Back Template:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{{FrontSide}}
+
+<span class="nt">&lt;hr</span> <span class="na">id=</span><span class="s">answer</span><span class="nt">&gt;</span>
+{{Word}}
+<span class="nt">&lt;br&gt;</span>
+/{{Pronunciation}}/
+<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+{{Example}}
+
+</code></pre></div></div>
+
+<p>Giờ thì nó sẽ trông như này:</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/21-meaning-first-update-template.png" alt="21-meaning-first-update-template" /></p>
+
+<p>Lặp lại bước ở trên để tạo một loại thẻ nữa, tên là “Example first”.</p>
+
+<p>Paste đoạn này vào ô Front Template:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{{Example}}
+
+</code></pre></div></div>
+
+<p>Và paste cái này vào Back Template:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{{FrontSide}}
+
+<span class="nt">&lt;hr</span> <span class="na">id=</span><span class="s">answer</span><span class="nt">&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+{{Word}}
+<span class="nt">&lt;br&gt;</span>
+/{{Pronunciation}}/
+<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+{{Meaning}}
+
+</code></pre></div></div>
+
+<p>Bạn sẽ thấy màn hình này:</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/22-example-first.png" alt="22-example-first" /></p>
+
+<p>Hãy bấm vào thanh “Card Type” ở trên để chắc rằng bạn đã có đủ 3 loại thẻ mong muốn.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/23-review-all-card-types.png" alt="23-review-all-card-types" /></p>
+
+<p>Hãy đóng cửa sổ này lại và quay về màn hình “Nhập từ vựng”.</p>
+
+<h4 id="bước-5-nhập-thử-một-từ-mới">Bước 5: Nhập thử một từ mới.</h4>
+<p>Ví dụ mình sẽ nhập thử từ “contemplate” vào đây.</p>
+
+<p>Bạn nên nhập nội dung cho đúng vào các trường quy định (word, pronunciation, meaning, example).</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/24-try-add-new-word.png" alt="24-try-add-new-word" /></p>
+
+<h3 id="học-thử-để-xem-các-loại-thẻ-mới">Học thử để xem các loại thẻ mới.</h3>
+<p>Giờ thì khi bạn học từ “contemplate”, bạn sẽ thấy có 3 loại thẻ riêng biệt.</p>
+
+<p>Đầu tiên, bạn sẽ thấy mặt trước của loại thẻ “Word first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/25-study-word-first-front.png" alt="25-study-word-first-front" /></p>
+
+<p>Bấm “Show Answer”, bạn sẽ thấy mặt sau của loại thẻ “Word first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/26-study-word-first-back.png" alt="26-study-word-first-back" /></p>
+
+<p>Tiếp theo, ứng dụng sẽ hiển thị mặt trước của thẻ “Meaning first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/27-study-meaning-first-front.png" alt="27-study-meaning-first-front" /></p>
+
+<p>Rồi đến mặt sau của thẻ “Meaning first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/28-study-meaning-first-back.png" alt="28-study-meaning-first-back" /></p>
+
+<p>Mặt trước của thẻ “Example first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/29-study-example-first-front.png" alt="29-study-example-first-front" /></p>
+
+<p>Mặt sau của thẻ “Example first”.</p>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/30-study-example-first-back.png" alt="30-study-example-first-back" /></p>
+
+<h3 id="một-số-điểm-cần-lưu-ý">Một số điểm cần lưu ý.</h3>
+<ol>
+  <li>Bởi vì bạn vừa tạo ra một loại Note và thẻ mới, khi bạn đồng bộ (“Sync”) lên mạng thì ứng dụng sẽ hỏi bạn muốn tải về từ AnkiWeb (“Download from AnkiWeb”) hay là đăng tải từ máy tính lên AnkiWeb (“Upload to AnkiWeb”). Hãy chọn “Upload to AnkiWeb” để lưu những thay đổi này lên mạng.</li>
+</ol>
+
+<p><img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/31-sync-new-decks.png" alt="31-sync-new-decks" /></p>
+
+<ol>
+  <li>Giờ bạn đã thiết lập được 3 loại thẻ của cùng một từ vựng và chúng sẽ được hiển thị nối tiếp nhau.
+    <ul>
+      <li>Điều này sẽ làm phát sinh ra một vấn đề mới, đó là:
+        <ul>
+          <li>Bạn nhìn từ, đoán nghĩa.</li>
+          <li>Rồi bạn xem đáp án ở mặt sau của thẻ.</li>
+          <li>Rồi ứng dụng hiển thị thẻ tiếp theo với nghĩa ở mặt trước, bạn phải đoán từ vựng ở mặt sau.</li>
+          <li>Nhưng do bạn vừa được xem mặt sau của thẻ trước đó, bạn đã biết đáp án mất rồi.</li>
+          <li>Điều này làm cho việc đoán những thẻ tiếp theo dễ hơn hẳn và làm giảm đi sự hiệu quả của việc học.</li>
+        </ul>
+      </li>
+      <li>Để giải quyết vấn đề đó, Anki có một lựa chọn cho phép <strong>không</strong> hiển thị những thẻ liên quan trong cùng một ngày. Nó sẽ xếp các thẻ đó sang ngày mai hoặc một hôm khác. Để kích hoạt lựa chọn này, các bạn hãy làm theo các bước sau:
+        <ul>
+          <li>Mở Anki lên, bấm vào nút bánh răng cưa trên bộ bài của bạn. Chọn “Options”.
+      <img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/32-deck-options.png" alt="32-deck-options" /></li>
+          <li>Bấm vào tab “New Cards”. Rồi tick vào ô “Bury related new cards until the next day”.
+      <img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/33-deck-options-new-card.png" alt="33-deck-options-new-card" /></li>
+          <li>Bấm vào tab “Reviews”. Rồi tick vào ô “Bury related reviews until the next day”.
+      <img src="/images/how-to-set-up-anki-to-learn-vocabs-part-2/34-deck-options-review-card.png" alt="34-deck-options-review-card" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="tóm-lại">Tóm lại</h3>
+<p>Như các bạn thấy, với Anki, chúng ta có thể tuỳ chỉnh rất nhiều thứ để phục vụ cho mục đích học từ vựng. Nó sẽ trở thành một công cụ rất mạnh mẽ nếu chúng ta biết sử dụng đúng cách.</p>
+
+<p>Ngoài ra, chúng ta còn có thể tuỳ chỉnh nhiều hơn thế nữa. Ví dụ:</p>
+<ul>
+  <li>Thêm các trường mới như: “Synonyms” (từ đồng nghĩa), “Sound” (âm thanh), “Image” (hình ảnh), v.v.</li>
+  <li>Thêm các loại thẻ mới như: “Pronunciation first” (nhìn phát âm, đoán từ), “Sound first” (nghe tiếng, đoán từ), “Image first” (nhìn hình, đoán từ), v.v.</li>
+  <li>Thay đổi màu sắc hiển thị của chữ, phông nền, đổi kích cỡ chữ, v.v. bằng cách chỉnh sửa Front Template và Back Template. Nhưng để thực hiện được điều đó thì bạn phải có một chút kiến thức về HTML.</li>
+</ul>
+
+<p>Mặc dù có rất nhiều lựa chọn đề tuỳ chỉnh Anki, bạn nên tìm được sự cân bằng cho bản thân.</p>
+<ul>
+  <li>Nếu có nhiều loại thẻ quá thì sẽ không có thời gian học, và không học được nhiều từ.</li>
+  <li>Nếu ít quá thì bạn lại chỉ học được một số khía cạnh của từ, không bao quát hết được.</li>
+</ul>
+
+<p>Và mục tiêu của bạn là học ngoại ngữ, chứ không phải là tuỳ chỉnh Anki, cho nên quan trọng nhất vẫn là giữ được thói quen nhập từ vựng và ôn hằng ngày. Chúc bạn thành công.</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung-phan-2
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/cach-cai-dat-anki-de-hoc-tu-vung-phan-2
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/hoc-tu-vung-moi-luc-moi-noi" class="post-link">
+          <h4 class="post-title">Học từ vựng mọi lúc mọi nơi</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/cach-cai-dat-anki-de-hoc-tu-vung" class="post-link">
+          <h4 class="post-title">Cách cài đặt Anki để học từ vựng</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/cach-hoc-tu-vung-hieu-qua-bang-anki" class="post-link">
+          <h4 class="post-title">Cách học từ vựng hiệu quả bằng Anki</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

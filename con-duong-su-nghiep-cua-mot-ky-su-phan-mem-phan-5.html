@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Con đường sự nghiệp của một kỹ sư phần mềm (phần 5) &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Thực ra quyết định chọn công ty nào cũng tương đối dễ dàng.
+Công ty Mỹ có quy trình phỏng vấn khó hơn hẳn. Vòng nào mình cũng cảm thấy hồi hộp và phải vắt óc suy nghĩ tối đa. Cho nên khi vượt qua được, mình trân trọng cơ hội đó hơn. Người ta nói: “cái gì khó có được thì mới biết quý trọng”, đúng là như vậy thật.
+Ngoài ra, công ty Mỹ còn có một quy trình làm việc Agile chuyên nghiệp với phong cách &quot;lập trình đôi” (pair programming) độc nhất vô nhị ở Việt Nam, slogan cũng rất ấn tượng nữa. Mình nghĩ mình sẽ học được nhiều ở đây.
+Do đó, mình đành từ chối công ty Úc mặc dù chỉ còn 2 tuần nữa là tới ngày đi làm đầu tiên bên đó. Mình nói lý do huỷ hợp đồng là vì &quot;tìm được cơ hội khác tốt hơn&quot;. Chị nhân sự cố gặn hỏi xem là công ty nào, thậm chí còn đề nghị tăng lương cho mình. Mình rất áy náy nhưng cũng đành từ chối một cách dứt khoát.
+Rồi mình bắt đầu vào làm ở công ty mới.
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-5">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Con đường sự nghiệp của một kỹ sư phần mềm (phần 5)">
+    <meta property="og:description" content="
+	Thực ra quyết định chọn công ty nào cũng tương đối dễ dàng.
+Công ty Mỹ có quy trình phỏng vấn khó hơn hẳn. Vòng nào mình cũng cảm thấy hồi hộp và phải vắt óc suy nghĩ tối đa. Cho nên khi vượt qua được, mình trân trọng cơ hội đó hơn. Người ta nói: “cái gì khó có được thì mới biết quý trọng”, đúng là như vậy thật.
+Ngoài ra, công ty Mỹ còn có một quy trình làm việc Agile chuyên nghiệp với phong cách &quot;lập trình đôi” (pair programming) độc nhất vô nhị ở Việt Nam, slogan cũng rất ấn tượng nữa. Mình nghĩ mình sẽ học được nhiều ở đây.
+Do đó, mình đành từ chối công ty Úc mặc dù chỉ còn 2 tuần nữa là tới ngày đi làm đầu tiên bên đó. Mình nói lý do huỷ hợp đồng là vì &quot;tìm được cơ hội khác tốt hơn&quot;. Chị nhân sự cố gặn hỏi xem là công ty nào, thậm chí còn đề nghị tăng lương cho mình. Mình rất áy náy nhưng cũng đành từ chối một cách dứt khoát.
+Rồi mình bắt đầu vào làm ở công ty mới.
+">
+    <meta property="og:url" content="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-5
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="Con đường sự nghiệp của một kỹ sư phần mềm (phần 5)" />
+    <meta name="twitter:description" content="
+	Thực ra quyết định chọn công ty nào cũng tương đối dễ dàng.
+Công ty Mỹ có quy trình phỏng vấn khó hơn hẳn. Vòng nào mình cũng cảm thấy hồi hộp và phải vắt óc suy nghĩ tối đa. Cho nên khi vượt qua được, mình trân trọng cơ hội đó hơn. Người ta nói: “cái gì khó có được thì mới biết quý trọng”, đúng là như vậy thật.
+Ngoài ra, công ty Mỹ còn có một quy trình làm việc Agile chuyên nghiệp với phong cách &quot;lập trình đôi” (pair programming) độc nhất vô nhị ở Việt Nam, slogan cũng rất ấn tượng nữa. Mình nghĩ mình sẽ học được nhiều ở đây.
+Do đó, mình đành từ chối công ty Úc mặc dù chỉ còn 2 tuần nữa là tới ngày đi làm đầu tiên bên đó. Mình nói lý do huỷ hợp đồng là vì &quot;tìm được cơ hội khác tốt hơn&quot;. Chị nhân sự cố gặn hỏi xem là công ty nào, thậm chí còn đề nghị tăng lương cho mình. Mình rất áy náy nhưng cũng đành từ chối một cách dứt khoát.
+Rồi mình bắt đầu vào làm ở công ty mới.
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-5
+" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>Con đường sự nghiệp của một kỹ sư phần mềm (phần 5)</h1>
+  <span class="post-meta">
+03 December 2018
+  
+</div>
+
+<article class="post-content">
+  <p>[tiếp theo của <a href="con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-4">phần 4</a>]</p>
+
+<p>Thực ra quyết định chọn công ty nào cũng tương đối dễ dàng.</p>
+
+<p>Công ty Mỹ có quy trình phỏng vấn khó hơn hẳn. Vòng nào mình cũng cảm thấy hồi hộp và phải vắt óc suy nghĩ tối đa. Cho nên khi vượt qua được, mình trân trọng cơ hội đó hơn. Người ta nói: “cái gì khó có được thì mới biết quý trọng”, đúng là như vậy thật.</p>
+
+<p>Ngoài ra, công ty Mỹ còn có một quy trình làm việc Agile chuyên nghiệp với phong cách “lập trình đôi” (pair programming) độc nhất vô nhị ở Việt Nam, slogan cũng rất ấn tượng nữa. Mình nghĩ mình sẽ học được nhiều ở đây.</p>
+
+<p>Do đó, mình đành từ chối công ty Úc mặc dù chỉ còn 2 tuần nữa là tới ngày đi làm đầu tiên bên đó. Mình nói lý do huỷ hợp đồng là vì “tìm được cơ hội khác tốt hơn”. Chị nhân sự cố gặn hỏi xem là công ty nào, thậm chí còn đề nghị tăng lương cho mình. Mình rất áy náy nhưng cũng đành từ chối một cách dứt khoát.</p>
+
+<p>Rồi mình bắt đầu vào làm ở công ty mới.</p>
+
+<p>Vào đây mình thấy công ty toàn là người trẻ, đa số sinh năm 88 đến 95. Tuy trẻ nhưng ai cũng có điểm nổi trội đặc biệt: người thì là chủ tịch câu lạc bộ lập trình ở trường đại học, người làm trợ giảng, nhiều người tốt nghiệp thủ khoa, nhiều người đã đi du học nước ngoài, nhiều người sắp đi du học, nhiều người hay đi chia sẻ ở các meetup, v.v. Mình thấy hơi choáng ngợp vì mình không có thành tích gì nổi bật cả, bỗng dưng được gặp hàng loạt nhân tài tập trung hết vào một chỗ như thế này, mình cảm thấy thật may mắn.</p>
+
+<p>Tuần đầu tiên, mình chủ yếu ngồi đọc tài liệu về quy trình làm việc Agile của công ty. Sau đó mình được cử đi Hà Nội công tác 3 tháng để làm một dự án mới, mình sẽ lập trình đôi với một chị ngoài đó.</p>
+
+<p>Trong dự án này, mình không những phải code thật nhanh để kịp giao hàng cho khách mỗi tuần mà còn phải học cách viết “test tự động” nữa. Quy trình làm việc của công ty không có khâu QA nên kỹ sư được yêu cầu phải viết “test” để tự kiểm tra xem phần mềm có làm đúng chức năng hay không. Cứ có code là phải có test, thậm chí có khi còn viết test trước cả khi viết code, cái này thuật ngữ chuyên môn gọi là “Test-driven development”, viết tắt là “TDD”.</p>
+
+<p>Mình như được khai sáng khi lần đầu tiếp xúc với thế giới “test” này. Ở thời điểm đó, mình chưa nghe công ty phần mềm nào ở Việt Nam nghĩ tới việc viết test, chứ nói gì tới việc tập trung gần một nửa thời gian để viết test như công ty mình.</p>
+
+<p>Khi có test rồi thì không cần QA nữa, chỉ cần cho máy tự chạy test qua tất cả các trường hợp, nếu test fail ở đâu thì mình biết phải sửa code ở chỗ tương ứng để làm test pass. Bởi vì là test tự động nên mình muốn chạy bao nhiêu lần cũng được, ngày chạy 5 lần, 10 lần, 20 lần, hay chạy mỗi khi push code lên. Nhờ có test mà mình code ít bị lỗi hơn và khi có lỗi thì cũng biết sửa chỗ nào. Test trở thành lĩnh vực mình đam mê và muốn master.</p>
+
+<p>Sau 3 tháng ở Hà Nội, mình hoàn thành dự án đúng thời hạn, đồng thời cũng học được rất nhiều thứ:</p>
+<ul>
+  <li>Học cách viết UI test cho iOS.</li>
+  <li>Học cách cài đặt CI (Continuous Integration) để chạy test tự động cho iOS.</li>
+  <li>Học cách chat tiếng Anh với khách hàng nước ngoài sao cho chuyên nghiệp.</li>
+  <li>Học cách nói chuyện tiếng Anh với khách hàng của chị đồng nghiệp và cách chị xử lý tình huống (lúc đó chị là người giao tiếp chính, chị có IELTS 8.5!).</li>
+  <li>Học cách “yêu xa” 😂.</li>
+</ul>
+
+<p>Quay lại tp Hồ Chí Minh, mình thấy tự tin hơn với khả năng viết test tự động cũng như khả năng tiếng Anh của mình. Tuy nhiên, do không có dự án iOS nào mới nên mình được chuyển sang học làm web sử dụng “Ruby on Rails”. Mình chẳng biết tí gì về làm web hay “Ruby” hay “Rails” cả, nhưng thấy mọi người ai cũng giỏi cái này nên mình cũng phấn đấu học.</p>
+
+<p>Sau đó, mình được phân công lập trình đôi với một bạn senior có nhiều năm kinh nghiệm làm “Rails” để bạn kèm cặp. Lúc này, mình mới thấy được lợi thế của việc lập trình đôi:</p>
+<ul>
+  <li>Lập trình đôi nghĩa là hai người cùng ngồi vào một máy tính, một người code, một người nói. Cả hai cùng thảo luận để giải quyết vấn đề.</li>
+  <li>Khi tiếp nhận vấn đề, mình có thể xem được cách một người senior suy nghĩ và giải quyết như nào, rồi xem cách họ code luôn.</li>
+  <li>Thường sau vài tiếng thì hai người sẽ đổi vai. Khi mình code thì người senior có thể review và góp ý ngay cho mình, đây chính là đỉnh cao của code review.</li>
+  <li>Tương tự, khi giao tiếp tiếng Anh với khách hàng, mình xem được cách người senior nói chuyện và trả lời các câu hỏi. Khi mình chat thì họ cũng review được cách mình dùng từ và xem thử câu trả lời của mình có hợp lý không.</li>
+  <li>Nói chung mình thấy “lập trình đôi” là cách hiệu quả nhất để trao đổi kiến thức giữa hai kỹ sư, đặc biệt là để huấn luyện nhân viên junior. Mình may mắn được làm chung với một bạn rất nhiệt tình, cái gì bạn đó cũng chỉ, thấy mình sai là bạn nhắc, bởi vậy chỉ sau vài tháng mà mình đã nhanh chóng nắm được các kỹ thuật làm web và backend cơ bản với “Ruby on Rails”.</li>
+</ul>
+
+<p>Ngoài ra, nhờ học “Ruby on Rails” mà mình cũng học được luôn cách viết “unit test” theo phong cách Behaviour-driven development (hay BDD), cách viết “integration test” bằng Cucumber, cách sử dụng terminal/console hiệu quả, cách hoạt động của “git”, cách viết giao diện cho website bằng HTML và Javascript, cách debug &amp; inspect website, cách gõ bằng “vim”, vân vân và vân vân.</p>
+
+<p>Mình cảm thấy những điều mình học được ở công ty này trong vòng một năm có khi còn hơn cả 10 năm đi làm ở các công ty khác, thậm chí còn chưa chắc học hết được những điều đó.</p>
+
+<p>Đây là công ty đã đưa mình lên một tầm cao mới trong sự nghiệp phát triển phần mềm.</p>
+
+<p>[<a href="con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-6">còn tiếp</a>]</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-5
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-5
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-6" class="post-link">
+          <h4 class="post-title">Con đường sự nghiệp của một kỹ sư phần mềm (phần 6)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/con-duong-su-nghiep-cua-mot-ky-su-phan-mem-phan-4" class="post-link">
+          <h4 class="post-title">Con đường sự nghiệp của một kỹ sư phần mềm (phần 4)</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

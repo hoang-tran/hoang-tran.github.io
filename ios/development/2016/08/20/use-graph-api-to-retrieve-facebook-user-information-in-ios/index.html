@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to use Graph API to retrieve Facebook user information in iOS &#8211; Hoang Tran</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="
+	Learn how to use the Facebook Graph API in iOS to fetch various user information including: public profile, email address, friend list and user avatar.
+">
+    <meta name="robots" content="all">
+    <meta name="author" content="">
+    <meta name="keywords" content="ios, development">
+    <link rel="canonical" href="http://hoangtran.me/ios/development/2016/08/20/use-graph-api-to-retrieve-facebook-user-information-in-ios/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Hoang Tran" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?202008151406" type="text/css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+      <script src="https://use.fontawesome.com/2982768df5.js"></script>
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="rXDWxoQCkROwuzF0Ie1e_pN7zjBJjOx9ZIcdnMF7HmM" />
+    
+    
+      <meta name="msvalidate.01" content="78D007F72A205107B4315B6F41D46C0F" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to use Graph API to retrieve Facebook user information in iOS">
+    <meta property="og:description" content="
+	Learn how to use the Facebook Graph API in iOS to fetch various user information including: public profile, email address, friend list and user avatar.
+">
+    <meta property="og:url" content="http://hoangtran.me/ios/development/2016/08/20/use-graph-api-to-retrieve-facebook-user-information-in-ios/
+">
+    <meta property="og:site_name" content="Hoang Tran">
+    <meta property="og:image" content="
+	http://hoangtran.me/images/use-graph-api-to-retrieve-facebook-user-information-in-ios/cover.jpg
+">
+    <meta property="fb:app_id" content="1001202813330058" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@_hoangtran" />
+    
+    <meta name="twitter:title" content="How to use Graph API to retrieve Facebook user information in iOS" />
+    <meta name="twitter:description" content="
+	Learn how to use the Facebook Graph API in iOS to fetch various user information including: public profile, email address, friend list and user avatar.
+" />
+    <meta name="twitter:url" content="http://hoangtran.me/ios/development/2016/08/20/use-graph-api-to-retrieve-facebook-user-information-in-ios/
+" />
+    <meta name="twitter:image" content="
+	http://hoangtran.me/images/use-graph-api-to-retrieve-facebook-user-information-in-ios/cover.jpg
+" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/icon/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-81196779-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+  
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=1001202813330058&autoLogAppEvents=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://hoangtran.me/" class="site-title">Hoang Tran</a>
+      <nav class="site-nav">
+        <!-- <a href="http://hoangtran.me/">Home</a>
+<a href="http://hoangtran.me/blog">Blog</a>
+ -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post-header mb2">
+  <h1>How to use Graph API to retrieve Facebook user information in iOS</h1>
+  <span class="post-meta">
+20 August 2016
+  
+</div>
+
+<article class="post-content">
+  <h2 id="what-is-graph-api">What is Graph API?</h2>
+
+<p>It’s just a collection of HTTP-based APIs to get data in and out of Facebook.</p>
+
+<h2 id="why-would-you-want-to-use-graph-api">Why would you want to use Graph API?</h2>
+
+<p>Because:</p>
+
+<ul>
+  <li>You want to obtain the users’s information to better understand them.</li>
+  <li>Graph API is simple to use. It’s already integrated inside the Facebook iOS SDK.</li>
+  <li>It’s easy to customize your requests to get the desired returned values.</li>
+  <li>There are a lot of information that you can access using the Graph API.</li>
+</ul>
+
+<h2 id="how-to-make-a-graph-api-request">How to make a Graph API request?</h2>
+
+<p>Before you can make any Graph API requests, you need to authenticate with Facebook first. You can have a look at the <a href="/ios/development/2016/08/14/login-with-facebook-in-ios">previous post</a> for step-by-step guide.</p>
+
+<p>A Graph API request looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSObject</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]</span><span class="o">!</span><span class="p">)</span></code></pre></figure>
+
+<p>Just like any other HTTP requests, it takes 2 parameters:</p>
+
+<ul>
+  <li>graphPath: a url String to specify where the request should go.</li>
+  <li>parameters: a dictionary to specify what to include in the request.</li>
+</ul>
+
+<p>Here is an example of initializing a Graph API request that points to the <code class="highlighter-rouge">me</code> path with no parameters:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="s">"me"</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span></code></pre></figure>
+
+<p>And to send it:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">graphRequest</span><span class="o">.</span><span class="n">startWithCompletionHandler</span> <span class="p">{</span> <span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>Here’s typical completion handler:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">graphRequest</span><span class="o">.</span><span class="n">startWithCompletionHandler</span> <span class="p">{</span> <span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In case the request succeeds, you’ll receive a <code class="highlighter-rouge">result</code> dictionary in JSON format which contains all the user information in it.</p>
+
+<p>To avoid a lot of ugly code for parsing that dictionary, I highly recommend that we use the <a href="https://github.com/SwiftyJSON/SwiftyJSON">SwiftyJSON</a> pod to make the process more smoothly. Here’s <a href="https://github.com/SwiftyJSON/SwiftyJSON#why-is-the-typical-json-handling-in-swift-not-good">why</a>.</p>
+
+<h2 id="integrate-swiftyjson-to-your-project">Integrate SwiftyJSON to your project</h2>
+
+<p>First, add the <code class="highlighter-rouge">SwiftyJSON</code> pod to your Podfile:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">target</span> <span class="s1">'TestFacebookLogin'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+
+  <span class="n">pod</span> <span class="s1">'FBSDKCoreKit'</span>
+  <span class="n">pod</span> <span class="s1">'FBSDKLoginKit'</span>
+  <span class="n">pod</span> <span class="s1">'SwiftyJSON'</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Run <code class="highlighter-rouge">pod install</code> on your terminal.</p>
+
+<p>Import it where you want to use: (Ex: HomeViewController.swift)</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">SwiftyJSON</span></code></pre></figure>
+
+<h2 id="alright-lets-putting-it-all-together">Alright! Let’s putting it all together</h2>
+
+<h3 id="to-get-user-public-profile">To get user public profile:</h3>
+
+<p>The <code class="highlighter-rouge">public_profile</code> permission allow us to access the following information:</p>
+
+<ul>
+  <li>id</li>
+  <li>name</li>
+  <li>first_name</li>
+  <li>last_name</li>
+  <li>age_range</li>
+  <li>link</li>
+  <li>gender</li>
+  <li>locale</li>
+  <li>picture</li>
+  <li>timezone</li>
+  <li>updated_time</li>
+  <li>verified</li>
+</ul>
+
+<p>This is the request that fetch all the above information:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me"</span>
+
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"fields"</span><span class="p">:</span> <span class="s">"id, name, first_name, last_name, age_range, link, gender, locale, timezone, picture, updated_time, verified"</span><span class="p">]</span>
+
+<span class="k">let</span> <span class="nv">completionHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">connection</span><span class="p">:</span> <span class="kt">FBSDKGraphRequestConnection</span><span class="o">!</span><span class="p">,</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="n">graphPath</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">)</span>
+
+<span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">print(json)</code> will give you this output:</p>
+
+<figure class="highlight"><pre><code class="language-abc" data-lang="abc">{
+  "locale" : "en_US",
+  "last_name" : "Tran",
+  "verified" : true,
+  "age_range" : {
+    "min" : 21
+  },
+  "picture" : {
+    "data" : {
+      "url" : "https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/p50x50\/12654253_1282228235124954_3627839379317864707_n.jpg?oh=c5895f2a3bb1d1a6161fd4837bc1e97d&amp;oe=58509005",
+      "is_silhouette" : false
+    }
+  },
+  "updated_time" : "2016-08-01T17:36:06+0000",
+  "email" : "hoangtx.master@gmail.com",
+  "timezone" : 7,
+  "gender" : "male",
+  "name" : "Hoang Tran",
+  "first_name" : "Hoang",
+  "id" : "1430456420302134",
+  "link" : "https:\/\/www.facebook.com\/app_scoped_user_id\/1430456420302134\/"
+}</code></pre></figure>
+
+<p>Here’s how we can easily access each individual information inside the JSON:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"first_name"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"last_name"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"age_range"</span><span class="p">][</span><span class="s">"min"</span><span class="p">]</span><span class="o">.</span><span class="n">numberValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"link"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"gender"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"locale"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"timezone"</span><span class="p">]</span><span class="o">.</span><span class="n">numberValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"updated_time"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"verified"</span><span class="p">]</span><span class="o">.</span><span class="n">boolValue</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"picture"</span><span class="p">][</span><span class="s">"data"</span><span class="p">][</span><span class="s">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="get-user-email">Get user email:</h3>
+
+<p>To get this, you need to ask for the <code class="highlighter-rouge">email</code> permission. Open <code class="highlighter-rouge">LoginViewController</code> and add <code class="highlighter-rouge">email</code> to the permission array:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">loginManager</span> <span class="o">=</span> <span class="kt">FBSDKLoginManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">permissions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"public_profile"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">handler</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">loginManager</span><span class="o">.</span><span class="nf">logInWithReadPermissions</span><span class="p">(</span><span class="n">permissions</span><span class="p">,</span> <span class="nv">fromViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">handler</span><span class="p">)</span></code></pre></figure>
+
+<p>After changing permission, you have to logout and authenticate again.</p>
+
+<p>Then you can make a Graph API request just like what you did with public profile:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me"</span>
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"fields"</span><span class="p">:</span> <span class="s">"email"</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">completionHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">connection</span><span class="p">:</span> <span class="kt">FBSDKGraphRequestConnection</span><span class="o">!</span><span class="p">,</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"email"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="n">graphPath</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
+
+<p>Or you can chain all fields together and fetch at the same time:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"fields"</span><span class="p">:</span> <span class="s">"id, email, name, first_name, last_name, age_range, link, gender, locale, timezone, picture, updated_time, verified"</span><span class="p">]</span></code></pre></figure>
+
+<h3 id="get-user-friend-list">Get user friend list</h3>
+
+<p>To get this, you need to ask for the <code class="highlighter-rouge">user_friends</code> permission:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">loginManager</span> <span class="o">=</span> <span class="kt">FBSDKLoginManager</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">permissions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"public_profile"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">,</span> <span class="s">"user_friends"</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">handler</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">loginManager</span><span class="o">.</span><span class="nf">logInWithReadPermissions</span><span class="p">(</span><span class="n">permissions</span><span class="p">,</span> <span class="nv">fromViewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">handler</span><span class="p">)</span></code></pre></figure>
+
+<p>Now we’ll make a request to <code class="highlighter-rouge">me/friends</code> instead of <code class="highlighter-rouge">me</code>.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/friends"</span>
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"fields"</span><span class="p">:</span> <span class="s">""</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">completionHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">connection</span><span class="p">:</span> <span class="kt">FBSDKGraphRequestConnection</span><span class="o">!</span><span class="p">,</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">friendJSONArray</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"data"</span><span class="p">]</span><span class="o">.</span><span class="n">arrayValue</span>
+    <span class="k">for</span> <span class="n">friendJSON</span> <span class="k">in</span> <span class="n">friendJSONArray</span> <span class="p">{</span>
+      <span class="nf">print</span><span class="p">(</span><span class="n">friendJSON</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+      <span class="nf">print</span><span class="p">(</span><span class="n">friendJSON</span><span class="p">[</span><span class="s">"id"</span><span class="p">]</span><span class="o">.</span><span class="n">intValue</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">let</span> <span class="nv">nextPageToken</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"paging"</span><span class="p">][</span><span class="s">"cursors"</span><span class="p">][</span><span class="s">"after"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span>
+    <span class="k">let</span> <span class="nv">prevPageToken</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"paging"</span><span class="p">][</span><span class="s">"cursors"</span><span class="p">][</span><span class="s">"before"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="n">graphPath</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
+
+<p>This does not return all friends on the users’s account. Only those that already installed your app will be returned. If there are too many friends, Facebook only returns the first 25 results. The remaining friends can be accessed using the <code class="highlighter-rouge">nextPageToken</code> and <code class="highlighter-rouge">prevPageToken</code>.</p>
+
+<p>To request for the next 25 friends:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/friends"</span>
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"after"</span><span class="p">:</span> <span class="n">nextPageToken</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">completionHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">connection</span><span class="p">:</span> <span class="kt">FBSDKGraphRequestConnection</span><span class="o">!</span><span class="p">,</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="k">in</span>
+  <span class="c1">//...</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="n">graphPath</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
+
+<p>And you can fetch the previous 25 results by using the same method, only change the parameters:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"before"</span><span class="p">:</span> <span class="n">prevPageToken</span><span class="p">]</span></code></pre></figure>
+
+<p>You can also change the <code class="highlighter-rouge">returned limit</code> to some bigger number instead of just 25 results:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/friends"</span>
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"limit"</span><span class="p">:</span> <span class="mi">100</span><span class="p">]</span></code></pre></figure>
+
+<p>This can be applied to fetching for next/prev page as well:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/friends"</span>
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s">"after"</span><span class="p">:</span> <span class="n">nextPageToken</span><span class="p">,</span>
+  <span class="s">"limit"</span><span class="p">:</span> <span class="mi">100</span>
+<span class="p">]</span></code></pre></figure>
+
+<h3 id="get-user-avatar-with-different-sizes">Get user avatar with different sizes:</h3>
+
+<p>Although you can access the <code class="highlighter-rouge">picture</code> field when fetching public profile, it only contains a very small version of the user’s avatar (50x50).</p>
+
+<p>To get bigger sizes, you should make a request to <code class="highlighter-rouge">me/picture</code> with some custom parameters:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">graphPath</span> <span class="o">=</span> <span class="s">"me/picture"</span>
+<span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s">"type"</span><span class="p">:</span> <span class="s">"large"</span><span class="p">,</span>
+  <span class="s">"redirect"</span><span class="p">:</span> <span class="s">"false"</span>
+<span class="p">]</span>
+<span class="k">let</span> <span class="nv">completionHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">connection</span><span class="p">:</span> <span class="kt">FBSDKGraphRequestConnection</span><span class="o">!</span><span class="p">,</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">json</span> <span class="o">=</span> <span class="kt">JSON</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s">"data"</span><span class="p">][</span><span class="s">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">stringValue</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="nv">graphRequest</span> <span class="o">=</span> <span class="kt">FBSDKGraphRequest</span><span class="p">(</span><span class="nv">graphPath</span><span class="p">:</span> <span class="n">graphPath</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">graphRequest</span><span class="o">.</span><span class="nf">startWithCompletionHandler</span><span class="p">(</span><span class="n">completionHandler</span><span class="p">)</span></code></pre></figure>
+
+<p>There are 4 parameters that we can consider here:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">type</code>: this is some preset sizes for the avatar. It can be one of the following:
+    <ul>
+      <li>large (200x200)</li>
+      <li>normal (100x100)</li>
+      <li>square (50x50)</li>
+      <li>album (50x50)</li>
+      <li>small (50x50)</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">redirect</code>:
+    <ul>
+      <li>if it is true,  it will return the actual image data.</li>
+      <li>if it is false, it will return a JSON response.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">width</code>: the width of the avatar in pixels.</li>
+  <li><code class="highlighter-rouge">height</code>: the height of the avatar in pixels.</li>
+</ul>
+
+<p>You can specify custom <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> in the parameters and it will fall down to the closest size that match.</p>
+
+<p>For example: If you set <code class="highlighter-rouge">width</code> to 300, it will return 320. If set to 400, it’ll return 480.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s">"width"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+  <span class="s">"height"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+  <span class="s">"redirect"</span><span class="p">:</span> <span class="s">"false"</span>
+<span class="p">]</span></code></pre></figure>
+
+<p>To get maximum size, just set <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> to some large numbers:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">parameters</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s">"width"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
+  <span class="s">"height"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
+  <span class="s">"redirect"</span><span class="p">:</span> <span class="s">"false"</span>
+<span class="p">]</span></code></pre></figure>
+
+<h2 id="wrap-up">Wrap up</h2>
+
+<p>Today we learnt about some very basic usage of the Facebook Graph API. We then went on to fetch some pieces of user information including: public profile, email, friend list and avatar.</p>
+
+<p>I think those information is quite enough for your day-to-day iOS development. If you need more advanced features, you can read more on <a href="https://developers.facebook.com/docs/graph-api/using-graph-api">Facebook Graph API documentation</a> and experiment using the <a href="https://developers.facebook.com/tools/explorer">Graph API Explorer</a>.</p>
+
+<p>Please notice that this is just scratching the surface. Graph API is a powerful set of APIs that leverage the immense amount of information that billions of Facebook users generate over time. There are a whole lot of things that you can do with Graph API that I didn’t mention here. Maybe we can save it for a later post if you’re still interested.</p>
+
+</article>
+
+
+
+
+<div class="fb-like" data-href="http://hoangtran.me/ios/development/2016/08/20/use-graph-api-to-retrieve-facebook-user-information-in-ios/
+" data-width="320" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+	<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://hoangtran.us1.list-manage.com/subscribe/post?u=5365241c266315ff943db64c7&amp;id=0a26c79af4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe to my blog</h2>
+	<p>If you think this blog is useful, please subscribe to get notifications on my new posts.</p>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address </label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5365241c266315ff943db64c7_0a26c79af4" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+
+
+  <div class="fb-comments" data-href="http://hoangtran.me/ios/development/2016/08/20/use-graph-api-to-retrieve-facebook-user-information-in-ios/
+" data-width="100%" data-numposts="10"></div>
+
+
+
+  <h3 class="related-post-title">Related posts</h3>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+        <a href="/ios/development/2016/08/14/login-with-facebook-in-ios/" class="post-link">
+          <h4 class="post-title">How to integrate login with Facebook in iOS</h4>
+        </a>
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+    <div class="post ml2">
+      
+    </div>
+  
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+      <div class="social-icons">
+  <!--  -->
+  <!-- <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1608859"></a> -->
+  <!--  -->
+  <!-- 
+  <a class="fa fa-facebook" href="https://www.facebook.com/hoangtx.master"></a>
+   -->
+  <!-- 
+  <a class="fa fa-github" href="https://github.com/hoang-tran"></a>
+   -->
+  <!--  -->
+  
+  <a class="fa fa-linkedin" href="https://www.linkedin.com/in/hoangxtran"></a>
+  
+  
+  <a class="fa fa-twitter" href="https://twitter.com/_hoangtran"></a>
+  
+  
+  <a class="fa fa-envelope" href="mailto:hoang@hoangtran.me"></a>
+  
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!-- <a class="fa fa-rss" href="/feed.xml"></a> -->
+  <!-- <div class="right">
+    
+    
+    
+  </div> -->
+</div>
+<div class="clearfix"></div>
+
+    
+  </div>
+</footer>
+
+
+</body>
+</html>
